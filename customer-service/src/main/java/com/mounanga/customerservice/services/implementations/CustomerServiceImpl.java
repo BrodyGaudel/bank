@@ -191,6 +191,11 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("customer deleted successfully");
     }
 
+    /**
+     * check if customer already exist in database before save it.
+     * @param customerDTO The new customer information request
+     * @throws AlreadyExistException if customer's phone, cin or email already exist
+     */
     private void checkIfCustomerExists(CustomerDTO customerDTO) throws AlreadyExistException {
         if (customerDTO != null){
             if(Boolean.TRUE.equals(customerRepository.checkIfCinExists(customerDTO.cin()))){
@@ -203,16 +208,24 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+    /**
+     * Checks CIN, email, and phone number information before updating a customer.
+     *
+     * @param customer The existing customer whose information is currently stored.
+     * @param customerDTO The new customer information in the form of a Data Transfer Object (DTO).
+     * @throws AlreadyExistException If a match is found in the database for the provided CIN, email, or phone number.
+     */
     private void checkEmailPhoneAndCinBeforeUpdate(Customer customer, CustomerDTO customerDTO) throws AlreadyExistException {
-        if (customer != null && customerDTO != null){
-            if(!customer.getCin().equals(customerDTO.cin()) && (Boolean.TRUE.equals(customerRepository.checkIfCinExists(customerDTO.cin())))){
+        if (customer != null && customerDTO != null) {
+            if (!customer.getCin().equals(customerDTO.cin()) && (Boolean.TRUE.equals(customerRepository.checkIfCinExists(customerDTO.cin())))) {
                 throw new AlreadyExistException("A customer with CIN '" + customerDTO.cin() + ALREADY_EXIST);
-            } else if (!customer.getEmail().equals(customerDTO.phone()) && (Boolean.TRUE.equals(customerRepository.checkIfEmailExists(customerDTO.email())))) {
+            } else if (!customer.getEmail().equals(customerDTO.email()) && (Boolean.TRUE.equals(customerRepository.checkIfEmailExists(customerDTO.email())))) {
                 throw new AlreadyExistException("A customer with email '" + customerDTO.email() + ALREADY_EXIST);
-            } else if (!customer.getPhone().equals(customerDTO.phone()) && (Boolean.TRUE.equals(customerRepository.checkIfPhoneExists(customerDTO.phone())))){
+            } else if (!customer.getPhone().equals(customerDTO.phone()) && (Boolean.TRUE.equals(customerRepository.checkIfPhoneExists(customerDTO.phone())))) {
                 throw new AlreadyExistException("A customer with phone number '" + customerDTO.phone() + ALREADY_EXIST);
             }
         }
     }
+
 
 }
