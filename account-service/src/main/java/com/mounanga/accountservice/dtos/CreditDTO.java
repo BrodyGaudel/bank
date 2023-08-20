@@ -1,4 +1,6 @@
 package com.mounanga.accountservice.dtos;
 
-public record CreditDTO() {
+import java.math.BigDecimal;
+
+public record CreditDTO(String id, String description, BigDecimal amount) {
 }

@@ -1,4 +1,6 @@
 package com.mounanga.accountservice.dtos;
 
-public record TransferDTO() {
+import java.math.BigDecimal;
+
+public record TransferDTO(String idFrom, String idTo, String description, BigDecimal amount) {
 }

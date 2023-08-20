@@ -1,4 +1,6 @@
 package com.mounanga.accountservice.dtos;
 
-public record DebitDTO() {
+import java.math.BigDecimal;
+
+public record DebitDTO(String id, String description, BigDecimal amount) {
 }
