@@ -11,6 +11,7 @@ import com.mounanga.accountservice.mappers.Mappers;
 import com.mounanga.accountservice.repositories.AccountRepository;
 import com.mounanga.accountservice.restclients.CustomerRestClient;
 import com.mounanga.accountservice.services.AccountService;
+import com.mounanga.accountservice.utils.IdGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
@@ -33,11 +34,13 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository repository;
     private final Mappers mappers;
     private final CustomerRestClient customerRestClient;
+    private final IdGenerator idGenerator;
 
-    public AccountServiceImpl(AccountRepository repository, Mappers mappers, CustomerRestClient customerRestClient) {
+    public AccountServiceImpl(AccountRepository repository, Mappers mappers, CustomerRestClient customerRestClient, IdGenerator idGenerator) {
         this.repository = repository;
         this.mappers = mappers;
         this.customerRestClient = customerRestClient;
+        this.idGenerator = idGenerator;
     }
 
     /**
@@ -95,7 +98,7 @@ public class AccountServiceImpl implements AccountService {
                 .setCurrency(accountDTO.currency())
                 .setStatus(AccountStatus.CREATED)
                 .setOperations( new ArrayList<>())
-                .setId("")
+                .setId(idGenerator.autoGenerate())
                 .setLastUpdate(null)
                 .build();
 

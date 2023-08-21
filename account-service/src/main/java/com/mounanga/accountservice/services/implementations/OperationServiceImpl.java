@@ -32,6 +32,7 @@ public class OperationServiceImpl implements OperationService {
     private static final Logger log = LoggerFactory.getLogger(OperationServiceImpl.class);
 
     private static final String NOT_FOUND = "' not found.";
+    private static final String ACCOUNT_WITH_ID = "Account with id '";
 
     private final OperationRepository operationRepository;
     private final AccountRepository accountRepository;
@@ -55,7 +56,7 @@ public class OperationServiceImpl implements OperationService {
     public CreditDTO creditAccount(@NotNull CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException {
         log.info("In creditAccount()");
         Account account = accountRepository.findById(creditDTO.id())
-                .orElseThrow( () -> new AccountNotFoundException("Account with id '"+creditDTO.id()+NOT_FOUND));
+                .orElseThrow( () -> new AccountNotFoundException(ACCOUNT_WITH_ID+creditDTO.id()+NOT_FOUND));
         if (creditDTO.amount() == null || creditDTO.amount().compareTo(BigDecimal.ZERO) < 0){
             throw new BalanceNotSufficientException("Balance Not Sufficient : amount must be non-null and greater than zero");
         }
@@ -94,7 +95,7 @@ public class OperationServiceImpl implements OperationService {
     public DebitDTO debitAccount(@NotNull DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException {
         log.info("In debitAccount()");
         Account account = accountRepository.findById(debitDTO.id())
-                .orElseThrow( () -> new AccountNotFoundException("Account with id '"+debitDTO.id()+NOT_FOUND));
+                .orElseThrow( () -> new AccountNotFoundException(ACCOUNT_WITH_ID+debitDTO.id()+NOT_FOUND));
         if (debitDTO.amount() == null || debitDTO.amount().compareTo(account.getBalance()) < 0){
             throw new BalanceNotSufficientException("Balance Not Sufficient : amount must be non-null and greater than account balance");
         }
@@ -119,23 +120,6 @@ public class OperationServiceImpl implements OperationService {
         return new DebitDTO(operation.getAccount().getId(), operationSaved.getDescription(), operationSaved.getAmount());
     }
 
-    /**
-     * Transfer funds between two accounts.
-     *
-     * @param transferDTO The transfer details.
-     * @return The updated account details after the transfer operation.
-     * @throws AccountNotFoundException      If any of the accounts involved in the transfer are not found.
-     * @throws BalanceNotSufficientException If the source account balance is not sufficient for the transfer.
-     */
-    @Override
-    public TransferDTO transfer(@NotNull TransferDTO transferDTO) throws AccountNotFoundException, BalanceNotSufficientException {
-        log.info("In transfer()");
-        DebitDTO debitDTO = debitAccount(
-                new DebitDTO(transferDTO.idFrom(), transferDTO.description(), transferDTO.amount())
-        );
-
-        return null;
-    }
 
     /**
      * Retrieve an operation by its ID.
@@ -166,7 +150,7 @@ public class OperationServiceImpl implements OperationService {
     public HistoryDTO getAccountHistory(String accountId, int page, int size) throws AccountNotFoundException {
         log.info("In getAccountHistory()");
         Account account = accountRepository.findById(accountId)
-                .orElseThrow( () -> new AccountNotFoundException("Account with id '"+accountId+NOT_FOUND));
+                .orElseThrow( () -> new AccountNotFoundException(ACCOUNT_WITH_ID+accountId+NOT_FOUND));
 
         Page<Operation> operationPage = operationRepository.findByAccountIdOrderByDateDesc(account.getId(), PageRequest.of(page, size));
         List<OperationDTO> operationDTOList = operationPage.getContent()

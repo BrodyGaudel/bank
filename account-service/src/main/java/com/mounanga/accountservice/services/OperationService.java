@@ -30,15 +30,6 @@ public interface OperationService {
      */
     DebitDTO debitAccount(DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException;
 
-    /**
-     * Transfer funds between two accounts.
-     *
-     * @param transferDTO The transfer details.
-     * @return The updated account details after the transfer operation.
-     * @throws AccountNotFoundException If any of the accounts involved in the transfer are not found.
-     * @throws BalanceNotSufficientException If the source account balance is not sufficient for the transfer.
-     */
-    TransferDTO transfer(TransferDTO transferDTO) throws AccountNotFoundException, BalanceNotSufficientException;
 
     /**
      * Retrieve an operation by its ID.
