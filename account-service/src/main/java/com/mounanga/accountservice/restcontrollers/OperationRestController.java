@@ -1,6 +1,7 @@
 package com.mounanga.accountservice.restcontrollers;
 
 import com.mounanga.accountservice.dtos.*;
+import com.mounanga.accountservice.exceptions.AccountNotActivatedException;
 import com.mounanga.accountservice.exceptions.AccountNotFoundException;
 import com.mounanga.accountservice.exceptions.BalanceNotSufficientException;
 import com.mounanga.accountservice.exceptions.OperationNotFoundException;
@@ -20,12 +21,12 @@ public class OperationRestController {
     }
 
     @PostMapping("/credit")
-    public CreditDTO creditAccount(@RequestBody CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException{
+    public CreditDTO creditAccount(@RequestBody CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException, AccountNotActivatedException {
         return operationService.creditAccount(creditDTO);
     }
 
     @PostMapping("/debit")
-    public DebitDTO debitAccount(@RequestBody DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException{
+    public DebitDTO debitAccount(@RequestBody DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException, AccountNotActivatedException {
         return operationService.debitAccount(debitDTO);
     }
 

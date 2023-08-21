@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -87,7 +88,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO createAccount(@NotNull AccountDTO accountDTO) throws CustomerNotFoundException {
         log.info("In createAccount()");
-        CustomerDTO customer = getCustomerById(accountDTO.id());
+        CustomerDTO customer = getCustomerById(accountDTO.customerId());
         if(customer == null){
             throw new CustomerNotFoundException("Customer with id '"+accountDTO.customerId()+NOT_FOUND);
         }
@@ -100,6 +101,7 @@ public class AccountServiceImpl implements AccountService {
                 .setOperations( new ArrayList<>())
                 .setId(idGenerator.autoGenerate())
                 .setLastUpdate(null)
+                .setCreation( new Date())
                 .build();
 
         Account accountSaved = repository.save(account);
@@ -117,6 +119,26 @@ public class AccountServiceImpl implements AccountService {
         log.info("In deleteAccountById()");
         repository.deleteById(id);
         log.info("Account deleted");
+    }
+
+    /**
+     * Update Account Status
+     *
+     * @param accountDTO The account details to update status
+     * @return The Updated Account details as a Data Transfer Object (DTO).
+     * @throws AccountNotFoundException If account not found
+     */
+    @Override
+    public AccountDTO updateAccountStatus(@NotNull AccountDTO accountDTO) throws AccountNotFoundException {
+        log.info("In updateAccountStatus()");
+        Account account = repository.findById(accountDTO.id())
+                .orElseThrow( () -> new AccountNotFoundException("Account with id '"+accountDTO.id()+NOT_FOUND));
+        account.setStatus(accountDTO.status());
+        account.setLastUpdate( new Date());
+
+        Account accountUpdated = repository.save(account);
+        log.info("account status updated");
+        return mappers.fromAccount(accountUpdated);
     }
 
     /**

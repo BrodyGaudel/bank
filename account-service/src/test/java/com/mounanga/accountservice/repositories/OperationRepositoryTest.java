@@ -48,7 +48,7 @@ class OperationRepositoryTest {
                 .setLastUpdate( date)
                 .setCreation( date)
                 .setStatus(AccountStatus.ACTIVATED)
-                .setCurrency(Currency.EUR)
+                .setCurrency(Currency.TZS)
                 .setBalance(BigDecimal.valueOf(5000))
                 .setCustomerId(id)
                 .build();
@@ -59,7 +59,7 @@ class OperationRepositoryTest {
                 .setAccount(accountSaved)
                 .setDate(date)
                 .setAmount(BigDecimal.valueOf(5000))
-                .setCurrency(Currency.EUR)
+                .setCurrency(Currency.TZS)
                 .setDescription("CREDIT")
                 .setType(OperationType.CREDIT)
                 .build();
@@ -69,7 +69,7 @@ class OperationRepositoryTest {
                 .setAccount(accountSaved)
                 .setDate(date)
                 .setAmount(BigDecimal.valueOf(1000))
-                .setCurrency(Currency.EUR)
+                .setCurrency(Currency.TZS)
                 .setDescription("DEBIT")
                 .setType(OperationType.DEBIT)
                 .build();

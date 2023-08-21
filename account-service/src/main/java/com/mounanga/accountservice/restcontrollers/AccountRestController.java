@@ -38,6 +38,11 @@ public class AccountRestController {
         accountService.deleteAccountById(id);
     }
 
+    @PutMapping("/update-status")
+    public AccountDTO updateAccountStatus(@RequestBody AccountDTO accountDTO) throws AccountNotFoundException {
+        return accountService.updateAccountStatus(accountDTO);
+    }
+
     /**
      * exception handler
      * @param exception the exception to handler

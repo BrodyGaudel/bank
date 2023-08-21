@@ -22,8 +22,12 @@ class AccountRepositoryTest {
     @Autowired
     private AccountRepository repository;
 
+    @Autowired
+    private OperationRepository operationRepository;
+
     @BeforeEach
     void setUp() {
+        operationRepository.deleteAll();
         repository.deleteAll();
     }
 
@@ -37,7 +41,7 @@ class AccountRepositoryTest {
                 .setLastUpdate( date)
                 .setCreation( date)
                 .setStatus(AccountStatus.ACTIVATED)
-                .setCurrency(Currency.EUR)
+                .setCurrency(Currency.TND)
                 .setBalance(BigDecimal.valueOf(5000))
                 .setCustomerId(id)
                 .build();
@@ -58,7 +62,7 @@ class AccountRepositoryTest {
                 .setLastUpdate( date)
                 .setCreation( date)
                 .setStatus(AccountStatus.ACTIVATED)
-                .setCurrency(Currency.EUR)
+                .setCurrency(Currency.MAD)
                 .setBalance(BigDecimal.valueOf(5000))
                 .setCustomerId(id)
                 .build();

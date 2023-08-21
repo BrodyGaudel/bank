@@ -41,5 +41,13 @@ public interface AccountService {
      * @param id The ID of the account to delete.
      */
     void deleteAccountById(String id);
+
+    /**
+     * Update Account Status
+     * @param accountDTO The account details to update status
+     * @return The Updated Account details as a Data Transfer Object (DTO).
+     * @throws AccountNotFoundException If account not found
+     */
+    AccountDTO updateAccountStatus(AccountDTO accountDTO) throws AccountNotFoundException;
 }
 

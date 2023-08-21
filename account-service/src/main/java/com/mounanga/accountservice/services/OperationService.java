@@ -1,6 +1,7 @@
 package com.mounanga.accountservice.services;
 
 import com.mounanga.accountservice.dtos.*;
+import com.mounanga.accountservice.exceptions.AccountNotActivatedException;
 import com.mounanga.accountservice.exceptions.AccountNotFoundException;
 import com.mounanga.accountservice.exceptions.BalanceNotSufficientException;
 import com.mounanga.accountservice.exceptions.OperationNotFoundException;
@@ -17,8 +18,9 @@ public interface OperationService {
      * @return The updated account details after the credit operation.
      * @throws AccountNotFoundException If the account for the credit operation is not found.
      * @throws BalanceNotSufficientException If the account balance is not sufficient for the credit operation.
+     * @throws AccountNotActivatedException If account status is not set to ACTIVATED
      */
-    CreditDTO creditAccount(CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException;
+    CreditDTO creditAccount(CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException, AccountNotActivatedException;
 
     /**
      * Debit funds from an account.
@@ -27,8 +29,9 @@ public interface OperationService {
      * @return The updated account details after the debit operation.
      * @throws AccountNotFoundException If the account for the debit operation is not found.
      * @throws BalanceNotSufficientException If the account balance is not sufficient for the debit operation.
+     * @throws AccountNotActivatedException If account status is not set to ACTIVATED
      */
-    DebitDTO debitAccount(DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException;
+    DebitDTO debitAccount(DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException, AccountNotActivatedException;
 
 
     /**

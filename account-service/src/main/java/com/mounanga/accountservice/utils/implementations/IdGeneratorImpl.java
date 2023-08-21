@@ -36,7 +36,7 @@ public class IdGeneratorImpl implements IdGenerator {
         List<Compter> compters = compterRepository.findAll();
         Compter compter;
         if(compters.isEmpty()) {
-            compter = new Compter((long) 999999);
+            compter = new Compter(9999999L);
         }
         else {
             compter = compters.get(compters.size() - 1);

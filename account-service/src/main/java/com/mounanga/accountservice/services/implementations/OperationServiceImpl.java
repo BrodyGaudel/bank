@@ -4,7 +4,9 @@ import com.mounanga.accountservice.dtos.*;
 import com.mounanga.accountservice.entities.Account;
 import com.mounanga.accountservice.entities.Operation;
 import com.mounanga.accountservice.entities.builders.OperationBuilder;
+import com.mounanga.accountservice.enums.AccountStatus;
 import com.mounanga.accountservice.enums.OperationType;
+import com.mounanga.accountservice.exceptions.AccountNotActivatedException;
 import com.mounanga.accountservice.exceptions.AccountNotFoundException;
 import com.mounanga.accountservice.exceptions.BalanceNotSufficientException;
 import com.mounanga.accountservice.exceptions.OperationNotFoundException;
@@ -51,12 +53,16 @@ public class OperationServiceImpl implements OperationService {
      * @return The updated account details after the credit operation.
      * @throws AccountNotFoundException      If the account for the credit operation is not found.
      * @throws BalanceNotSufficientException If the account balance is not sufficient for the credit operation.
+     * @throws AccountNotActivatedException If account status is not set to ACTIVATED
      */
     @Override
-    public CreditDTO creditAccount(@NotNull CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException {
+    public CreditDTO creditAccount(@NotNull CreditDTO creditDTO) throws AccountNotFoundException, BalanceNotSufficientException, AccountNotActivatedException {
         log.info("In creditAccount()");
         Account account = accountRepository.findById(creditDTO.id())
                 .orElseThrow( () -> new AccountNotFoundException(ACCOUNT_WITH_ID+creditDTO.id()+NOT_FOUND));
+        if(!account.getStatus().equals(AccountStatus.ACTIVATED)){
+            throw new AccountNotActivatedException("Account Not Activated");
+        }
         if (creditDTO.amount() == null || creditDTO.amount().compareTo(BigDecimal.ZERO) < 0){
             throw new BalanceNotSufficientException("Balance Not Sufficient : amount must be non-null and greater than zero");
         }
@@ -90,13 +96,17 @@ public class OperationServiceImpl implements OperationService {
      * @return The updated account details after the debit operation.
      * @throws AccountNotFoundException      If the account for the debit operation is not found.
      * @throws BalanceNotSufficientException If the account balance is not sufficient for the debit operation.
+     * @throws AccountNotActivatedException If account status is not set to ACTIVATED
      */
     @Override
-    public DebitDTO debitAccount(@NotNull DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException {
+    public DebitDTO debitAccount(@NotNull DebitDTO debitDTO) throws AccountNotFoundException, BalanceNotSufficientException, AccountNotActivatedException {
         log.info("In debitAccount()");
         Account account = accountRepository.findById(debitDTO.id())
                 .orElseThrow( () -> new AccountNotFoundException(ACCOUNT_WITH_ID+debitDTO.id()+NOT_FOUND));
-        if (debitDTO.amount() == null || debitDTO.amount().compareTo(account.getBalance()) < 0){
+        if(!account.getStatus().equals(AccountStatus.ACTIVATED)){
+            throw new AccountNotActivatedException("Account Not Activated");
+        }
+        if (debitDTO.amount() == null || debitDTO.amount().compareTo(account.getBalance()) > 0){
             throw new BalanceNotSufficientException("Balance Not Sufficient : amount must be non-null and greater than account balance");
         }
         BigDecimal amount = account.getBalance().subtract(debitDTO.amount());
