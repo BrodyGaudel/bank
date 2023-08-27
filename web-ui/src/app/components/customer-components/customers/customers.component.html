@@ -1,0 +1,64 @@
+<div class="container mt-2">
+  <ng-container *ngIf="customers | async as listCustomers; else failureOrLading">
+    <div class="card">
+      <div class="card-header text-info text-center"><b>Liste des clients</b></div>
+
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()">
+            <div class="input-group">
+              <label class="input-group-text">Keyword :</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info">
+                <i class="bi bi-search">Recherche</i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th style="text-align:center">CIN</th>
+            <th style="text-align:center">Prénom(s)</th>
+            <th style="text-align:center">Nom(s)</th>
+            <th style="text-align:center">Date de naissance</th>
+            <th style="text-align:center">Lieux de naissance</th>
+            <th style="text-align:center">Nationalité</th>
+            <th style="text-align:center">Sex</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of customers | async">
+            <td style="text-align:center">{{c.cin}}</td>
+            <td style="text-align:center">{{c.firstname}}</td>
+            <td style="text-align:center">{{c.name}}</td>
+            <td style="text-align:center">{{c.dateOfBirth | date : 'dd-MM-yyyy'}}</td>
+            <td style="text-align:center">{{c.placeOfBirth}}</td>
+            <td style="text-align:center">{{c.nationality}}</td>
+            <td style="text-align:center">{{c.sex}}</td>
+            <td>
+              <button (click)="handleDetails(c.id)" class="btn btn-success">
+                <i class="bi bi-diagram-2-fill"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failureOrLading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+      </div>
+
+      Loading .....
+    </ng-template>
+  </ng-template>
+</div>
