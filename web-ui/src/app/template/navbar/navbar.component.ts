@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,31 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   active : number = 1;
+
+  constructor(private router: Router) {
+  }
+
+  gotoCustomersComponent() {
+    this.router.navigate(['/customers']).then(
+        () => {
+          // La promesse a été résolue avec succès.
+        },
+        error => {
+          // La promesse a été rejetée avec une erreur.
+          alert(error)
+        }
+    );
+  }
+
+  gotoCreateCustomerComponent() {
+    this.router.navigate(['/create-customer']).then(
+        () => {
+          // La promesse a été résolue avec succès.
+        },
+        error => {
+          // La promesse a été rejetée avec une erreur.
+          alert(error)
+        }
+    );
+  }
 }

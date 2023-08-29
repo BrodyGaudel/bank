@@ -9,12 +9,18 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NavbarComponent } from './template/navbar/navbar.component';
 import { CustomersComponent } from './components/customer-components/customers/customers.component';
+import { ShowCustomerComponent } from './components/customer-components/show-customer/show-customer.component';
+import { CreateCustomerComponent } from './components/customer-components/create-customer/create-customer.component';
+import { UpdateCustomerComponent } from './components/customer-components/update-customer/update-customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CustomersComponent
+    CustomersComponent,
+    ShowCustomerComponent,
+    CreateCustomerComponent,
+    UpdateCustomerComponent
   ],
   imports: [
     BrowserModule,

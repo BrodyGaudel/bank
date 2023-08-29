@@ -1,6 +1,6 @@
 <div class="container mt-2">
   <ng-container *ngIf="customers | async as listCustomers; else failureOrLading">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-header text-info text-center"><b>Liste des clients</b></div>
 
       <div class="card-body">
@@ -25,6 +25,7 @@
             <th style="text-align:center">Lieux de naissance</th>
             <th style="text-align:center">Nationalité</th>
             <th style="text-align:center">Sex</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>

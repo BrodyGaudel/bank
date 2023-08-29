@@ -8,12 +8,12 @@ import {Observable} from "rxjs";
 })
 export class CustomerService {
 
-  private host: string = 'http://localhost:8888/CUSTOMER-SERVICE/bank/api/customers/';
+  private host: string = 'http://localhost:8887/bank/api/customers/';
 
   constructor(private http: HttpClient) { }
 
   createCustomer(model: CustomerModel) : Observable<CustomerModel> {
-    return this.http.post<CustomerModel>(this.host +'save', model);
+    return this.http.post<CustomerModel>(this.host +'create', model);
   }
 
   updateCustomer(id: string, model: CustomerModel) : Observable<CustomerModel> {

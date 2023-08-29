@@ -3,9 +3,9 @@
     <img ngSrc="assets/images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
   </a>
   <li [ngbNavItem]="1">
-    <button ngbNavLink><b>Gestion des clients</b></button>
+    <button ngbNavLink (click)="gotoCustomersComponent()"><b>Gestion des clients</b></button>
     <ng-template ngbNavContent>
-      <app-customers></app-customers>
+      <button class="btn btn-primary" (click)="gotoCreateCustomerComponent()">Ajouter un client</button>
     </ng-template>
   </li>
   <li [ngbNavItem]="2">

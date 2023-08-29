@@ -49,8 +49,8 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerById(String id) throws CustomerNotFoundException {
         log.info("In getCustomerById()");
         Customer customer = customerRepository.findById(id)
-                .orElseThrow( () -> new CustomerNotFoundException(CUSTOMER_FOUND));
-        log.info(CUSTOMER_NOT_FOUND);
+                .orElseThrow( () -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
+        log.info(CUSTOMER_FOUND);
         return mappers.fromCustomer(customer);
     }
 

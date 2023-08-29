@@ -1,0 +1,67 @@
+<div class="container mt-2">
+    <ng-container *ngIf="customer | async as customerModel; else failureOrLading">
+        <div class="card">
+            <div class="card-header text-info text-center"><b>Information détaillé sur le client</b></div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label><b>Prénom(s) : </b></label>{{ customerModel.firstname}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Nom(s) : </b></label>{{ customerModel.name}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Date de naissance : </b></label>{{ customerModel.dateOfBirth | date : 'dd-MM-yyyy'}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Lieux de naissance : </b></label>{{ customerModel.placeOfBirth}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Nationalité : </b></label>{{ customerModel.nationality}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Sexe : </b></label>{{ customerModel.sex}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label><b>Cin/Passport : </b></label>{{ customerModel.cin}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>ID Client : </b></label>{{ customerModel.id}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>E-Mail : </b></label>{{ customerModel.email}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Phone : </b></label>{{ customerModel.phone}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Enregistré le : </b></label>{{ customerModel.creation | date : 'dd-MM-yyyy:HH-mm-ss'}}
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Dernière mise à jour : </b></label>{{ customerModel.lastUpdate | date : 'dd-MM-yyyy:HH-mm-ss'}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #failureOrLading>
+        <ng-container *ngIf="errorMessage; else loading">
+            <div class="text-danger">
+                {{errorMessage}}
+            </div>
+        </ng-container>
+        <ng-template #loading>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
+
+            Chargement en cours ... Veuillez patienter
+        </ng-template>
+    </ng-template>
+</div>
