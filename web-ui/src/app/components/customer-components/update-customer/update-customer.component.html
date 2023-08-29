@@ -1,1 +1,109 @@
-<p>update-customer works!</p>
+<div class=" container">
+  <div class="card">
+    <div class="card-header text-center text-primary">
+      <b>MODIFICATION DU CLIENT DI : {{customer.id}}</b>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="updateCustomerFormGroup" (ngSubmit)="updateCustomer()">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label"><b>Prénom</b></label>
+              <input type="text" formControlName="firstname" class="form-control" value="{{customer.firstname}}" >
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['firstname'].touched
+                && updateCustomerFormGroup.controls['firstname'].errors
+                && updateCustomerFormGroup.controls['firstname'].errors!['required']">
+                Le prénom est requis
+             </span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><b>Nom</b></label>
+              <input type="text" formControlName="name" class="form-control" value="{{customer.name}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['name'].touched
+                && updateCustomerFormGroup.controls['name'].errors
+                && updateCustomerFormGroup.controls['name'].errors!['required']">
+                Le nom est requis
+             </span>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><b>Date de naissance</b></label>
+              <input type="date" formControlName="dateOfBirth" class="form-control" value="{{customer.dateOfBirth}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['dateOfBirth'].touched
+                && updateCustomerFormGroup.controls['dateOfBirth'].errors
+                && updateCustomerFormGroup.controls['dateOfBirth'].errors!['required']">
+                La date de naissance est requise
+             </span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label"><b>Lieux de naissance</b></label>
+              <input type="text" formControlName="placeOfBirth" class="form-control" value="{{customer.placeOfBirth}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['placeOfBirth'].touched
+                && updateCustomerFormGroup.controls['placeOfBirth'].errors
+                && updateCustomerFormGroup.controls['placeOfBirth'].errors!['required']">
+                Le lieux de naissance est requis
+             </span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><b>Nationalité</b></label>
+              <input type="text" formControlName="nationality" class="form-control" value="{{customer.nationality}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['nationality'].touched
+                && updateCustomerFormGroup.controls['nationality'].errors
+                && updateCustomerFormGroup.controls['nationality'].errors!['required']">
+                La nationalité est requise
+             </span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><b>CIN</b></label>
+              <input type="text" formControlName="cin" class="form-control" value="{{customer.cin}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['cin'].touched
+                && updateCustomerFormGroup.controls['cin'].errors
+                && updateCustomerFormGroup.controls['cin'].errors!['required']">
+                Le numéro de la carte cin est requise
+             </span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label"><b>E-mail</b></label>
+              <input type="text" formControlName="email" class="form-control" value="{{customer.email}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['email'].touched
+                && updateCustomerFormGroup.controls['email'].errors
+                && updateCustomerFormGroup.controls['email'].errors!['required']">
+                L'email est obligatoire
+             </span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><b>Phone</b></label>
+              <input type="text" formControlName="phone" class="form-control" value="{{customer.phone}}">
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['phone'].touched
+                && updateCustomerFormGroup.controls['phone'].errors
+                && updateCustomerFormGroup.controls['phone'].errors!['required']">
+                L'email est obligatoire
+             </span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><b>Sexe</b></label>
+              <select formControlName="sex" class="form-control" value="{{customer.sex}}">
+                <option>M</option>
+                <option>F</option>
+              </select>
+              <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['sex'].touched
+                && updateCustomerFormGroup.controls['sex'].errors
+                && updateCustomerFormGroup.controls['sex'].errors!['required']">
+                Le sex est requis
+             </span>
+            </div>
+          </div>
+        </div>
+        <button [disabled]="!updateCustomerFormGroup.valid" class="btn btn-primary">
+          Valider les modifications
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

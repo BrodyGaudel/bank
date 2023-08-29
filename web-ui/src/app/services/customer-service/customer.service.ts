@@ -12,28 +12,32 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  createCustomer(model: CustomerModel) : Observable<CustomerModel> {
+  public createCustomer(model: CustomerModel) : Observable<CustomerModel> {
     return this.http.post<CustomerModel>(this.host +'create', model);
   }
 
-  updateCustomer(id: string, model: CustomerModel) : Observable<CustomerModel> {
+  public updateCustomer(id: string, model: CustomerModel) : Observable<CustomerModel> {
     return this.http.put<CustomerModel>(this.host +'update/'+id, model);
   }
 
-  getCustomerById(id: string) : Observable<CustomerModel> {
+  public getCustomerById(id: string) : Observable<CustomerModel> {
     return this.http.get<CustomerModel>(this.host +'get/'+id);
   }
 
-  getCustomerByCin(cin: string) : Observable<CustomerModel> {
+  public getCustomerByCin(cin: string) : Observable<CustomerModel> {
     return this.http.get<CustomerModel>(this.host +'get/'+cin);
   }
 
-  getAllCustomers(size: number, page: number) : Observable<Array<CustomerModel>> {
+  public getAllCustomers(size: number, page: number) : Observable<Array<CustomerModel>> {
     return this.http.get<Array<CustomerModel>>(this.host +'list/'+size+'/'+page);
   }
 
-  searchCustomer(keyword: string, size: number, page: number) : Observable<Array<CustomerModel>> {
+  public searchCustomer(keyword: string, size: number, page: number) : Observable<Array<CustomerModel>> {
     return this.http.get<Array<CustomerModel>>(this.host +size +'/' +page +'/search?keyword=' +keyword);
+  }
+
+  public deleteCustomerById(id: string){
+    return this.http.delete(this.host +'delete/' +id);
   }
 
 }
