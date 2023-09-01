@@ -12,6 +12,7 @@ import { CustomersComponent } from './components/customer-components/customers/c
 import { ShowCustomerComponent } from './components/customer-components/show-customer/show-customer.component';
 import { CreateCustomerComponent } from './components/customer-components/create-customer/create-customer.component';
 import { UpdateCustomerComponent } from './components/customer-components/update-customer/update-customer.component';
+import { CreateAccountComponent } from './components/account-components/create-account/create-account.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UpdateCustomerComponent } from './components/customer-components/update
     CustomersComponent,
     ShowCustomerComponent,
     CreateCustomerComponent,
-    UpdateCustomerComponent
+    UpdateCustomerComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,
