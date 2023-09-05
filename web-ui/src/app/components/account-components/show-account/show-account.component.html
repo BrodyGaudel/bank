@@ -1,0 +1,96 @@
+<div class="container mt-2">
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-primary text-center"><b>COMPTE</b></div>
+        <div class="card-body">
+          <form [formGroup]="accountFormGroup" (ngSubmit)="handleSearchAccount()">
+            <div class="input-group">
+              <label class="input-group-text">IDENTIFIANT :</label>
+              <input type="text" formControlName="accountId" class="form-control">
+              <button class="btn btn-primary">
+                <i class="bi bi-search"></i>
+                Search
+              </button>
+            </div>
+          </form>
+          <ng-template #errorTemplate>
+            <ng-container *ngIf="errorMessage ; else loading">
+              <div class="text-danger">{{errorMessage}}</div>
+            </ng-container>
+            <ng-template #loading>
+              Chargement en cours ...
+            </ng-template>
+          </ng-template>
+          <ng-container *ngIf="historyModelObservable | async as historyModel">
+            <div class="mb-2">
+              <label>Account ID :</label>
+              <label><strong>{{historyModel.accountId}}</strong></label>
+            </div>
+            <div class="mb-2">
+              <label>Devise :</label>
+              <label><strong>{{historyModel.currency}}</strong></label>
+            </div>
+            <div class="mb-2">
+              <label>Balance :</label>
+              <label><strong>{{historyModel.balance | number : '1.2-2'}}</strong></label>
+            </div>
+            <table class="table">
+              <thead>
+              <th>Date</th><th>Type</th><th>Amount</th><th></th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let op of historyModel.operations">
+                <td>{{op.date | date : 'dd-MM-yyyy:HH-mm-ss'}}</td>
+                <td>{{op.type}}</td>
+                <td class="text-end">{{op.amount | number : '1.2-2'}}</td>
+                <td>
+                  <button class="btn btn-primary">
+
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <ul class="nav nav-pills">
+              <li *ngFor="let item of [].constructor(historyModel.totalPages);let page=index">
+                <a [ngClass]="page==currentPage?'btn-primary':'btn-outline-primary'" (click)="gotoPage(page)" class="btn  ms-1 mt-1">{{page}}</a>
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card" *ngIf="historyModelObservable">
+        <div class="card-header text-center text-primary"><b>OPERATIONS</b></div>
+        <div class="card-body">
+          <form [formGroup]="operationFromGroup" (ngSubmit)="handleAccountOperation()" method="post">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="operationType" value="DEBIT">
+              <label class="form-check-label">DEBIT:</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" formControlName="operationType" value="CREDIT">
+              <label class="form-check-label">CREDIT:</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Montant :</label>
+              <input type="text" formControlName="amount" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description :</label>
+              <input type="text" formControlName="description" class="form-control">
+            </div>
+            <div class="d-grid mb-3">
+              <button class="btn btn-primary">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

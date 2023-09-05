@@ -13,6 +13,7 @@ import { ShowCustomerComponent } from './components/customer-components/show-cus
 import { CreateCustomerComponent } from './components/customer-components/create-customer/create-customer.component';
 import { UpdateCustomerComponent } from './components/customer-components/update-customer/update-customer.component';
 import { CreateAccountComponent } from './components/account-components/create-account/create-account.component';
+import { ShowAccountComponent } from './components/account-components/show-account/show-account.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CreateAccountComponent } from './components/account-components/create-a
     ShowCustomerComponent,
     CreateCustomerComponent,
     UpdateCustomerComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    ShowAccountComponent
   ],
   imports: [
     BrowserModule,
