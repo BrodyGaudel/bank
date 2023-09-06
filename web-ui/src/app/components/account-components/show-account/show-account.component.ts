@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountService} from "../../../services/account-service/account.service";
 import {OperationService} from "../../../services/operation-service/operation.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -8,6 +7,10 @@ import {HistoryModel} from "../../../models/history.model";
 import {DebitModel} from "../../../models/debit.model";
 import {CreditModel} from "../../../models/credit.model";
 import {OperationModel} from "../../../models/operation.model";
+import {AccountModel} from "../../../models/account.model";
+import {AccountService} from "../../../services/account-service/account.service";
+import {CustomerModel} from "../../../models/customer.model";
+import {CustomerService} from "../../../services/customer-service/customer.service";
 
 @Component({
   selector: 'app-show-account',
@@ -23,8 +26,13 @@ export class ShowAccountComponent implements OnInit{
   operationFromGroup!: FormGroup;
   errorMessage!: string;
   operation: OperationModel = new OperationModel();
+  account: AccountModel = new AccountModel();
+  customerId!: string;
+  customer!: Observable<CustomerModel>;
 
-  constructor(private accountService: AccountService,
+
+  constructor(private customerService: CustomerService,
+              private accountService: AccountService,
               private operationService: OperationService,
               private router: Router,
               private fb: FormBuilder) {
@@ -43,13 +51,15 @@ export class ShowAccountComponent implements OnInit{
 
   handleSearchAccount(): void {
     let accountId: string = this.accountFormGroup.value.accountId;
-    this.historyModelObservable = this.operationService.getHistory(accountId,this.currentPage, this.pageSize)
+    this.historyModelObservable = this.operationService.getHistory(accountId,this.pageSize, this.currentPage)
       .pipe(
         catchError(err => {
           this.errorMessage = err.message;
           return throwError(() => err);
         })
       );
+    this.getAccountById(accountId);
+    this.getCustomerById(this.account.customerId);
   }
 
   handleAccountOperation(): void {
@@ -74,7 +84,7 @@ export class ShowAccountComponent implements OnInit{
           this.handleSearchAccount();
         },
         error : (err) : void =>{
-          alert(err);
+          alert(err.message);
           console.log(err);
         }
       }
@@ -94,7 +104,7 @@ export class ShowAccountComponent implements OnInit{
           this.handleSearchAccount();
         },
         error : (err) : void =>{
-          alert(err);
+          alert(err.message);
           console.log(err);
         }
       }
@@ -119,5 +129,29 @@ export class ShowAccountComponent implements OnInit{
     this.currentPage = page;
     this.handleSearchAccount();
   }
+
+  getAccountById(id: string): void{
+    this.accountService.getAccountById(id).subscribe(
+      {
+        next : (data: AccountModel) : void =>{
+          this.customerId = data.customerId;
+        },
+        error : (err) : void =>{
+          alert(err);
+          console.log(err);
+        }
+      }
+    );
+  }
+
+  getCustomerById(id: string): void{
+    this.customer = this.customerService.getCustomerById(id).pipe(
+      catchError(err => {
+        this.errorMessage = err.message;
+        return throwError(() => err);
+      })
+    );
+  }
+
 
 }

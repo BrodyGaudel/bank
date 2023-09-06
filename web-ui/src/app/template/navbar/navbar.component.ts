@@ -24,7 +24,7 @@ export class NavbarComponent {
     );
   }
 
-  gotoCreateCustomerComponent() {
+  gotoCreateCustomerComponent() : void {
     this.router.navigate(['/create-customer']).then(
         () => {
           // La promesse a été résolue avec succès.
@@ -33,6 +33,18 @@ export class NavbarComponent {
           // La promesse a été rejetée avec une erreur.
           alert(error)
         }
+    );
+  }
+
+  gotoShowAccountComponent() : void {
+    this.router.navigate(['/show-account']).then(
+      () => {
+        // La promesse a été résolue avec succès.
+      },
+      error => {
+        // La promesse a été rejetée avec une erreur.
+        alert(error)
+      }
     );
   }
 }

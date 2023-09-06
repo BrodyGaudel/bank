@@ -36,9 +36,14 @@
               <label>Balance :</label>
               <label><strong>{{historyModel.balance | number : '1.2-2'}}</strong></label>
             </div>
+
+
             <table class="table">
               <thead>
-              <th>Date</th><th>Type</th><th>Amount</th><th></th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th></th>
               </thead>
               <tbody>
               <tr *ngFor="let op of historyModel.operations">
