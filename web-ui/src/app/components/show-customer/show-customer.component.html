@@ -1,0 +1,136 @@
+<div class="mt-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card" *ngIf="customer | async as customerModel">
+          <div class="card-header text-center text-success"><b>CLIENT</b></div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label><b class="text-success">Prénom(s) : </b>{{ customerModel.firstname}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Nom(s) : </b>{{ customerModel.name}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Date de naissance : </b>{{ customerModel.dateOfBirth}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Lieux de naissance : </b>{{ customerModel.placeOfBirth}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Nationalité :</b> {{ customerModel.nationality}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Sexe : </b>{{customerModel.sex}}</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label><b class="text-success">CIN/Passport :</b>{{ customerModel.cin}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Tél : </b>{{customerModel.phone}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">E-Mail : </b>{{customerModel.email}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Création: </b>{{customerModel.creation | date : 'dd-MM-yyyy:HH-mm-ss'}}</label>
+                </div>
+                <div class="mb-3">
+                  <label><b class="text-success">Mise à jour : </b>{{customerModel.lastUpdate | date : 'dd-MM-yyyy:HH-mm-ss'}}</label>
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-success" (click)="gotoUpdateCustomerComponents(customerModel.id)">Modifier</button>
+                </div>
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card" *ngIf="account | async as accountModel">
+          <div class="card-header text-success text-center"><b>COMPTE</b></div>
+          <div class="card-body">
+            <div class="mb-2">
+              <label><b class="text-success">Numéro : </b>{{accountModel.id}}</label>
+            </div>
+            <div class="mb-2">
+              <label><b class="text-success">Devise : </b>{{accountModel.currency}}</label>
+            </div>
+            <div class="mb-2">
+              <label><b class="text-success">Solde : </b>{{accountModel.balance | number : '1.2-2'}}</label>
+            </div>
+            <div class="mb-2">
+              <label><b class="text-success">Status : </b>{{accountModel.status}}</label>
+            </div>
+            <div class="mb-2">
+              <label><b class="text-success">Créé le : </b>{{accountModel.creation | date : 'dd-MM-yyyy:HH-mm-ss'}}</label>
+            </div>
+            <div class="mb-2">
+              <label><b class="text-success">Mise à jour le : </b>{{accountModel.lastUpdate | date : 'dd-MM-yyyy:HH-mm-ss'}}</label>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-success" (click)="updateAccountStatus(accountModel)">changer le status du compte</button>
+          </div>
+        </div>
+        <div class="card" *ngIf="tmp == 0">
+          <div class="card-header text-center text-danger">
+            <strong>Ce client n'a pas de compte bancaire</strong>
+          </div>
+          <div class="card-body text-success text-center">
+            <div>
+              <a class="btn btn-success" (click)="gotoCreateAccountComponent()">
+                Cliquer ici pour créer un compte bancaire à ce client
+              </a>
+            </div>
+            <div *ngIf="tmp2 == 0">
+              <form [formGroup]="addAccountFormGroup" (ngSubmit)="addAccount()">
+                <div class="mb-3">
+                  <label>Devise</label>
+                  <select formControlName="currency" class="form-control">
+                    <option>AOA</option>
+                    <option>BWP</option>
+                    <option>DZD</option>
+                    <option>EGP</option>
+                    <option>GHS</option>
+                    <option>KES</option>
+                    <option>LSL</option>
+                    <option>LYD</option>
+                    <option>MAD</option>
+                    <option>MUR</option>
+                    <option>MWK</option>
+                    <option>NAD</option>
+                    <option>NGN</option>
+                    <option>RWF</option>
+                    <option>SCR</option>
+                    <option>SDG</option>
+                    <option>SZL</option>
+                    <option>TZS</option>
+                    <option>TND</option>
+                    <option>UGX</option>
+                    <option>XAF</option>
+                    <option>XOF</option>
+                    <option>ZAR</option>
+                    <option>ZMW</option>
+                  </select>
+                  <span class="text-danger" *ngIf="addAccountFormGroup.controls['currency'].touched
+                    && addAccountFormGroup.controls['currency'].errors
+                    && addAccountFormGroup.controls['currency'].errors!['required']">
+                    Le devise est requise pour créer un compte.
+                  </span>
+                </div>
+                <button [disabled]="!addAccountFormGroup.valid" class="btn btn-success">Enregistrer</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

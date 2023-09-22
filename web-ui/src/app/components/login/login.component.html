@@ -1,0 +1,38 @@
+<div class="container mt-3">
+  <div class="col-md-6 offset-3">
+    <div class="card shadow">
+      <div class="card-header text-center text-success">
+        <b>AUTHENTIFICATION</b>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-danger" *ngIf="errorFlag==1">
+          <strong>nom d'utilisateur ou mot de passe erronés.</strong>
+        </div>
+        <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
+
+          <div class="mb-3">
+            <label class="form-label">Nom d'utilisateur</label>
+            <input type="text" formControlName="username" class="form-control">
+            <span class="text-danger" *ngIf="loginFormGroup.controls['username'].touched
+              && loginFormGroup.controls['username'].errors
+              && loginFormGroup.controls['username'].errors!['required']">
+              le nom d'utilisateur est obligatoire.
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <input type="password" formControlName="password" class="form-control">
+            <span class="text-danger" *ngIf="loginFormGroup.controls['password'].touched
+              && loginFormGroup.controls['password'].errors
+              && loginFormGroup.controls['password'].errors!['required']">
+              Le mot de passe est obligatoire.
+            </span>
+          </div>
+
+          <button [disabled]="!loginFormGroup.valid" class="btn btn-success">Connexion</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

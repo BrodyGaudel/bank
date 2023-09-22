@@ -15,14 +15,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
 
-import java.util.Collections;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
 
     public static final String ADMIN = "ADMIN";
     public static final String USER = "USER";
@@ -35,6 +33,7 @@ public class SecurityConfig {
     public AuthenticationManager authManager(@NotNull HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder,
                                              UserDetailsService userDetailsService)
             throws Exception {
+
         AuthenticationManagerBuilder managerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         managerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
         return managerBuilder.build();
@@ -42,20 +41,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(@NotNull HttpSecurity http) throws Exception {
+
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .cors(c -> c.configurationSource(
-                        request -> {
-                            CorsConfiguration config = new CorsConfiguration();
-
-                            config.setAllowedOrigins(Collections.singletonList(SecParams.ORIGINS));
-                            config.setAllowedMethods(Collections.singletonList(SecParams.ALL));
-                            config.setAllowCredentials(true);
-                            config.setAllowedHeaders(Collections.singletonList(SecParams.ALL));
-                            config.setExposedHeaders(List.of(SecParams.AUTHORIZATION));
-                            config.setMaxAge(SecParams.MAX_AGE);
-                            return config;
-                        }))
                 .authorizeHttpRequests(c ->
                         c.requestMatchers("/login").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/v1/delete-user/**").hasAuthority(ADMIN)
@@ -73,8 +61,10 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/v1/find-user/**").hasAnyAuthority(USER, ADMIN)
                                 .requestMatchers(HttpMethod.GET, "/v1/list-users/**").hasAnyAuthority(USER, ADMIN)
                                 .anyRequest().authenticated());
+
         http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
         http.addFilterAfter(new JWTAuthorizationFilter(),UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 }

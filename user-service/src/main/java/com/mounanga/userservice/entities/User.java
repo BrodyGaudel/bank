@@ -2,39 +2,28 @@ package com.mounanga.userservice.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long userId;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique=true)
     private String username;
-
-    @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false)
     private Boolean enabled;
 
-    @Column(nullable = false, updatable = false)
-    private Date creation;
-    private Date lastUpdate;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name="user_role",joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name="roleId"))
     private List<Role> roles;
 
-    public User(Long id, String username, String password, Boolean enabled, Date creation, Date lastUpdate, List<Role> roles) {
-        this.id = id;
+    public User(Long userId, String username, String password, Boolean enabled, List<Role> roles) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
-        this.creation = creation;
-        this.lastUpdate = lastUpdate;
         this.roles = roles;
     }
 
@@ -42,12 +31,12 @@ public class User {
         super();
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -74,22 +63,6 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Date getCreation() {
-        return creation;
-    }
-
-    public void setCreation(Date creation) {
-        this.creation = creation;
-    }
-
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
@@ -101,12 +74,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
-                ", creation=" + creation +
-                ", lastUpdate=" + lastUpdate +
                 ", roles=" + roles +
                 '}';
     }

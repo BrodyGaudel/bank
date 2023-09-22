@@ -7,13 +7,13 @@ import com.mounanga.userservice.repositories.UserRepository;
 import com.mounanga.userservice.services.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,10 +24,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
@@ -99,8 +101,7 @@ public class UserServiceImpl implements UserService {
             log.error("username already exist");
             return null;
         }
-        user.setCreation( new Date());
-        user.setLastUpdate( null);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         User userSaved = userRepository.save(user);
         log.info("user saved");
         return userSaved;
@@ -125,9 +126,8 @@ public class UserServiceImpl implements UserService {
                 log.error("username already exist");
                 return null;
         }
-        u.setLastUpdate( new Date());
         u.setEnabled(user.getEnabled());
-        u.setPassword(user.getPassword());
+        u.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         u.setUsername(user.getUsername());
 
         User userUpdated = userRepository.save(u);

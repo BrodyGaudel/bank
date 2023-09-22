@@ -1,0 +1,59 @@
+<div class="container mt-2">
+  <div class="card">
+
+    <div class="card-header text-center text-success">
+      <b>CLIENTS TROUVES</b>
+    </div>
+
+    <div class="card-body">
+      <ng-template>
+        <ng-container *ngIf="errorMessage ; else loading">
+          <div class="text-danger">{{errorMessage}}</div>
+        </ng-container>
+        <ng-template #loading>
+          Chargement en cours ...
+        </ng-template>
+      </ng-template>
+
+      <ng-container *ngIf="customers | async as customerModels">
+        <table class="table table-secondary">
+          <thead>
+            <th>CIN</th>
+            <th>Prénom(s)</th>
+            <th>Nom(s)</th>
+            <th>Nationalité</th>
+            <th>Sex</th>
+            <th></th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let customer of customerModels">
+            <td>{{customer.cin}}</td>
+            <td>{{customer.firstname}}</td>
+            <td>{{customer.name}}</td>
+            <td>{{customer.nationality}}</td>
+            <td>{{customer.sex}}</td>
+            <td>
+              <button class="btn btn-success" (click)="gotoShowCustomerComponent(customer.id)"><i class="bi bi-app"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <ul class="nav nav-pills">
+          <li style="margin-right: 10px;">
+            <button class="btn btn-success" (click)="previousPage()">
+              <i class="bi bi-arrow-left-square-fill"></i>
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-success" (click)="nextPage()">
+              <i class="bi bi-arrow-right-square-fill"></i>
+            </button>
+          </li>
+        </ul>
+
+      </ng-container>
+    </div>
+
+  </div>
+</div>

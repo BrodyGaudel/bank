@@ -1,34 +1,43 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AccountModel} from "../../models/account.model";
+import {AuthService} from "../auth-service/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  private host: string = 'http://localhost:8886/bank/api/accounts/';
+  private host: string = 'http://localhost:8888/ACCOUNT-SERVICE/bank/accounts/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
-  public createAccount(model: AccountModel) : Observable<AccountModel> {
-    return this.http.post<AccountModel>(this.host +'create', model);
+  getHttpHeaders() : HttpHeaders{
+    let jwt : string = this.authService.getToken();
+    jwt = "Bearer "+jwt;
+    console.log(jwt);
+    return new HttpHeaders({"Authorization": jwt});
   }
 
-  public updateAccountStatus(id: string, model: AccountModel) : Observable<AccountModel> {
-    return this.http.put<AccountModel>(this.host +'update-status/'+id, model);
+  public getAccountByCustomerId(customerId: string): Observable<AccountModel>{
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.get<AccountModel>(this.host+ 'find/'+ customerId, {headers:httpHeaders});
   }
 
-  public getAccountById(id: string) : Observable<AccountModel> {
-    return this.http.get<AccountModel>(this.host +'get/'+id);
+  public getAccountById(id: string): Observable<AccountModel>{
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.get<AccountModel>(this.host+ 'get/'+ id, {headers:httpHeaders});
   }
 
-  public getAccountByCustomerId(customerId: string) : Observable<AccountModel> {
-    return this.http.get<AccountModel>(this.host +'find/' +customerId);
+  public saveAccount(model: AccountModel): Observable<AccountModel>{
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.post<AccountModel>(this.host+ 'create', model, {headers:httpHeaders});
   }
 
-  public deleteAccountById(id: string) : Observable<Object>{
-    return this.http.delete(this.host +'delete/' +id);
+  public updateAccountStatus(model: AccountModel): Observable<AccountModel>{
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.put<AccountModel>(this.host+ 'update-status', model, {headers:httpHeaders});
   }
+
 }

@@ -22,38 +22,45 @@ public class UserRestController {
 
     @GetMapping("/get-user/{id}")
     public User getUserById(@PathVariable Long id){
-        return userService.getUserById(id);
+        User u = userService.getUserById(id);
+        return deleteUserPassword(u);
     }
 
     @GetMapping("/find-user/{username}")
     public User getUserByUsername(@PathVariable(name = "username") String username){
-        return userService.getUserByUsername(username);
+        User u = userService.getUserByUsername(username);
+        return deleteUserPassword(u);
     }
 
     @GetMapping("/list-users/{size}/{page}")
     public List<User> getAllUsersByPage(@PathVariable(name = "size") int size,
                                         @PathVariable(name = "page") int page){
-        return userService.getAllUsersByPage(size, page);
+        List<User> users = userService.getAllUsersByPage(size, page);
+        return users.stream().map(this::deleteUserPassword).toList();
     }
 
     @PostMapping("/create-user")
     public User createUser(@RequestBody User user){
-        return userService.createUser(user);
+        User u =  userService.createUser(user);
+        return deleteUserPassword(u);
     }
 
     @PutMapping("/update-user/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user){
-        return userService.updateUser(id, user);
+        User u = userService.updateUser(id, user);
+        return deleteUserPassword(u);
     }
 
     @PutMapping("/add-role-to-user")
     public User addRoleToUser(@RequestBody FormDTO form){
-        return userService.addRoleToUser(form.username(), form.roleName());
+        User u = userService.addRoleToUser(form.username(), form.roleName());
+        return deleteUserPassword(u);
     }
 
     @PutMapping("/remove-role-to-user")
     public User removeRoleFromUser(@RequestBody FormDTO form){
-        return userService.removeRoleFromUser(form.username(), form.roleName());
+        User u = userService.removeRoleFromUser(form.username(), form.roleName());
+        return deleteUserPassword(u);
     }
 
     @PostMapping("/create-role")
@@ -87,5 +94,13 @@ public class UserRestController {
             return new ResponseEntity<>("NULL EXCEPTION", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private User deleteUserPassword(User user){
+        if(user == null){
+            return null;
+        }
+        user.setPassword(null);
+        return user;
     }
 }

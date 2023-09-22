@@ -1,35 +1,52 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {CustomerModel} from "../../models/customer.model";
 import {Observable} from "rxjs";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AuthService} from "../auth-service/auth.service";
+
+const httpOptions = {
+  headers: new HttpHeaders( {'Content-Type': 'application/json'} )
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  private host: string = 'http://localhost:8887/bank/api/customers/';
+  private host: string = 'http://localhost:8888/CUSTOMER-SERVICE/bank/customers/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  getHttpHeaders() : HttpHeaders{
+    let jwt : string = this.authService.getToken();
+    jwt = "Bearer "+jwt;
+    console.log(jwt);
+    return new HttpHeaders({"Authorization": jwt});
+  }
 
   public createCustomer(model: CustomerModel) : Observable<CustomerModel> {
-    return this.http.post<CustomerModel>(this.host +'create', model);
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.post<CustomerModel>(this.host +'create', model, {headers:httpHeaders});
   }
 
   public updateCustomer(id: string, model: CustomerModel) : Observable<CustomerModel> {
-    return this.http.put<CustomerModel>(this.host +'update/'+id, model);
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.put<CustomerModel>(this.host +'update/'+id, model, {headers:httpHeaders});
   }
 
   public getCustomerById(id: string) : Observable<CustomerModel> {
-    return this.http.get<CustomerModel>(this.host +'get/'+id);
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.get<CustomerModel>(this.host +'get/'+id, {headers:httpHeaders});
   }
 
   public getCustomerByCin(cin: string) : Observable<CustomerModel> {
-    return this.http.get<CustomerModel>(this.host +'get/'+cin);
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.get<CustomerModel>(this.host +'get/'+cin, {headers:httpHeaders});
   }
 
   public getAllCustomers(size: number, page: number) : Observable<Array<CustomerModel>> {
-    return this.http.get<Array<CustomerModel>>(this.host +'list/'+size+'/'+page);
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.get<Array<CustomerModel>>(this.host +'list/'+size+'/'+page, {headers:httpHeaders});
   }
 
   public searchCustomer(keyword: string, size: number, page: number) : Observable<Array<CustomerModel>> {
@@ -37,7 +54,7 @@ export class CustomerService {
   }
 
   public deleteCustomerById(id: string){
-    return this.http.delete(this.host +'delete/' +id);
+    let httpHeaders : HttpHeaders = this.getHttpHeaders();
+    return this.http.delete(this.host +'delete/' +id, {headers:httpHeaders});
   }
-
 }
