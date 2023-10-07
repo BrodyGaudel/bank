@@ -13,8 +13,6 @@ import { ListCustomerComponent } from './components/list-customer/list-customer.
 import { ShowCustomerComponent } from './components/show-customer/show-customer.component';
 import { UpdateCustomerComponent } from './components/update-customer/update-customer.component';
 import { AccountOperationComponent } from './components/account-operation/account-operation.component';
-import { LoginComponent } from './components/login/login.component';
-import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +22,7 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
     ListCustomerComponent,
     ShowCustomerComponent,
     UpdateCustomerComponent,
-    AccountOperationComponent,
-    LoginComponent,
-    ForbiddenComponent
+    AccountOperationComponent
   ],
   imports: [
     BrowserModule,

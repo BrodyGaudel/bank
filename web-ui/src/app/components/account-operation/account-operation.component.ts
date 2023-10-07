@@ -10,7 +10,6 @@ import {AccountModel} from "../../models/account.model";
 import {CustomerModel} from "../../models/customer.model";
 import {DebitModel} from "../../models/debit.model";
 import {CreditModel} from "../../models/credit.model";
-import {AuthService} from "../../services/auth-service/auth.service";
 
 @Component({
   selector: 'app-account-operation',
@@ -36,11 +35,9 @@ export class AccountOperationComponent implements OnInit{
   constructor(private operationService: OperationService,
               private customerService: CustomerService,
               private accountService: AccountService,
-              private fb: FormBuilder,
-              private authService: AuthService) {
+              private fb: FormBuilder) {
   }
   ngOnInit(): void {
-    this.authService.security();
     this.accountFormGroup=this.fb.group({
       accountId : this.fb.control('')
     });

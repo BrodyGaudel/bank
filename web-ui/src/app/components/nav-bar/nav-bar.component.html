@@ -4,51 +4,26 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"  *ngIf="authService.isloggedIn">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="operations">Gestion des opérations</a>
-        </li>
-        <li class="nav-item dropdown" *ngIf="authService.isAdmin()">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Gestion des clients
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="create-customer">Enregistrer un nouveau client</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          <a class="nav-link" routerLink="operations">Operations management</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Gestion des utilisateurs</a>
+          <a class="nav-link" routerLink="create-customer">Create customer</a>
         </li>
+
       </ul>
       <form class="d-flex" [formGroup]="searchCustomerFormGroup" (ngSubmit)="searchCustomer()">
         <input  formControlName="keyword" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
         <span class="text-danger" *ngIf="searchCustomerFormGroup.controls['keyword'].touched
                                 && searchCustomerFormGroup.controls['keyword'].errors
                                 && searchCustomerFormGroup.controls['keyword'].errors!['required']">
-                                Le mot clé est requis
+                                The keyword is required
         </span>
 
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      <div id="navbarNavDropdown2">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{authService.loggedUser}}
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-              <li> <a class="nav-link">{{authService.loggedUser}}</a></li>
-              <li><a *ngIf="!authService.isloggedIn" class="dropdown-item" (click) = "onLogin()">login</a></li>
-              <li><a *ngIf="authService.isloggedIn" class="dropdown-item" (click) = "onLogout()">logout</a></li>
-
-            </ul>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </nav>

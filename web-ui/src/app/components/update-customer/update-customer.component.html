@@ -1,66 +1,66 @@
 <div class="mt-2 container">
   <div class="card shadow">
     <div class="card-header text-center text-success">
-      <b>Modification des informations du clients</b>
+      <b>Editing customer information</b>
     </div>
     <div class="card-body text-center">
       <form [formGroup]="updateCustomerFormGroup" (ngSubmit)="updateCustomer()">
         <div class="row">
           <div class="col-md-4">
             <div class="mb-3">
-              <label class="form-label"><b>Prénom</b></label>
+              <label class="form-label"><b>Firstname</b></label>
               <input type="text" formControlName="firstname" class="form-control" value="{{customer.firstname}}" >
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['firstname'].touched
                 && updateCustomerFormGroup.controls['firstname'].errors
                 && updateCustomerFormGroup.controls['firstname'].errors!['required']">
-                Le prénom est requis
+                First name is required
              </span>
             </div>
             <div class="mb-3">
-              <label class="form-label"><b>Nom</b></label>
+              <label class="form-label"><b>Name</b></label>
               <input type="text" formControlName="name" class="form-control" value="{{customer.name}}">
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['name'].touched
                 && updateCustomerFormGroup.controls['name'].errors
                 && updateCustomerFormGroup.controls['name'].errors!['required']">
-                Le nom est requis
+                Name is required
              </span>
             </div>
             <div class="mb-3">
-              <label class="form-label"><b>Date de naissance</b></label>
+              <label class="form-label"><b>Date of birth</b></label>
               <input type="date" formControlName="dateOfBirth" class="form-control" value="{{customer.dateOfBirth}}">
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['dateOfBirth'].touched
                 && updateCustomerFormGroup.controls['dateOfBirth'].errors
                 && updateCustomerFormGroup.controls['dateOfBirth'].errors!['required']">
-                La date de naissance est requise
+                Date of birth is required
              </span>
             </div>
           </div>
           <div class="col-md-4">
             <div class="mb-3">
-              <label class="form-label"><b>Lieux de naissance</b></label>
+              <label class="form-label"><b>Place of birth</b></label>
               <input type="text" formControlName="placeOfBirth" class="form-control" value="{{customer.placeOfBirth}}">
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['placeOfBirth'].touched
                 && updateCustomerFormGroup.controls['placeOfBirth'].errors
                 && updateCustomerFormGroup.controls['placeOfBirth'].errors!['required']">
-                Le lieux de naissance est requis
+                Place of birth is required
              </span>
             </div>
             <div class="mb-3">
-              <label class="form-label"><b>Nationalité</b></label>
+              <label class="form-label"><b>Nationality</b></label>
               <input type="text" formControlName="nationality" class="form-control" value="{{customer.nationality}}">
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['nationality'].touched
                 && updateCustomerFormGroup.controls['nationality'].errors
                 && updateCustomerFormGroup.controls['nationality'].errors!['required']">
-                La nationalité est requise
+                Nationality is required
              </span>
             </div>
             <div class="mb-3">
-              <label class="form-label"><b>CIN</b></label>
+              <label class="form-label"><b>Passport</b></label>
               <input type="text" formControlName="cin" class="form-control" value="{{customer.cin}}">
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['cin'].touched
                 && updateCustomerFormGroup.controls['cin'].errors
                 && updateCustomerFormGroup.controls['cin'].errors!['required']">
-                Le numéro de la carte cin est requise
+                The cin card number is required
              </span>
             </div>
           </div>
@@ -71,7 +71,7 @@
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['email'].touched
                 && updateCustomerFormGroup.controls['email'].errors
                 && updateCustomerFormGroup.controls['email'].errors!['required']">
-                L'email est obligatoire
+                Email is required
              </span>
             </div>
             <div class="mb-3">
@@ -80,11 +80,11 @@
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['phone'].touched
                 && updateCustomerFormGroup.controls['phone'].errors
                 && updateCustomerFormGroup.controls['phone'].errors!['required']">
-                L'email est obligatoire
+                Telephone number is required
              </span>
             </div>
             <div class="mb-3">
-              <label class="form-label"><b>Sexe</b></label>
+              <label class="form-label"><b>Sex</b></label>
               <select formControlName="sex" class="form-control" value="{{customer.sex}}">
                 <option>M</option>
                 <option>F</option>
@@ -92,13 +92,13 @@
               <span class="text-danger" *ngIf="updateCustomerFormGroup.controls['sex'].touched
                 && updateCustomerFormGroup.controls['sex'].errors
                 && updateCustomerFormGroup.controls['sex'].errors!['required']">
-                Le sex est requis
+                Sex is required
              </span>
             </div>
           </div>
         </div>
         <button [disabled]="!updateCustomerFormGroup.valid" class="btn btn-success">
-          Valider les modifications
+          Save
         </button>
       </form>
     </div>

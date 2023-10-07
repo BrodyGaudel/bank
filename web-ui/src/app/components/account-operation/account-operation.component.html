@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-md-6">
       <div class="card shadow">
-        <div class="card-header text-center text-success"><b>COMPTE</b></div>
+        <div class="card-header text-center text-success"><b>ACCOUNT</b></div>
         <div class="card-body">
           <form [formGroup]="accountFormGroup" (ngSubmit)="handleSearchAccount()">
             <div class="input-group">
               <label class="input-group-text">RIB :</label>
-              <input type="text" formControlName="accountId" class="form-control">
+              <input type="text" formControlName="accountId" class="form-control" placeholder="account id">
               <button class="btn btn-success">
                 <i class="bi bi-search"></i>
                 Search
@@ -24,11 +24,11 @@
           </ng-template>
           <ng-container *ngIf="historyModelObservable | async as historyModel">
             <div class="mb-2">
-              <label>Numéro :</label>
+              <label>Account ID :</label>
               <label><strong>{{historyModel.accountId}}</strong></label>
             </div>
             <div class="mb-2">
-              <label>Devise :</label>
+              <label>Currency :</label>
               <label><strong>{{historyModel.currency}}</strong></label>
             </div>
             <div class="mb-2">
@@ -41,25 +41,25 @@
               <div *ngIf="tmp==1">
                 <div *ngIf="customer | async as customerModel">
                   <div class="mb-1">
-                    <label><b class="text-success">Sexe : </b> </label>{{customerModel.sex}}
+                    <label><b class="text-success">Sex : </b> </label>{{customerModel.sex}}
                   </div>
                   <div class="mb-1">
-                    <label><b class="text-success">CIN/Passport : </b></label>{{customerModel.cin}}
+                    <label><b class="text-success">Passport : </b></label>{{customerModel.cin}}
                   </div>
                   <div class="mb-1">
-                    <label><b class="text-success">Prénom(s) : </b></label>{{customerModel.firstname}}
+                    <label><b class="text-success">Firstname : </b></label>{{customerModel.firstname}}
                   </div>
                   <div class="mb-1">
-                    <label><b class="text-success">Nom(s) : </b></label>{{customerModel.name}}
+                    <label><b class="text-success">Name : </b></label>{{customerModel.name}}
                   </div>
                   <div class="mb-1">
-                    <label><b class="text-success">Date de naissance : </b></label>{{customerModel.dateOfBirth}}
+                    <label><b class="text-success">Date of birth : </b></label>{{customerModel.dateOfBirth}}
                   </div>
                   <div class="mb-1">
-                    <label><b class="text-success">Lieux de naissance : </b></label>{{customerModel.placeOfBirth}}
+                    <label><b class="text-success">Place of birth : </b></label>{{customerModel.placeOfBirth}}
                   </div>
                   <div class="mb-1">
-                    <label><b class="text-success">Nationalité : </b></label>{{customerModel.nationality}}
+                    <label><b class="text-success">Nationality : </b></label>{{customerModel.nationality}}
                   </div>
                 </div>
               </div>
@@ -110,7 +110,7 @@
               <label class="form-check-label"><b class="text-success">CREDIT </b>:</label>
             </div>
             <div class="mb-3">
-              <label class="form-label"><b class="text-success">Montant </b>:</label>
+              <label class="form-label"><b class="text-success">Amount </b>:</label>
               <input type="text" formControlName="amount" class="form-control">
             </div>
             <div class="mb-3">
@@ -118,14 +118,14 @@
               <input type="text" formControlName="description" class="form-control">
             </div>
             <div class="d-grid mb-3">
-              <button class="btn btn-success">Enregistrer</button>
+              <button class="btn btn-success">Save</button>
             </div>
           </form>
         </div>
       </div>
       <div class="mt-3" *ngIf="tmp2 == 1">
         <div class="card" *ngIf="operation | async as operationModel">
-          <div class="card-header text-center text-success"><b>DETAILS DE L'OPERATION</b></div>
+          <div class="card-header text-center text-success"><b>OPERATION DETAILS</b></div>
           <div class="card-body">
             <div class="mb-3">
               <label><b class="text-success">ID </b> :</label>{{operationModel.accountId}}
@@ -137,14 +137,14 @@
               <label><b class="text-success">Type </b> :</label>{{operationModel.type}}
             </div>
             <div class="mb-3">
-              <label><b class="text-success">Montant </b> :</label>{{operationModel.amount | number : '1.2-2'}}
+              <label><b class="text-success">Amount </b> :</label>{{operationModel.amount | number : '1.2-2'}}
             </div>
             <div class="mb-3">
               <label><b class="text-success">Description </b> :</label>{{operationModel.description}}
             </div>
             <div class="mb-3">
               <button class="btn btn-danger" (click)="closeOperationInformation()">
-                <i class="bi bi-x-circle"> Fermer</i>
+                <i class="bi bi-x-circle"> Close</i>
               </button>
             </div>
           </div>
