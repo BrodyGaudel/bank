@@ -1,0 +1,33 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+              - "http://localhost:8761"
+              - "http://localhost:8887"
+              - "http://localhost:8886"
+              - "http://localhost:8885"
+            allowedHeaders:
+              - Content-Type
+              - Authorization
+            exposedHeaders:
+              - Content-Type
+              - Authorization
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+
+eureka:
+  instance:
+    prefer-ip-address: true
