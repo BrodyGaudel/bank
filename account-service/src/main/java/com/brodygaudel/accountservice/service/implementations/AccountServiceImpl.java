@@ -98,7 +98,7 @@ public class AccountServiceImpl implements AccountService {
                 .currency(accountDTO.currency()).lastUpdate(null).creation(LocalDateTime.now())
                 .build();
         Account accountSaved = accountRepository.save(account);
-        log.info("account created successfully with id '"+accountSaved.getId()+"'.");
+        log.info("account created successfully");
         return mappers.fromAccount(accountSaved);
     }
 
