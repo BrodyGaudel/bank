@@ -2,6 +2,7 @@ package com.brodygaudel.accountservice.web.restcontrollers;
 
 import com.brodygaudel.accountservice.dtos.AccountDTO;
 import com.brodygaudel.accountservice.exceptions.AccountNotFoundException;
+import com.brodygaudel.accountservice.exceptions.CustomerAlreadyHaveAccountException;
 import com.brodygaudel.accountservice.exceptions.CustomerNotFoundException;
 import com.brodygaudel.accountservice.service.AccountService;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,7 @@ public class AccountRestController {
     }
 
     @PostMapping("/save")
-    public AccountDTO save(@RequestBody AccountDTO accountDTO) throws CustomerNotFoundException{
+    public AccountDTO save(@RequestBody AccountDTO accountDTO) throws CustomerNotFoundException, CustomerAlreadyHaveAccountException {
         return accountService.save(accountDTO);
     }
 

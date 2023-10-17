@@ -2,6 +2,7 @@ package com.brodygaudel.accountservice.service;
 
 import com.brodygaudel.accountservice.dtos.AccountDTO;
 import com.brodygaudel.accountservice.exceptions.AccountNotFoundException;
+import com.brodygaudel.accountservice.exceptions.CustomerAlreadyHaveAccountException;
 import com.brodygaudel.accountservice.exceptions.CustomerNotFoundException;
 
 /**
@@ -35,8 +36,9 @@ public interface AccountService {
      * @param accountDTO The account details to create.
      * @return The created account details as a Data Transfer Object (DTO).
      * @throws CustomerNotFoundException If the customer associated with the account is not found.
+     * @throws CustomerAlreadyHaveAccountException If customer already have an account
      */
-    AccountDTO save(AccountDTO accountDTO) throws CustomerNotFoundException;
+    AccountDTO save(AccountDTO accountDTO) throws CustomerNotFoundException, CustomerAlreadyHaveAccountException;
 
     /**
      * Delete an account by its ID.

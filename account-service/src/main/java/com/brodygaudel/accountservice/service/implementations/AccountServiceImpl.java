@@ -6,6 +6,7 @@ import com.brodygaudel.accountservice.entities.Account;
 import com.brodygaudel.accountservice.entities.Compter;
 import com.brodygaudel.accountservice.enums.AccountStatus;
 import com.brodygaudel.accountservice.exceptions.AccountNotFoundException;
+import com.brodygaudel.accountservice.exceptions.CustomerAlreadyHaveAccountException;
 import com.brodygaudel.accountservice.exceptions.CustomerNotFoundException;
 import com.brodygaudel.accountservice.mappers.Mappers;
 import com.brodygaudel.accountservice.repositories.AccountRepository;
@@ -81,15 +82,18 @@ public class AccountServiceImpl implements AccountService {
      * @param accountDTO The account details to create.
      * @return The created account details as a Data Transfer Object (DTO).
      * @throws CustomerNotFoundException If the customer associated with the account is not found.
-     *
+     * @throws CustomerAlreadyHaveAccountException If customer already have an account
      */
     @Transactional
     @Override
-    public AccountDTO save(@NotNull AccountDTO accountDTO) throws CustomerNotFoundException {
+    public AccountDTO save(@NotNull AccountDTO accountDTO) throws CustomerNotFoundException, CustomerAlreadyHaveAccountException {
         log.info("In save() :");
         CustomerDTO customer = getCustomerById(accountDTO.customerId());
         if(customer == null){
             throw new CustomerNotFoundException("Customer with id '"+accountDTO.customerId()+"not found");
+        }
+        if(Boolean.TRUE.equals(accountRepository.checkIfCustomerIdExists(customer.id()))){
+            throw new CustomerAlreadyHaveAccountException("this customer already have an account");
         }
         String accountId = autoGenerate();
         Account account = Account.builder()

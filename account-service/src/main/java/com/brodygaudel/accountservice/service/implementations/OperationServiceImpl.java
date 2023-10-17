@@ -107,13 +107,9 @@ public class OperationServiceImpl implements OperationService {
         Account accountUpdated = accountRepository.save(account);
 
         Operation operation = Operation.builder()
-                .id(UUID.randomUUID().toString())
-                .amount(debitDTO.amount())
-                .currency(accountUpdated.getCurrency())
-                .description(debitDTO.description())
-                .type(OperationType.DEBIT)
-                .account(accountUpdated)
-                .date(accountUpdated.getLastUpdate())
+                .id(UUID.randomUUID().toString()).amount(debitDTO.amount())
+                .currency(accountUpdated.getCurrency()).description(debitDTO.description())
+                .type(OperationType.DEBIT).account(accountUpdated).date(accountUpdated.getLastUpdate())
                 .build();
         Operation operationSaved = operationRepository.save(operation);
         log.info("account debited successfully");

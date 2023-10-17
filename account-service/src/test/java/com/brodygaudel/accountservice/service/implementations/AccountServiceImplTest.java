@@ -8,6 +8,7 @@ import com.brodygaudel.accountservice.enums.AccountStatus;
 import com.brodygaudel.accountservice.enums.Currency;
 import com.brodygaudel.accountservice.enums.Sex;
 import com.brodygaudel.accountservice.exceptions.AccountNotFoundException;
+import com.brodygaudel.accountservice.exceptions.CustomerAlreadyHaveAccountException;
 import com.brodygaudel.accountservice.exceptions.CustomerNotFoundException;
 import com.brodygaudel.accountservice.mappers.Mappers;
 import com.brodygaudel.accountservice.repositories.AccountRepository;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -100,7 +101,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    void save() throws CustomerNotFoundException {
+    void save() throws CustomerNotFoundException, CustomerAlreadyHaveAccountException {
         String id = "id";
         String customerId = "customerId";
         AccountDTO accountDTO = new AccountDTO(
