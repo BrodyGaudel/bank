@@ -74,12 +74,53 @@
                 <th>DATE</th>
                 <th>TYPE</th>
                 <th>AMOUNT</th>
+                <th></th>
               </thead>
               <tbody>
               <tr *ngFor="let op of historyModel.operations">
                 <td>{{op.date | date : 'dd-MM-yyyy:HH-mm-ss'}}</td>
                 <td>{{op.type}}</td>
                 <td>{{op.amount | number : '1.2-2'}}</td>
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="showOperation(op)">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel1"><b class="text-primary">OPERATION'S INFORMATION</b></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="mb-2">
+                            <label><b>ID : </b></label>{{operationModel.id}}
+                          </div>
+                          <div class="mb-2">
+                            <label><b>Date : </b></label>{{operationModel.date}}
+                          </div>
+                          <div class="mb-2">
+                            <label><b>Type : </b></label>{{operationModel.type}}
+                          </div>
+                          <div class="mb-2">
+                            <label><b>Currency : </b></label>{{operationModel.currency}}
+                          </div>
+                          <div class="mb-2">
+                            <label><b>Aount : </b></label>{{operationModel.amount}}
+                          </div>
+                          <div class="mb-2">
+                            <label><b>Description : </b></label>{{operationModel.description}}
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
               </tr>
               </tbody>
             </table>

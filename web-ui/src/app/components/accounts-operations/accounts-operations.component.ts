@@ -8,6 +8,7 @@ import {CreditModel} from "../../models/credit.model";
 import {DebitModel} from "../../models/debit.model";
 import {CustomerModel} from "../../models/customer.model";
 import {CustomerService} from "../../services/customer-service/customer.service";
+import {OperationModel} from "../../models/operation.model";
 
 @Component({
   selector: 'app-accounts-operations',
@@ -24,6 +25,7 @@ export class AccountsOperationsComponent implements OnInit{
   errorMessage!: string;
   tmp1: number = 1;
   customerModel!: CustomerModel;
+  operationModel!: OperationModel;
 
 
 
@@ -122,5 +124,9 @@ export class AccountsOperationsComponent implements OnInit{
       segments.push(accountId.slice(i, i + 3));
     }
     return segments.join(' ');
+  }
+
+  showOperation(op: OperationModel) :void {
+    this.operationModel = op;
   }
 }

@@ -1,0 +1,126 @@
+<div class="mt-4 text-white">
+  <p>Under nav bar</p>
+</div>
+<div class="container mt-5 policy">
+
+  <form [formGroup]="newCustomerFormGroup" (ngSubmit)="saveCustomer()">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="mb-3 ml">
+          <label class="form-label">
+            <b style="color:#000000">Firstname</b><span class="required-field">*</span>
+          </label>
+          <input type="text" formControlName="firstname" class="form-control" placeholder="exemple: Karl">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['firstname'].touched
+                && newCustomerFormGroup.controls['firstname'].errors
+                && newCustomerFormGroup.controls['firstname'].errors!['required']">
+                firstname is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">Name</b><span class="required-field">*</span>
+          </label>
+          <input type="text" formControlName="name" class="form-control" placeholder="exemple: WALID">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['name'].touched
+              && newCustomerFormGroup.controls['name'].errors
+              && newCustomerFormGroup.controls['name'].errors!['required']">
+              name is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">Place Of Birth</b><span class="required-field">*</span>
+          </label>
+          <input type="text" formControlName="placeOfBirth" class="form-control" placeholder="exemple: London">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['placeOfBirth'].touched
+              && newCustomerFormGroup.controls['placeOfBirth'].errors
+              && newCustomerFormGroup.controls['placeOfBirth'].errors!['required']">
+              place of birth is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">Phone</b><span class="required-field">*</span>
+          </label>
+          <input type="text" formControlName="phone" class="form-control" placeholder="exemple: +216 12345678">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['phone'].touched
+              && newCustomerFormGroup.controls['phone'].errors
+              && newCustomerFormGroup.controls['phone'].errors!['required']">
+              phone is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">Email</b><span class="required-field">*</span>
+          </label>
+          <input type="text" formControlName="email" class="form-control" placeholder="exemple: spring@google.com">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['email'].touched
+              && newCustomerFormGroup.controls['email'].errors
+              && newCustomerFormGroup.controls['email'].errors!['required']">
+              email is required
+          </span>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">Sex</b><span class="required-field">*</span>
+          </label>
+          <select formControlName="sex" class="form-control">
+            <option>M</option>
+            <option>F</option>
+          </select>
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['sex'].touched
+              && newCustomerFormGroup.controls['sex'].errors
+              && newCustomerFormGroup.controls['sex'].errors!['required']">
+              Sex is required
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">Date of Birth</b><span class="required-field">*</span>
+          </label>
+          <input type="date" formControlName="dateOfBirth" class="form-control" placeholder="exemple: spring@google.com">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['dateOfBirth'].touched
+              && newCustomerFormGroup.controls['dateOfBirth'].errors
+              && newCustomerFormGroup.controls['dateOfBirth'].errors!['required']">
+              Date of birth is required
+          </span>
+        </div>
+
+
+
+        <div class="mb-3">
+          <label class="form-label">
+            <b style="color:#000000">CIN</b><span class="required-field">*</span>
+          </label>
+          <input type="text" formControlName="cin" class="form-control" placeholder="exemple: 1234CIN5678">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['cin'].touched
+              && newCustomerFormGroup.controls['cin'].errors
+              && newCustomerFormGroup.controls['cin'].errors!['required']">
+              cin is required
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b style="color:#000000">Nationality</b></label>
+          <input type="text" formControlName="nationality" class="form-control" placeholder="exemple: www.google.com">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['nationality'].touched
+              && newCustomerFormGroup.controls['nationality'].errors
+              && newCustomerFormGroup.controls['nationality'].errors!['required']">
+              nationality is required
+          </span>
+        </div>
+        <div class="mb-3 text-center">
+          <button [disabled]="!newCustomerFormGroup.valid" class="btn btn-primary text-white">
+            Create customer
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

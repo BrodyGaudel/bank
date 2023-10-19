@@ -9,12 +9,14 @@ import { AccountsOperationsComponent } from './components/accounts-operations/ac
 import {NgOptimizedImage} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    AccountsOperationsComponent
+    AccountsOperationsComponent,
+    CreateCustomerComponent
   ],
   imports: [
     BrowserModule,
