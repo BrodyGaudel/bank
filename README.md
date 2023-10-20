@@ -4,7 +4,7 @@ My Bank Admin is a web application for bank management. It is developed using Ja
 
 ## Architecture
 
-![Architecture](https://github.com/BrodyGaudel/bank/assets/57298219/f3a84e33-05be-4c69-9152-7dea6551afd3)
+![Architecture](https://raw.githubusercontent.com/BrodyGaudel/bank/main/architecture.png)
 
 ## Microservices
 
