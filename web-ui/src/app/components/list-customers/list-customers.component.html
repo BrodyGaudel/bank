@@ -1,0 +1,38 @@
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header text-center text-primary"><b>CUSTOMERS FOUND</b></div>
+        <div class="card-body">
+            <table class="table">
+                <caption>operations list</caption>
+                <thead>
+                <th>CIN/Passport</th>
+                <th>Firstname</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let customerModel of customers">
+                    <td>{{customerModel.cin}}</td>
+                    <td>{{customerModel.firstname}}</td>
+                    <td>{{customerModel.name}}</td>
+                    <td>{{customerModel.phone}}</td>
+                    <td>{{customerModel.email}}</td>
+                    <td>
+                        <button class="btn-sm btn btn-primary" (click)="showCustomer(customerModel.id)">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-primary btn-sm" type="button" (click)="previousPage()">Previous</button>
+                <button class="btn btn-primary btn-sm m-lg-3" type="button" (click)="nextPage()">Next</button>
+            </div>
+        </div>
+    </div>
+</div>

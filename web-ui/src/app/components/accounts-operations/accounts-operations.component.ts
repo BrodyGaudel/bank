@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {OperationService} from "../../services/operation-service/operation.service";
-import {AccountService} from "../../services/account-service/account.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {catchError, Observable, throwError} from "rxjs";
 import {HistoryModel} from "../../models/history.model";
@@ -22,8 +21,6 @@ export class AccountsOperationsComponent implements OnInit{
   historyModelObservable!: Observable<HistoryModel>;
   accountFormGroup!: FormGroup;
   operationFromGroup!: FormGroup;
-  errorMessage!: string;
-  tmp1: number = 1;
   customerModel!: CustomerModel;
   operationModel!: OperationModel;
 
@@ -106,7 +103,7 @@ export class AccountsOperationsComponent implements OnInit{
   }
 
 
-    showCustomer(customerId: string) {
+    showCustomer(customerId: string) :void {
       this.customerService.getById(customerId).subscribe({
         next : (data: CustomerModel) : void =>{
           this.customerModel = data;

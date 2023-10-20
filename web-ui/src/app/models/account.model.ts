@@ -3,12 +3,9 @@ export class AccountModel{
   customerId!: string;
   balance!: number;
   currency!: string;
-  status!: AccountStatus;
+  status!: string;
   creation!: string;
   lastUpdate!: string;
 }
 
-enum AccountStatus {
-  ACTIVATED = 'ACTIVATED',
-  BLOCKED = 'BLOCKED'
-}
+

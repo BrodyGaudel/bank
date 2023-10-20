@@ -106,7 +106,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label"><b style="color:#000000">Nationality</b></label>
+          <label class="form-label">
+            <b style="color:#000000">Nationality</b><span class="required-field">*</span>
+          </label>
           <input type="text" formControlName="nationality" class="form-control" placeholder="exemple: www.google.com">
           <span class="text-danger" *ngIf="newCustomerFormGroup.controls['nationality'].touched
               && newCustomerFormGroup.controls['nationality'].errors

@@ -4,19 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AccountsOperationsComponent } from './components/accounts-operations/accounts-operations.component';
 import {NgOptimizedImage} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
+import { ShowCustomerComponent } from './components/show-customer/show-customer.component';
+import { ListCustomersComponent } from './components/list-customers/list-customers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
     AccountsOperationsComponent,
-    CreateCustomerComponent
+    CreateCustomerComponent,
+    ShowCustomerComponent,
+    ListCustomersComponent
   ],
   imports: [
     BrowserModule,

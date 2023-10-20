@@ -1,0 +1,128 @@
+<div class="mt-5 mb-3 text-white">
+  <p>EBANK</p>
+</div>
+<div class="container mt-2 policy">
+  <div class="row">
+    <div class="col-md-6">
+      <ng-container *ngIf="customerModelObservable | async as customerModel">
+        <div class="card shadow">
+          <div class="card-header text-center text-primary"><b>CUSTOMER</b></div>
+          <div class="card-body">
+            <div class="mb-2">
+              <label><b>Firstname : </b></label>{{customerModel.firstname}}
+            </div>
+            <div class="mb-2">
+              <label><b>Name : </b></label>{{customerModel.name}}
+            </div>
+            <div class="mb-2">
+              <label><b>Date of birth : </b></label>{{customerModel.dateOfBirth}}
+            </div>
+            <div class="mb-2">
+              <label><b>Place of birth : </b></label>{{customerModel.placeOfBirth}}
+            </div>
+            <div class="mb-2">
+              <label><b>Nationality : </b></label>{{customerModel.nationality}}
+            </div>
+            <div class="mb-2">
+              <label><b>Sex : </b></label>{{customerModel.sex}}
+            </div>
+            <div class="mb-2">
+              <label><b>CIN/Passport : </b></label>{{customerModel.cin}}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-md-6">
+      <ng-container *ngIf="accountModelObservable | async as accountModel">
+        <div class="card shadow">
+          <div class="card-header text-primary text-center"><b>ACCOUNT</b></div>
+          <div class="card-body">
+            <div class="mb-2">
+              <label><b>Account ID : </b></label>{{accountModel.id}}
+            </div>
+            <div class="mb-2">
+              <label><b>Currency : </b></label>{{accountModel.currency}}
+            </div>
+            <div class="mb-2">
+              <label><b>Balance : </b></label>{{accountModel.balance}}
+            </div>
+            <div class="mb-2">
+              <label><b>Status : </b></label><b class="{{changeColorText(accountModel.status)}}">{{ accountModel.status}}</b>
+            </div>
+            <div class="mb-2">
+              <label><b>Creation : </b></label>{{accountModel.creation | date:'dd/MM/yyyy - HH:mm:ss'}}
+            </div>
+            <div class="mb-2">
+              <label><b>Last Update : </b></label>{{accountModel.lastUpdate | date:'dd/MM/yyyy - HH:mm:ss'}}
+            </div>
+            <div class="mb-1">
+              <button class="btn btn-primary btn-sm" (click)="updateAccountStatus(accountModel)">
+                Change account status
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="tmp==0" class="card shadow">
+        <div class="card-header text-center text-primary"><b>ACCOUNT</b></div>
+        <div  class="card-body">
+          <p>
+            <ngb-alert [dismissible]="false">
+              <strong>Warning!</strong> This customer does not yet have a bank account.
+            </ngb-alert>
+          </p>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Create a bank account
+          </button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Create a bank account</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form [formGroup]="newAccountFormGroup" (ngSubmit)="createAccount()">
+                    <div class="mb-3">
+                      <label class="form-label">
+                        <b style="color:#000000">Currency</b><span class="required-field">*</span>
+                      </label>
+                      <select formControlName="currency" class="form-control">
+                        <option>EUR</option>
+                        <option>USD</option>
+                        <option>CAD</option>
+                        <option>GBP</option>
+                        <option>CHF</option>
+                        <option>RUB</option>
+                        <option>CNY</option>
+                        <option>XAF</option>
+                        <option>XOF</option>
+                        <option>TND</option>
+                        <option>MAD</option>
+                        <option>BRL</option>
+                        <option>NGN</option>
+                        <option>INR</option>
+                      </select>
+                      <span class="text-danger" *ngIf="newAccountFormGroup.controls['currency'].touched
+                        && newAccountFormGroup.controls['currency'].errors
+                        && newAccountFormGroup.controls['currency'].errors!['required']">
+                        Currency is required
+                      </span>
+                    </div>
+                    <button [disabled]="valid" class="btn btn-primary">Save account</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -43,17 +43,16 @@ export class CreateCustomerComponent implements OnInit{
     model.dateOfBirth = this.newCustomerFormGroup.value.dateOfBirth;
     model.placeOfBirth = this.newCustomerFormGroup.value.placeOfBirth;
 
-
     this.service.save(model).subscribe({
       next : data  => {
-        alert("Customer successfully saved with ID :"+data.id);
+        alert("Customer successfully saved");
+        this.router.navigate(["show-customer", data.id]).then();
       },
       error : err => {
         console.log(err)
         alert("Customer not saved due to : "+err.message);
       }
     });
-    this.router.navigateByUrl("/show-customer").then();
   }
 
 }
