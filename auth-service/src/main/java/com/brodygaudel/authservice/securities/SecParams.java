@@ -1,15 +1,21 @@
 package com.brodygaudel.authservice.securities;
 
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Getter
+@Component
 public class SecParams {
-    public static final long EXP_TIME = 864000000;
-    public static final String SECRET = "security@spring.io";
-    public static final String AUTHORIZATION = "Authorization";
-    public static final String BEARER = "Bearer ";
-    public static final String ROLES = "roles";
 
+    @Value("${secret}")
+    private String secret;
 
+    @Value("${expired-time}")
+    private Long expiredTime;
 
-    private SecParams(){
+    public SecParams(){
         super();
     }
+
 }

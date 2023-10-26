@@ -4,6 +4,7 @@ import {AccountsOperationsComponent} from "./components/accounts-operations/acco
 import {CreateCustomerComponent} from "./components/create-customer/create-customer.component";
 import {ShowCustomerComponent} from "./components/show-customer/show-customer.component";
 import {ListCustomersComponent} from "./components/list-customers/list-customers.component";
+import {LoginComponent} from "./components/login/login.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'accounts-operations', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'create-customer', component: CreateCustomerComponent},
   {path: 'show-customer/:id', component: ShowCustomerComponent},
   {path: 'list-customers/:id', component: ListCustomersComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

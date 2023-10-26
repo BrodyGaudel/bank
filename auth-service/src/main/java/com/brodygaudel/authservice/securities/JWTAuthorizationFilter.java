@@ -24,20 +24,28 @@ import java.util.List;
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
+    private static final String BEARER = "Bearer ";
+    private static final String ROLES = "roles";
+    private static final String AUTHORIZATION = "Authorization";
+    private final SecParams secParams;
+
+    public JWTAuthorizationFilter(SecParams secParams) {
+        this.secParams = secParams;
+    }
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
-        String jwt =request.getHeader(SecParams.AUTHORIZATION);
-        if (jwt==null || !jwt.startsWith(SecParams.BEARER)) {
+        String jwt =request.getHeader(AUTHORIZATION);
+        if (jwt==null || !jwt.startsWith(BEARER)) {
             filterChain.doFilter(request, response);
             return;
         }
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SecParams.SECRET)).build();
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secParams.getSecret())).build();
         jwt= jwt.substring(7);
         DecodedJWT decodedJWT = verifier.verify(jwt);
 
         String username = decodedJWT.getSubject();
-        List<String> roles = decodedJWT.getClaims().get(SecParams.ROLES).asList(String.class);
+        List<String> roles = decodedJWT.getClaims().get(ROLES).asList(String.class);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
         for (String r : roles){

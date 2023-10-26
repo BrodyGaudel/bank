@@ -18,7 +18,6 @@ public class SecurityConfig {
 
     private static final String ADMIN = "ADMIN";
 
-
     private final JWTAuthorizationFilter authorizationFilter;
 
     public SecurityConfig(JWTAuthorizationFilter authorizationFilter) {

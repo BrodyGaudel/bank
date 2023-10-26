@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
 import { ShowCustomerComponent } from './components/show-customer/show-customer.component';
 import { ListCustomersComponent } from './components/list-customers/list-customers.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ListCustomersComponent } from './components/list-customers/list-custome
     AccountsOperationsComponent,
     CreateCustomerComponent,
     ShowCustomerComponent,
-    ListCustomersComponent
+    ListCustomersComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
