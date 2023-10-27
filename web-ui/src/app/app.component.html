@@ -7,20 +7,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active shadow text-white" aria-current="page" routerLink="accounts-operations"><b>ACCOUNT</b></a>
+          <a *ngIf="authService.isAdmin()" class="nav-link active shadow text-white" aria-current="page" routerLink="accounts-operations"><b>ACCOUNT</b></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active shadow text-white" aria-current="page" routerLink="create-customer"><b>CUSTOMER</b></a>
+          <a *ngIf="authService.isAdmin()" class="nav-link active shadow text-white" aria-current="page" routerLink="create-customer"><b>CUSTOMER</b></a>
         </li>
-
-
-
       </ul>
-      <form class="d-flex" [formGroup]="searchFormGroup" (ngSubmit)="searchCustomer()">
+      <form *ngIf="authService.isAdmin()" class="d-flex" [formGroup]="searchFormGroup" (ngSubmit)="searchCustomer()">
         <input class="form-control me-2" type="text" placeholder="search" formControlName="keyword" >
         <button class="btn btn-warning text-white">Search</button>
       </form>
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{authService.getLoggedUser()}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li> <a class="nav-link">{{authService.getLoggedUser()}}</a></li>
+            <li><a *ngIf="!authService.checkIfIsLoggedIn()" class="dropdown-item" routerLink = "login">login</a></li>
+            <li><a *ngIf="authService.checkIfIsLoggedIn" class="dropdown-item" (click) = "onLogout()">logout</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
+
+
   </div>
 </nav>
 <router-outlet></router-outlet>
