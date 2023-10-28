@@ -30,4 +30,4 @@ spring:
 
 eureka:
   instance:
-    prefer-ip-address: true
+    preferIpAddress: true
