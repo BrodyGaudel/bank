@@ -1,11 +1,10 @@
-package com.brodygaudel.authservice.services.implementation;
+package com.brodygaudel.authservice.service.implementation;
 
-import com.brodygaudel.authservice.entities.Role;
-import com.brodygaudel.authservice.entities.User;
-import com.brodygaudel.authservice.repositories.RoleRepository;
-import com.brodygaudel.authservice.repositories.UserRepository;
-import com.brodygaudel.authservice.services.UserService;
-import org.jetbrains.annotations.NotNull;
+import com.brodygaudel.authservice.entity.Role;
+import com.brodygaudel.authservice.entity.User;
+import com.brodygaudel.authservice.repository.RoleRepository;
+import com.brodygaudel.authservice.repository.UserRepository;
+import com.brodygaudel.authservice.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -26,9 +24,8 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
     @Override
-    public User saveUser(@NotNull User user) {
+    public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -44,9 +41,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addRoleToUser(String username, String rolename) {
+    public User addRoleToUser(String username, String roleName) {
         User user = userRepository.findByUsername(username);
-        Role role = roleRepository.findByName(rolename);
+        Role role = roleRepository.findByName(roleName);
         if(user == null || role == null){
             return null;
         }
@@ -57,9 +54,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User removeRoleToUser(String username, String rolename) {
+    public User removeRoleToUser(String username, String roleName) {
         User user = userRepository.findByUsername(username);
-        Role role = roleRepository.findByName(rolename);
+        Role role = roleRepository.findByName(roleName);
         if(user == null || role == null){
             return null;
         }

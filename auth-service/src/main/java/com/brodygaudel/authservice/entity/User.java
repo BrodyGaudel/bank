@@ -1,4 +1,4 @@
-package com.brodygaudel.authservice.entities;
+package com.brodygaudel.authservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,8 +19,12 @@ public class User {
     private Long id;
     @Column(unique=true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
     private Boolean enabled;
+
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="user_role",joinColumns = @JoinColumn(name="user_id") , inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles;

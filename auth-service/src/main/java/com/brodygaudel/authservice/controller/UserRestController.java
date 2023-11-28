@@ -1,9 +1,9 @@
-package com.brodygaudel.authservice.restcontrollers;
+package com.brodygaudel.authservice.controller;
 
-import com.brodygaudel.authservice.dtos.Form;
-import com.brodygaudel.authservice.entities.Role;
-import com.brodygaudel.authservice.entities.User;
-import com.brodygaudel.authservice.services.UserService;
+import com.brodygaudel.authservice.dto.Form;
+import com.brodygaudel.authservice.entity.Role;
+import com.brodygaudel.authservice.entity.User;
+import com.brodygaudel.authservice.service.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 

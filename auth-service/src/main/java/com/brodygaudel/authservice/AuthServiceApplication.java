@@ -1,9 +1,9 @@
 package com.brodygaudel.authservice;
 
-import com.brodygaudel.authservice.entities.Role;
-import com.brodygaudel.authservice.entities.User;
-import com.brodygaudel.authservice.repositories.RoleRepository;
-import com.brodygaudel.authservice.services.UserService;
+import com.brodygaudel.authservice.entity.Role;
+import com.brodygaudel.authservice.entity.User;
+import com.brodygaudel.authservice.repository.RoleRepository;
+import com.brodygaudel.authservice.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,18 +29,9 @@ public class AuthServiceApplication {
 				List<Role> rolesSaved = roleRepository.saveAll(
 						List.of(adminRole, userRole)
 				);
-
-				User user = User.builder()
-						.enabled(true)
-						.username("admin")
-						.password("admin")
-						.roles(rolesSaved)
-						.id(1L)
-						.build();
+				User user = User.builder().enabled(true).username("admin").password("admin").roles(rolesSaved).id(1L).build();
 				userService.saveUser(user);
 			}
 		};
 	}
-
-
 }

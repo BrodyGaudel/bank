@@ -1,11 +1,13 @@
-package com.brodygaudel.authservice.securities;
+package com.brodygaudel.authservice.service.implementation;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.brodygaudel.authservice.dtos.AuthenticationRequest;
-import com.brodygaudel.authservice.dtos.AuthenticationResponse;
-import com.brodygaudel.authservice.entities.User;
-import com.brodygaudel.authservice.repositories.UserRepository;
+import com.brodygaudel.authservice.dto.AuthenticationRequest;
+import com.brodygaudel.authservice.dto.AuthenticationResponse;
+import com.brodygaudel.authservice.entity.User;
+import com.brodygaudel.authservice.repository.UserRepository;
+import com.brodygaudel.authservice.security.SecParams;
+import com.brodygaudel.authservice.service.AuthenticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,19 +20,20 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final SecParams secParams;
 
-    public AuthenticationService(AuthenticationManager authenticationManager, UserRepository userRepository, SecParams secParams) {
+    public AuthenticationServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository, SecParams secParams) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.secParams = secParams;
     }
 
-    public AuthenticationResponse authenticate(@NotNull AuthenticationRequest request){
+    @Override
+    public AuthenticationResponse authenticate(@NotNull AuthenticationRequest request) {
         log.info("In authenticate()");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(), request.password())

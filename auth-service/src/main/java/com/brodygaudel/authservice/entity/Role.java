@@ -1,4 +1,4 @@
-package com.brodygaudel.authservice.entities;
+package com.brodygaudel.authservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

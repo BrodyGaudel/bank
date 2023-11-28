@@ -1,7 +1,7 @@
-package com.brodygaudel.authservice.securities;
+package com.brodygaudel.authservice.security;
 
-import com.brodygaudel.authservice.entities.User;
-import com.brodygaudel.authservice.repositories.UserRepository;
+import com.brodygaudel.authservice.entity.User;
+import com.brodygaudel.authservice.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

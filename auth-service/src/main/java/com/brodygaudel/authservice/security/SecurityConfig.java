@@ -1,6 +1,4 @@
-package com.brodygaudel.authservice.securities;
-
-
+package com.brodygaudel.authservice.security;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
-package com.brodygaudel.authservice.repositories;
+package com.brodygaudel.authservice.repository;
 
-import com.brodygaudel.authservice.entities.Role;
+import com.brodygaudel.authservice.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {

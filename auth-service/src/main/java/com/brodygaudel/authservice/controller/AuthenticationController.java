@@ -1,8 +1,8 @@
-package com.brodygaudel.authservice.restcontrollers;
+package com.brodygaudel.authservice.controller;
 
-import com.brodygaudel.authservice.dtos.AuthenticationRequest;
-import com.brodygaudel.authservice.dtos.AuthenticationResponse;
-import com.brodygaudel.authservice.securities.AuthenticationService;
+import com.brodygaudel.authservice.dto.AuthenticationRequest;
+import com.brodygaudel.authservice.dto.AuthenticationResponse;
+import com.brodygaudel.authservice.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
