@@ -1,9 +1,10 @@
-package com.brodygaudel.customerservice.securities;
+package com.brodygaudel.customerservice.security;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
+@NoArgsConstructor
 @Getter
 @Component
 public class SecParams {
@@ -13,8 +14,4 @@ public class SecParams {
 
     @Value("${expired-time}")
     private Long expiredTime;
-
-    public SecParams(){
-        super();
-    }
 }

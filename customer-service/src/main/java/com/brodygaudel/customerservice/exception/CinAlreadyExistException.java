@@ -1,4 +1,4 @@
-package com.brodygaudel.customerservice.exceptions;
+package com.brodygaudel.customerservice.exception;
 
 /**
  * The {@code EmailAlreadyExistException} class is an exception that is thrown to indicate
@@ -21,19 +21,19 @@ package com.brodygaudel.customerservice.exceptions;
  * }
  * </pre>
  * </p>
- * @author Brody Gaudel
+ * @author Brody Gaudel MOUNANGA BOUKA
  * @see Exception
  */
-public class EmailAlreadyExistException extends Exception {
+public class CinAlreadyExistException extends Exception{
     /**
-     * Constructs a new {@code EmailAlreadyExistException} with the specified detail message.
-     * The cause is not initialized and may subsequently be initialized by a call to {@link #initCause}.
+     * Constructs a new exception with the specified detail message.  The
+     * cause is not initialized, and may subsequently be initialized by
+     * a call to {@link #initCause}.
      *
-     * @param message The detail message. The detail message is saved for later retrieval
-     *                by the {@link #getMessage()} method.
+     * @param message the detail message. The detail message is saved for
+     *                later retrieval by the {@link #getMessage()} method.
      */
-    public EmailAlreadyExistException(String message) {
+    public CinAlreadyExistException(String message) {
         super(message);
     }
 }
-

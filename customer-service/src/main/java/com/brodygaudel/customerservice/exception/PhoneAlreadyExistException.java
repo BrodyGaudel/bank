@@ -1,4 +1,4 @@
-package com.brodygaudel.customerservice.exceptions;
+package com.brodygaudel.customerservice.exception;
 
 /**
  * The {@code PhoneAlreadyExistException} class is an exception that is thrown to indicate
@@ -24,18 +24,18 @@ package com.brodygaudel.customerservice.exceptions;
  *
  * @see Exception
  *
- * @author Brody Gaudel
+ * @author Brody Gaudel MOUNANGA BOUKA
  */
-public class PhoneAlreadyExistException extends Exception {
+public class PhoneAlreadyExistException extends Exception{
     /**
-     * Constructs a new {@code PhoneAlreadyExistException} with the specified detail message.
-     * The cause is not initialized and may subsequently be initialized by a call to {@link #initCause}.
+     * Constructs a new exception with the specified detail message.  The
+     * cause is not initialized, and may subsequently be initialized by
+     * a call to {@link #initCause}.
      *
-     * @param message The detail message. The detail message is saved for later retrieval
-     *                by the {@link #getMessage()} method.
+     * @param message the detail message. The detail message is saved for
+     *                later retrieval by the {@link #getMessage()} method.
      */
     public PhoneAlreadyExistException(String message) {
         super(message);
     }
 }
-

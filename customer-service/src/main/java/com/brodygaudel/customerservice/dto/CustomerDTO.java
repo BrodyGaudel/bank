@@ -1,4 +1,4 @@
-package com.brodygaudel.customerservice.dtos;
+package com.brodygaudel.customerservice.dto;
 
 import com.brodygaudel.customerservice.enums.Sex;
 
@@ -17,4 +17,5 @@ public record CustomerDTO(String id,
                           String phone,
                           LocalDateTime creation,
                           LocalDateTime lastUpdate) {
+
 }

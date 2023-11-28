@@ -1,4 +1,4 @@
-package com.brodygaudel.customerservice.entities;
+package com.brodygaudel.customerservice.entity;
 
 import com.brodygaudel.customerservice.enums.Sex;
 import jakarta.persistence.*;
@@ -48,5 +48,6 @@ public class Customer {
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime creation;
+
     private LocalDateTime lastUpdate;
 }

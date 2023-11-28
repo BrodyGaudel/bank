@@ -1,12 +1,12 @@
-package com.brodygaudel.customerservice.restcontrollers;
+package com.brodygaudel.customerservice.controller;
 
-import com.brodygaudel.customerservice.dtos.CustomerDTO;
-import com.brodygaudel.customerservice.dtos.CustomerPageDTO;
-import com.brodygaudel.customerservice.exceptions.CinAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.CustomerNotFoundException;
-import com.brodygaudel.customerservice.exceptions.EmailAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.PhoneAlreadyExistException;
-import com.brodygaudel.customerservice.services.CustomerService;
+import com.brodygaudel.customerservice.dto.CustomerDTO;
+import com.brodygaudel.customerservice.dto.CustomerPageDTO;
+import com.brodygaudel.customerservice.exception.CinAlreadyExistException;
+import com.brodygaudel.customerservice.exception.CustomerNotFoundException;
+import com.brodygaudel.customerservice.exception.EmailAlreadyExistException;
+import com.brodygaudel.customerservice.exception.PhoneAlreadyExistException;
+import com.brodygaudel.customerservice.service.CustomerService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class CustomerRestController {
     }
 
     @PostMapping("/save")
-    public CustomerDTO save(@RequestBody CustomerDTO customerDTO) throws CinAlreadyExistException, EmailAlreadyExistException, PhoneAlreadyExistException{
+    public CustomerDTO save(@RequestBody CustomerDTO customerDTO) throws CinAlreadyExistException, EmailAlreadyExistException, PhoneAlreadyExistException {
         return customerService.save(customerDTO);
     }
 
@@ -33,7 +33,7 @@ public class CustomerRestController {
     }
 
     @GetMapping("/get/{id}")
-    public CustomerDTO getById(@PathVariable String id) throws CustomerNotFoundException{
+    public CustomerDTO getById(@PathVariable String id) throws CustomerNotFoundException {
         return customerService.getById(id);
     }
 

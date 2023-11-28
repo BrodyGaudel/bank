@@ -1,6 +1,6 @@
-package com.brodygaudel.customerservice.repositories;
+package com.brodygaudel.customerservice.repository;
 
-import com.brodygaudel.customerservice.entities.Customer;
+import com.brodygaudel.customerservice.entity.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CustomerRepository extends JpaRepository<Customer, String> {
+
     /**
      * Checks if a customer with the given national ID (CIN) exists.
      *
@@ -53,6 +54,4 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
      */
     @Query("SELECT c FROM Customer c ORDER BY c.cin")
     Page<Customer> getAllByPage(Pageable pageable);
-
-
 }

@@ -1,15 +1,15 @@
-package com.brodygaudel.customerservice.services.implementations;
+package com.brodygaudel.customerservice.service.implementation;
 
-import com.brodygaudel.customerservice.dtos.CustomerDTO;
-import com.brodygaudel.customerservice.dtos.CustomerPageDTO;
-import com.brodygaudel.customerservice.entities.Customer;
-import com.brodygaudel.customerservice.exceptions.CinAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.CustomerNotFoundException;
-import com.brodygaudel.customerservice.exceptions.EmailAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.PhoneAlreadyExistException;
-import com.brodygaudel.customerservice.mappers.Mappers;
-import com.brodygaudel.customerservice.repositories.CustomerRepository;
-import com.brodygaudel.customerservice.services.CustomerService;
+import com.brodygaudel.customerservice.dto.CustomerDTO;
+import com.brodygaudel.customerservice.dto.CustomerPageDTO;
+import com.brodygaudel.customerservice.entity.Customer;
+import com.brodygaudel.customerservice.exception.CinAlreadyExistException;
+import com.brodygaudel.customerservice.exception.CustomerNotFoundException;
+import com.brodygaudel.customerservice.exception.EmailAlreadyExistException;
+import com.brodygaudel.customerservice.exception.PhoneAlreadyExistException;
+import com.brodygaudel.customerservice.repository.CustomerRepository;
+import com.brodygaudel.customerservice.service.CustomerService;
+import com.brodygaudel.customerservice.util.Mappers;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ import java.util.UUID;
  * </pre>
  * </p>
  *
- * @author Brody Gaudel
+ * @author Brody Gaudel MOUNANGA BOUKA
  *
  * @see CustomerService
  * @see CustomerRepository
@@ -55,6 +56,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
+
 
     private static final String ALREADY_EXIST = "' already exist.";
     private static final String CUSTOMER_WITH_EMAIL = "A customer with email :'";
@@ -80,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Transactional
     @Override
-    public CustomerDTO save(@NotNull CustomerDTO customerDTO) throws CinAlreadyExistException, EmailAlreadyExistException, PhoneAlreadyExistException {
+    public CustomerDTO save(CustomerDTO customerDTO) throws CinAlreadyExistException, EmailAlreadyExistException, PhoneAlreadyExistException {
         log.info("In save() :");
         checkIfCinOrEmailOrPhoneExistBeforeSave(customerDTO);
         Customer customer = mappers.fromCustomerDTO(customerDTO);
@@ -105,11 +107,10 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Transactional
     @Override
-    public CustomerDTO update(String id, @NotNull CustomerDTO customerDTO) throws CustomerNotFoundException, CinAlreadyExistException, EmailAlreadyExistException, PhoneAlreadyExistException {
+    public CustomerDTO update(String id, CustomerDTO customerDTO) throws CustomerNotFoundException, CinAlreadyExistException, EmailAlreadyExistException, PhoneAlreadyExistException {
         log.info("In update() :");
         Customer customer = customerRepository.findById(id)
                 .orElseThrow( ()-> new CustomerNotFoundException("customer you try to update with id = '"+id+"' not found."));
-
         checkIfCinOrEmailOrPhoneExistBeforeUpdate(customer, customerDTO);
         updateCustomerFields(customer, customerDTO);
         Customer customerUpdate = customerRepository.save(customer);
@@ -136,27 +137,30 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * Retrieves a list of customer pages.
      *
+     * @param size int
+     * @param page int
      * @return A list of {@code CustomerPageDTO} representing customer pages.
      */
     @Override
     public CustomerPageDTO getAll(int size, int page) {
         log.info("In getAll() :");
         Page<Customer> customers = customerRepository.getAllByPage(PageRequest.of(page, size));
-        List<CustomerDTO> customerDTOList = customers.getContent()
-                .stream().map(mappers::fromCustomer).toList();
-        log.info("all customers found");
-        return new CustomerPageDTO(
-                page,
-                size,
-                customers.getTotalPages(),
-                customerDTOList
-        );
+        if(customers.getContent().isEmpty()){
+            return new CustomerPageDTO(page, size, 0, Collections.emptyList());
+        }else{
+            List<CustomerDTO> customerDTOList = mappers.fromListOfCustomers(customers.getContent());
+            log.info("all customers found");
+            return new CustomerPageDTO(page, size, customers.getTotalPages(), customerDTOList);
+        }
+
     }
 
     /**
      * Searches for customer pages based on the provided keyword.
      *
      * @param keyword The keyword to be used for searching.
+     * @param page int
+     * @param size int
      * @return A list of {@code CustomerPageDTO} representing the search results.
      */
     @Override
@@ -164,15 +168,15 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("In search() :");
         Page<Customer> customers = customerRepository
                 .searchByFirstnameOrNameOrCin("%"+keyword+"%", PageRequest.of(page, size));
-        List<CustomerDTO> customerDTOList = customers.getContent()
-                .stream().map(mappers::fromCustomer).toList();
-        log.info("all customers found for keyword :'"+keyword);
-        return new CustomerPageDTO(
-                page,
-                size,
-                customers.getTotalPages(),
-                customerDTOList
-        );
+
+        if(customers.getContent().isEmpty()){
+            return new CustomerPageDTO(page, size, 0, Collections.emptyList());
+        }else{
+            List<CustomerDTO> customerDTOList = mappers.fromListOfCustomers(customers.getContent());
+            log.info("all customers found for keyword :'"+keyword);
+            return new CustomerPageDTO(page, size, customers.getTotalPages(), customerDTOList);
+        }
+
     }
 
     /**
@@ -186,7 +190,6 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.deleteById(id);
         log.info("customer deleted");
     }
-
 
     /**
      * Updates the fields of an existing Customer object with the information from a CustomerDTO.
@@ -295,5 +298,4 @@ public class CustomerServiceImpl implements CustomerService {
             throw new PhoneAlreadyExistException(CUSTOMER_WITH_PHONE + phone + ALREADY_EXIST);
         }
     }
-
 }

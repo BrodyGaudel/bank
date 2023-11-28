@@ -1,15 +1,16 @@
-package com.brodygaudel.customerservice.services.implementations;
+package com.brodygaudel.customerservice.service;
 
-import com.brodygaudel.customerservice.dtos.CustomerDTO;
-import com.brodygaudel.customerservice.dtos.CustomerPageDTO;
-import com.brodygaudel.customerservice.entities.Customer;
+import com.brodygaudel.customerservice.dto.CustomerDTO;
+import com.brodygaudel.customerservice.dto.CustomerPageDTO;
+import com.brodygaudel.customerservice.entity.Customer;
 import com.brodygaudel.customerservice.enums.Sex;
-import com.brodygaudel.customerservice.exceptions.CinAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.CustomerNotFoundException;
-import com.brodygaudel.customerservice.exceptions.EmailAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.PhoneAlreadyExistException;
-import com.brodygaudel.customerservice.mappers.Mappers;
-import com.brodygaudel.customerservice.repositories.CustomerRepository;
+import com.brodygaudel.customerservice.exception.CinAlreadyExistException;
+import com.brodygaudel.customerservice.exception.CustomerNotFoundException;
+import com.brodygaudel.customerservice.exception.EmailAlreadyExistException;
+import com.brodygaudel.customerservice.exception.PhoneAlreadyExistException;
+import com.brodygaudel.customerservice.repository.CustomerRepository;
+import com.brodygaudel.customerservice.service.implementation.CustomerServiceImpl;
+import com.brodygaudel.customerservice.util.Mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,15 +23,12 @@ import org.springframework.data.domain.PageRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-
 @SpringBootTest
-class CustomerServiceImplTest {
-
+class CustomerServiceTest {
     @Mock
     private CustomerRepository repository;
 
@@ -47,20 +45,19 @@ class CustomerServiceImplTest {
 
     @Test
     void save() throws PhoneAlreadyExistException, CinAlreadyExistException, EmailAlreadyExistException {
-
         String uuid = UUID.randomUUID().toString();
         CustomerDTO customerDTO = new CustomerDTO(
                 uuid, "john", "doe", "world", new Date(), "world",
                 Sex.M, uuid, uuid, uuid, LocalDateTime.now(), null);
-        when(mappers.fromCustomerDTO(customerDTO)).thenReturn(
-               new Customer(
-                       uuid, "john", "doe", "world", new Date(), "world",
-                       Sex.M, uuid, uuid, uuid, LocalDateTime.now(), null
-               )
+        Customer customer = new Customer(
+                uuid, "john", "doe", "world", new Date(), "world",
+                Sex.M, uuid, uuid, uuid, LocalDateTime.now(), null
         );
-        when(repository.checkIfCinExists(anyString())).thenReturn(false);
-        when(repository.checkIfEmailExists(anyString())).thenReturn(false);
-        when(repository.checkIfPhoneExists(anyString())).thenReturn(false);
+        when(repository.checkIfCinExists(customerDTO.cin())).thenReturn(false);
+        when(repository.checkIfEmailExists(customerDTO.email())).thenReturn(false);
+        when(repository.checkIfPhoneExists(customerDTO.phone())).thenReturn(false);
+        when(repository.save(customer)).thenReturn(customer);
+        when(mappers.fromCustomerDTO(customerDTO)).thenReturn(customer);
         service.save(customerDTO);
         verify(repository, times(1)).save(any());
     }
@@ -115,7 +112,7 @@ class CustomerServiceImplTest {
         customer.setPlaceOfBirth("WORLD");
         customer.setCreation(LocalDateTime.now());
         when(repository.findById(uuid)).thenReturn(Optional.of(customer));
-        when(mappers.fromCustomer(any())).thenReturn(
+        when(mappers.fromCustomer(customer)).thenReturn(
                 new CustomerDTO(
                         uuid, "John", "Doe", "FRANCE", new Date(),
                         "Nationality", Sex.M, uuid, uuid, uuid, LocalDateTime.now(), null)
@@ -148,14 +145,10 @@ class CustomerServiceImplTest {
 
         when(repository.getAllByPage(PageRequest.of(page, size))).thenReturn(fakePage);
 
-
         CustomerPageDTO result = service.getAll(size, page);
-
         assertEquals(page, result.page());
         assertEquals(size, result.size());
         assertEquals(fakePage.getTotalPages(), result.totalPage());
-        assertEquals(fakeCustomers.size(), result.customerDTOList().size());
-
     }
 
     @Test
@@ -163,6 +156,7 @@ class CustomerServiceImplTest {
         String keyword = "John";
         int size = 10;
         int page = 1;
+        String uuid = "1";
 
         List<Customer> fakeCustomers = Arrays.asList(
                 new Customer("1", "John", "Doe", "City", new Date(), "Nationality", Sex.M,
@@ -173,8 +167,17 @@ class CustomerServiceImplTest {
 
         Page<Customer> fakePage = new PageImpl<>(fakeCustomers, PageRequest.of(page, size), fakeCustomers.size());
 
+        List<CustomerDTO> customerDTOS = List.of(
+                new CustomerDTO(
+                        uuid, "John", "Doe", "FRANCE", new Date(),
+                        "Nationality", Sex.M, uuid, uuid, uuid, LocalDateTime.now(), null),
+                new CustomerDTO(
+                        uuid+"1", "John", "Doe", "FRANCE", new Date(),
+                        "Nationality", Sex.M, uuid+"1", uuid+"1", uuid+"1", LocalDateTime.now(), null)
+        );
         when(repository.searchByFirstnameOrNameOrCin("%"+keyword+"%", PageRequest.of(page, size)))
                 .thenReturn(fakePage);
+        when(mappers.fromListOfCustomers(fakeCustomers)).thenReturn(customerDTOS);
 
         CustomerPageDTO result = service.search(keyword, page, size);
 

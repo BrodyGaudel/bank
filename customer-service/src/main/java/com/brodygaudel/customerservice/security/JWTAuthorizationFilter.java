@@ -1,4 +1,4 @@
-package com.brodygaudel.customerservice.securities;
+package com.brodygaudel.customerservice.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,11 +1,11 @@
-package com.brodygaudel.customerservice.services;
+package com.brodygaudel.customerservice.service;
 
-import com.brodygaudel.customerservice.dtos.CustomerDTO;
-import com.brodygaudel.customerservice.dtos.CustomerPageDTO;
-import com.brodygaudel.customerservice.exceptions.CinAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.CustomerNotFoundException;
-import com.brodygaudel.customerservice.exceptions.EmailAlreadyExistException;
-import com.brodygaudel.customerservice.exceptions.PhoneAlreadyExistException;
+import com.brodygaudel.customerservice.dto.CustomerDTO;
+import com.brodygaudel.customerservice.dto.CustomerPageDTO;
+import com.brodygaudel.customerservice.exception.CinAlreadyExistException;
+import com.brodygaudel.customerservice.exception.CustomerNotFoundException;
+import com.brodygaudel.customerservice.exception.EmailAlreadyExistException;
+import com.brodygaudel.customerservice.exception.PhoneAlreadyExistException;
 
 
 /**
@@ -92,4 +92,3 @@ public interface CustomerService {
      */
     void deleteById(String id);
 }
-

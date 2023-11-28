@@ -1,5 +1,4 @@
-package com.brodygaudel.customerservice.securities;
-
+package com.brodygaudel.customerservice.security;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
