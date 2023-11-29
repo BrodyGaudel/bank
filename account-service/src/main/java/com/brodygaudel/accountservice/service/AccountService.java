@@ -1,9 +1,10 @@
 package com.brodygaudel.accountservice.service;
 
-import com.brodygaudel.accountservice.dtos.AccountDTO;
-import com.brodygaudel.accountservice.exceptions.AccountNotFoundException;
-import com.brodygaudel.accountservice.exceptions.CustomerAlreadyHaveAccountException;
-import com.brodygaudel.accountservice.exceptions.CustomerNotFoundException;
+
+import com.brodygaudel.accountservice.dto.AccountDTO;
+import com.brodygaudel.accountservice.exception.AccountNotFoundException;
+import com.brodygaudel.accountservice.exception.CustomerAlreadyHaveAccountException;
+import com.brodygaudel.accountservice.exception.CustomerNotFoundException;
 
 /**
  * Service interface for managing accounts.

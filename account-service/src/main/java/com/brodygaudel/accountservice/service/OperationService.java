@@ -1,16 +1,15 @@
 package com.brodygaudel.accountservice.service;
 
-import com.brodygaudel.accountservice.dtos.CreditDTO;
-import com.brodygaudel.accountservice.dtos.DebitDTO;
-import com.brodygaudel.accountservice.dtos.HistoryDTO;
-import com.brodygaudel.accountservice.dtos.OperationDTO;
-import com.brodygaudel.accountservice.exceptions.AccountNotActivatedException;
-import com.brodygaudel.accountservice.exceptions.AccountNotFoundException;
-import com.brodygaudel.accountservice.exceptions.BalanceNotSufficientException;
-import com.brodygaudel.accountservice.exceptions.OperationNotFoundException;
+import com.brodygaudel.accountservice.dto.CreditDTO;
+import com.brodygaudel.accountservice.dto.DebitDTO;
+import com.brodygaudel.accountservice.dto.HistoryDTO;
+import com.brodygaudel.accountservice.dto.OperationDTO;
+import com.brodygaudel.accountservice.exception.AccountNotActivatedException;
+import com.brodygaudel.accountservice.exception.AccountNotFoundException;
+import com.brodygaudel.accountservice.exception.BalanceNotSufficientException;
+import com.brodygaudel.accountservice.exception.OperationNotFoundException;
 
 public interface OperationService {
-
     /**
      * Credit funds to an account.
      *
@@ -52,6 +51,4 @@ public interface OperationService {
      * @throws AccountNotFoundException if account not found
      */
     HistoryDTO getHistory(String accountId, int page, int size) throws AccountNotFoundException;
-
-
 }
