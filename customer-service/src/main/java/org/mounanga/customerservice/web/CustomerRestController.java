@@ -1,6 +1,7 @@
 package org.mounanga.customerservice.web;
 
 import jakarta.validation.Valid;
+import org.mounanga.customerservice.dto.CustomerExistResponse;
 import org.mounanga.customerservice.dto.CustomerPageResponse;
 import org.mounanga.customerservice.dto.CustomerRequest;
 import org.mounanga.customerservice.dto.CustomerResponse;
@@ -53,5 +54,10 @@ public class CustomerRestController {
     @DeleteMapping("/delete/{id}")
     public void deleteCustomer(@PathVariable String id){
         customerService.deleteCustomer(id);
+    }
+
+    @GetMapping("/exist/{id}")
+    public CustomerExistResponse checkCustomerExist(@PathVariable String id){
+        return customerService.checkCustomerExist(id);
     }
 }

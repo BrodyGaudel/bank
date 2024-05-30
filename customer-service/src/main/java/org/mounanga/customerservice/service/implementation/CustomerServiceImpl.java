@@ -2,6 +2,7 @@ package org.mounanga.customerservice.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.mounanga.customerservice.dto.CustomerExistResponse;
 import org.mounanga.customerservice.service.CustomerService;
 import org.mounanga.customerservice.dto.CustomerPageResponse;
 import org.mounanga.customerservice.dto.CustomerRequest;
@@ -94,6 +95,14 @@ public class CustomerServiceImpl implements CustomerService {
         }catch (Exception e) {
             log.error(e.getMessage());
         }
+    }
+
+    @Override
+    public CustomerExistResponse checkCustomerExist(String id) {
+        log.info("In checkCustomerExist");
+        boolean exists = customerRepository.existsById(id);
+        log.info("customer with id '{}' exists : {}.", id, exists);
+        return new CustomerExistResponse(exists);
     }
 
     private Customer findCustomerById(String id) {

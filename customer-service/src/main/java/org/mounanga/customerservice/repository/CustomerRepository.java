@@ -1,5 +1,6 @@
 package org.mounanga.customerservice.repository;
 
+import org.jetbrains.annotations.NotNull;
 import org.mounanga.customerservice.entity.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     Optional<Customer> findByCin(String cin);
 
     boolean existsByCin(String cin);
+
+    boolean existsById(@NotNull String id);
 }
