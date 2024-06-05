@@ -3,6 +3,7 @@ package org.mounanga.customerservice.service.implementation;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.mounanga.customerservice.dto.CustomerExistResponse;
+import org.mounanga.customerservice.exception.EmailAlreadyExistException;
 import org.mounanga.customerservice.service.CustomerService;
 import org.mounanga.customerservice.dto.CustomerPageResponse;
 import org.mounanga.customerservice.dto.CustomerRequest;
@@ -80,6 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setCin(request.getCin());
         customer.setPlaceOfBirth(request.getPlaceOfBirth());
         customer.setSex(request.getSex());
+        customer.setEmail(request.getEmail());
         customer.setNationality(request.getNationality());
         Customer updatedCustomer = customerRepository.save(customer);
         log.info("customer with id '{}' updated at '{}' , by '{}'.", updatedCustomer.getId(), updatedCustomer.getLastModifiedDate(), updatedCustomer.getLastModifier());
@@ -115,11 +117,18 @@ public class CustomerServiceImpl implements CustomerService {
         if(customerRepository.existsByCin(customer.getCin())) {
             throw new CinAlreadyExistException("cin already exists");
         }
+        if(customerRepository.existsByEmail(customer.getEmail())){
+            throw new EmailAlreadyExistException("email already exists");
+        }
     }
 
     private void validateBeforeUpdate(@NotNull CustomerRequest request, @NotNull Customer existingCustomer) {
         if(!existingCustomer.getCin().equals(request.getCin()) && customerRepository.existsByCin(request.getCin())) {
                 throw new CinAlreadyExistException("cin already exists");
         }
+        if(!existingCustomer.getEmail().equals(request.getEmail()) && customerRepository.existsByEmail(request.getEmail())) {
+            throw new EmailAlreadyExistException("email already exists");
+        }
+
     }
 }

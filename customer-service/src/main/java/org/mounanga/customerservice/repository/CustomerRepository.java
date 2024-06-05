@@ -20,4 +20,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     boolean existsByCin(String cin);
 
     boolean existsById(@NotNull String id);
+
+    boolean existsByEmail(String email);
 }

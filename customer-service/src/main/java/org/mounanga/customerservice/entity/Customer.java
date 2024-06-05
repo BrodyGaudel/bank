@@ -54,6 +54,9 @@ public class Customer implements Serializable {
     @Column(unique = true, nullable = false)
     private String cin;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;

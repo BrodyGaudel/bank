@@ -21,6 +21,7 @@ public class CustomerResponse {
     private String nationality;
     private Sex sex;
     private String cin;
+    private String email;
     private LocalDateTime createdDate;
     private String creator;
     private LocalDateTime lastModifiedDate;

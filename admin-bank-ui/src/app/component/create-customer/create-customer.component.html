@@ -1,0 +1,88 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header text-center">
+          <h6>Créer un compte client</h6>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="createCustomerFormGroup" (ngSubmit)="handleCreateCustomer()">
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="name">Nom de famille</label>
+                  <input id="name" formControlName="name" type="text" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('name')?.invalid && createCustomerFormGroup.get('name')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('name')?.invalid && createCustomerFormGroup.get('name')?.touched" class="invalid-feedback">
+                    Le nom de famille est requis et doit comporter entre 2 et 256 caractères.
+                  </div>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="firstname">Prénom</label>
+                  <input id="firstname" formControlName="firstname" type="text" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('firstname')?.invalid && createCustomerFormGroup.get('firstname')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('firstname')?.invalid && createCustomerFormGroup.get('firstname')?.touched" class="invalid-feedback">
+                    Le prénom est requis et doit comporter entre 2 et 256 caractères.
+                  </div>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="dateOfBirth">Date de naissance</label>
+                  <input id="dateOfBirth" formControlName="dateOfBirth" type="date" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('dateOfBirth')?.invalid && createCustomerFormGroup.get('dateOfBirth')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('dateOfBirth')?.invalid && createCustomerFormGroup.get('dateOfBirth')?.touched" class="invalid-feedback">
+                    La date de naissance est requise.
+                  </div>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label for="placeOfBirth">Lieu de naissance</label>
+                  <input id="placeOfBirth" formControlName="placeOfBirth" type="text" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('placeOfBirth')?.invalid && createCustomerFormGroup.get('placeOfBirth')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('placeOfBirth')?.invalid && createCustomerFormGroup.get('placeOfBirth')?.touched" class="invalid-feedback">
+                    Le lieu de naissance est requis et doit comporter entre 1 et 256 caractères.
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="nationality">Nationalité</label>
+                  <input id="nationality" formControlName="nationality" type="text" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('nationality')?.invalid && createCustomerFormGroup.get('nationality')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('nationality')?.invalid && createCustomerFormGroup.get('nationality')?.touched" class="invalid-feedback">
+                    La nationalité est requise et doit comporter entre 2 et 256 caractères.
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="sex">Sexe</label>
+                  <select id="sex" formControlName="sex" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('sex')?.invalid && createCustomerFormGroup.get('sex')?.touched">
+                    <option value="" disabled>Sélectionnez le sexe</option>
+                    <option value="M">Masculin</option>
+                    <option value="F">Féminin</option>
+                  </select>
+                  <div *ngIf="createCustomerFormGroup.get('sex')?.invalid && createCustomerFormGroup.get('sex')?.touched" class="invalid-feedback">
+                    Le sexe est requis.
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="cin">CIN</label>
+                  <input id="cin" formControlName="cin" type="text" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('cin')?.invalid && createCustomerFormGroup.get('cin')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('cin')?.invalid && createCustomerFormGroup.get('cin')?.touched" class="invalid-feedback">
+                    Le CIN est requis et doit comporter entre 4 et 64 caractères.
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email">Email</label>
+                  <input id="email" formControlName="email" type="email" class="form-control" [class.is-invalid]="createCustomerFormGroup.get('email')?.invalid && createCustomerFormGroup.get('email')?.touched">
+                  <div *ngIf="createCustomerFormGroup.get('email')?.invalid && createCustomerFormGroup.get('email')?.touched" class="invalid-feedback">
+                    Un email valide est requis.
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="createCustomerFormGroup.invalid">Créer un compte</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

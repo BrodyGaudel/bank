@@ -5,26 +5,27 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.0</version>
+		<version>3.2.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.brodygaudel</groupId>
+	<groupId>org.mounanga</groupId>
 	<artifactId>account-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<name>account-service</name>
 	<description>account-service</description>
 	<properties>
-		<java.version>17</java.version>
-		<spring-cloud.version>2023.0.0-RC1</spring-cloud.version>
+		<java.version>21</java.version>
+		<spring-cloud.version>2023.0.1</spring-cloud.version>
+		<axon.version>4.9.3</axon.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -37,14 +38,18 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
@@ -61,33 +66,22 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>24.0.1</version>
-            <scope>compile</scope>
-        </dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-spring-boot-starter</artifactId>
+			<version>${axon.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.10.0</version>
-			<scope>test</scope>
+			<groupId>io.axoniq.console</groupId>
+			<artifactId>console-framework-client-spring-boot-starter</artifactId>
+			<version>1.5.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
 		<dependency>
-			<groupId>com.auth0</groupId>
-			<artifactId>java-jwt</artifactId>
-			<version>4.4.0</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
 		</dependency>
-    </dependencies>
+	</dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -116,15 +110,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 </project>

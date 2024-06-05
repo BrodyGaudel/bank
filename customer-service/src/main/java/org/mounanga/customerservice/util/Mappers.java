@@ -30,6 +30,7 @@ public class Mappers {
                 .lastModifier(customer.getLastModifier())
                 .createdDate(customer.getCreatedDate())
                 .lastModifiedDate(customer.getLastModifiedDate())
+                .email(customer.getEmail())
                 .build();
     }
 
@@ -63,6 +64,7 @@ public class Mappers {
         customer.setNationality(request.getNationality());
         customer.setSex(request.getSex());
         customer.setCin(request.getCin());
+        customer.setEmail(request.getEmail());
         return customer;
     }
 

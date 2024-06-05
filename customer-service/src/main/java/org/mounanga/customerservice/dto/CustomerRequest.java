@@ -1,5 +1,6 @@
 package org.mounanga.customerservice.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -37,4 +38,8 @@ public class CustomerRequest {
     @NotBlank(message = "field 'cin' is mandatory : it can not be blank")
     @Size(min = 6, max = 64, message = "the length of the 'cin' field must be between a minimum of 6 and a maximum of 64")
     private String cin;
+
+    @NotBlank(message = "field 'email' is mandatory : it can not be blank")
+    @Email(message = "filed 'email' is not well formated")
+    private String email;
 }

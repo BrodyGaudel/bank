@@ -1,0 +1,33 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-8">
+      <ng-container *ngIf="customersObservable | async as customer; else loadTemplate">
+        <ul class="list-group shadow">
+          <li class="list-group-item active" aria-current="true"><span class="text-center">Client</span></li>
+          <li class="list-group-item"><b>Prénom :</b> {{customer.firstname}}</li>
+          <li class="list-group-item"><b>Nom :</b> {{customer.lastname}}</li>
+          <li class="list-group-item"><b>Date de naissance :</b> {{customer.dateOfBirth | date: 'dd/MM/yyyy' }}</li>
+          <li class="list-group-item"><b>Lieux de naissance :</b> {{customer.placeOfBirth}}</li>
+          <li class="list-group-item"><b>Nationalité :</b> {{customer.nationality}}</li>
+          <li class="list-group-item"><b>Sexe :</b> {{customer.sex}}</li>
+          <li class="list-group-item"><b>Date Inscription :</b> {{customer.createdDate | date: 'dd/MM/yyyy - HH:mm:ss'}}</li>
+          <li class="list-group-item"><b>Inscription réalisé par :</b> {{customer.creator}}</li>
+          <li class="list-group-item"><b>Date dernière modification :</b> {{customer.lastModifiedDate | date: 'dd/MM/yyyy - HH:mm:ss'}}</li>
+          <li class="list-group-item"><b>Dernier Modifieur :</b> {{customer.lastModifiedDate }}</li>
+          <li class="list-group-item"><button class="btn btn-outline-primary" (click)="gotoUpdateCustomer()">Modifier</button></li>
+        </ul>
+      </ng-container>
+      <ng-template #loadTemplate>
+        <div class="alert alert-warning shadow" role="alert">
+          Le client n'a pas été trouvé : si le problème persiste, veuillez contacter un administrateur.<br>
+          Code : {{errorCode}}<br>
+          Message : {{errorMessage}}<br>
+          Description : {{errorDescription}}
+        </div>
+      </ng-template>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+</div>
