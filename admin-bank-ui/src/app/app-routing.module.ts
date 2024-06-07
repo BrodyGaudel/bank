@@ -4,6 +4,8 @@ import {CreateCustomerComponent} from "./component/create-customer/create-custom
 import {ShowAllCustomerComponent} from "./component/show-all-customer/show-all-customer.component";
 import {CustomerDetailsComponent} from "./component/customer-details/customer-details.component";
 import {UpdateCustomerComponent} from "./component/update-customer/update-customer.component";
+import {OperationComponent} from "./component/operation/operation.component";
+import {AccountOperationComponent} from "./component/account-operation/account-operation.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'create-customer', pathMatch: 'full' },
@@ -11,6 +13,8 @@ const routes: Routes = [
   {path: 'show-all-customer', component: ShowAllCustomerComponent},
   {path: 'customers-details/:id', component: CustomerDetailsComponent},
   {path: 'update-customer/:id', component: UpdateCustomerComponent},
+  {path: 'operation/:id', component: OperationComponent},
+  {path: 'all-operations/', component: AccountOperationComponent},
 
 ];
 

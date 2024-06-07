@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {catchError, Observable, throwError} from "rxjs";
 import {CustomerService} from "../../services/customer/customer.service";
 import {Router} from "@angular/router";
-import {CustomerPageResponse} from "../../dto/customer-page.response";
+import {CustomerPageResponse} from "../../dto/customer/customer-page.response";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PageStatus} from "../../dto/page-status";
+import {PageStatus} from "../../dto/customer/page-status";
 
 @Component({
   selector: 'app-show-all-customer',

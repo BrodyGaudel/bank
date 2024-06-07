@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {CustomerResponse} from "../../dto/customer.response";
-import {CustomerRequest} from "../../dto/customer.request";
-import {CustomerPageResponse} from "../../dto/customer-page.response";
+import {CustomerResponse} from "../../dto/customer/customer.response";
+import {CustomerRequest} from "../../dto/customer/customer.request";
+import {CustomerPageResponse} from "../../dto/customer/customer-page.response";
 
 @Injectable({
   providedIn: 'root'

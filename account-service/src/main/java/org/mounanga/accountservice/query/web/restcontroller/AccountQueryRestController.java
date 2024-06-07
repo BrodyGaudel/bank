@@ -5,8 +5,10 @@ import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.mounanga.accountservice.query.dto.AccountResponse;
 import org.mounanga.accountservice.query.dto.OperationResponse;
+import org.mounanga.accountservice.query.exception.AccountNotFoundException;
+import org.mounanga.accountservice.query.exception.OperationNotFoundException;
 import org.mounanga.accountservice.query.queries.GetAccountByIdQuery;
-import org.mounanga.accountservice.query.queries.GetAllAccountByCustomerIdQuery;
+import org.mounanga.accountservice.query.queries.GetAccountByCustomerIdQuery;
 import org.mounanga.accountservice.query.queries.GetAllOperationByAccountIdQuery;
 import org.mounanga.accountservice.query.queries.GetOperationByIdQuery;
 import org.springframework.web.bind.annotation.*;
@@ -27,21 +29,33 @@ public class AccountQueryRestController {
     public AccountResponse getAccountById(@PathVariable String id){
         GetAccountByIdQuery query = new GetAccountByIdQuery(id);
         ResponseType<AccountResponse> responseType = ResponseTypes.instanceOf(AccountResponse.class);
-        return queryGateway.query(query , responseType).join();
+        AccountResponse account = queryGateway.query(query , responseType).join();
+        if(account == null){
+            throw new AccountNotFoundException("account with id '"+id+"' not found.");
+        }
+        return account;
     }
 
-    @GetMapping("/get-all-accounts/{customerId}")
-    public List<AccountResponse> getAllAccountsByCustomerId(@PathVariable String customerId){
-        GetAllAccountByCustomerIdQuery query = new GetAllAccountByCustomerIdQuery(customerId);
-        ResponseType<List<AccountResponse>> responseType = ResponseTypes.multipleInstancesOf(AccountResponse.class);
-        return queryGateway.query(query , responseType).join();
+    @GetMapping("/getaccountbycustomer/{customerId}")
+    public AccountResponse getAllAccountsByCustomerId(@PathVariable String customerId){
+        GetAccountByCustomerIdQuery query = new GetAccountByCustomerIdQuery(customerId);
+        ResponseType<AccountResponse> responseType = ResponseTypes.instanceOf(AccountResponse.class);
+        AccountResponse account = queryGateway.query(query , responseType).join();
+        if(account == null){
+            throw new AccountNotFoundException("account with  customerId '"+customerId+"' not found");
+        }
+        return account;
     }
 
     @GetMapping("/get-operation/{id}")
     public OperationResponse getOperationById(@PathVariable String id){
         GetOperationByIdQuery query = new GetOperationByIdQuery(id);
         ResponseType<OperationResponse> responseType = ResponseTypes.instanceOf(OperationResponse.class);
-        return queryGateway.query(query , responseType).join();
+        OperationResponse operation = queryGateway.query(query , responseType).join();
+        if(operation == null){
+            throw new OperationNotFoundException("operation with id '"+id+"' not found");
+        }
+        return operation;
     }
 
     @GetMapping("/get-all-operations")

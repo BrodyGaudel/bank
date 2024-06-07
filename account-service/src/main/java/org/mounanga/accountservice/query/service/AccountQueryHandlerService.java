@@ -7,10 +7,8 @@ import org.mounanga.accountservice.query.dto.AccountResponse;
 import org.mounanga.accountservice.query.dto.OperationResponse;
 import org.mounanga.accountservice.query.entity.Account;
 import org.mounanga.accountservice.query.entity.Operation;
-import org.mounanga.accountservice.query.exception.AccountNotFoundException;
-import org.mounanga.accountservice.query.exception.OperationNotFoundException;
 import org.mounanga.accountservice.query.queries.GetAccountByIdQuery;
-import org.mounanga.accountservice.query.queries.GetAllAccountByCustomerIdQuery;
+import org.mounanga.accountservice.query.queries.GetAccountByCustomerIdQuery;
 import org.mounanga.accountservice.query.queries.GetAllOperationByAccountIdQuery;
 import org.mounanga.accountservice.query.queries.GetOperationByIdQuery;
 import org.mounanga.accountservice.query.repository.AccountRepository;
@@ -37,25 +35,35 @@ public class AccountQueryHandlerService {
     @QueryHandler
     public AccountResponse handle(@NotNull GetAccountByIdQuery query){
         log.info("Handling query: {}", query);
-        Account account = accountRepository.findById(query.getAccountId())
-                .orElseThrow(() -> new AccountNotFoundException("Account with id " + query.getAccountId() + " not found"));
+        Account account = accountRepository.findById(query.getAccountId()).orElse(null);
+        if(account == null){
+            log.info("Account with id '{}' not found", query.getAccountId());
+            return null;
+        }
         log.info("Account found");
         return Mappers.fromAccount(account);
     }
 
     @QueryHandler
-    public List<AccountResponse> handle(@NotNull GetAllAccountByCustomerIdQuery query){
-        log.info("GetAllAccountByCustomerIdQuery handled");
-        List<Account> accounts = accountRepository.findByCustomerId(query.getCustomerId());
-        log.info("{} accounts found", accounts.size());
-        return Mappers.fromListOfAccounts(accounts);
+    public AccountResponse handle(@NotNull GetAccountByCustomerIdQuery query){
+        log.info("GetAccountByCustomerIdQuery handled");
+        Account account = accountRepository.findByCustomerId(query.getCustomerId()).orElse(null);
+        if(account == null){
+            log.info("Account with customerId '{}' not found", query.getCustomerId());
+            return null;
+        }
+        log.info("account found");
+        return Mappers.fromAccount(account);
     }
 
     @QueryHandler
     public OperationResponse handle(@NotNull GetOperationByIdQuery query){
         log.info("GetOperationByIdQuery handled");
-        Operation operation = operationRepository.findById(query.getOperationId())
-                .orElseThrow( () -> new OperationNotFoundException("Operation with id " + query.getOperationId() + " not found"));
+        Operation operation = operationRepository.findById(query.getOperationId()).orElse(null);
+        if(operation == null){
+            log.info("Operation with id '{}' not found", query.getOperationId());
+            return null;
+        }
         log.info("operation found");
         return Mappers.fromOperation(operation);
     }

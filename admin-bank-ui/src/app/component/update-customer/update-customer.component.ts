@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "../../services/customer/customer.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {CustomerResponse} from "../../dto/customer.response";
+import {CustomerResponse} from "../../dto/customer/customer.response";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CustomerRequest} from "../../dto/customer.request";
+import {CustomerRequest} from "../../dto/customer/customer.request";
 
 
 @Component({

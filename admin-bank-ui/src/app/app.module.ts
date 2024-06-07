@@ -10,6 +10,10 @@ import { CreateCustomerComponent } from './component/create-customer/create-cust
 import { ShowAllCustomerComponent } from './component/show-all-customer/show-all-customer.component';
 import { CustomerDetailsComponent } from './component/customer-details/customer-details.component';
 import { UpdateCustomerComponent } from './component/update-customer/update-customer.component';
+import { OperationComponent } from './component/operation/operation.component';
+import { LoginComponent } from './component/login/login.component';
+import { ForbiddenComponent } from './component/forbidden/forbidden.component';
+import { AccountOperationComponent } from './component/account-operation/account-operation.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,11 @@ import { UpdateCustomerComponent } from './component/update-customer/update-cust
     CreateCustomerComponent,
     ShowAllCustomerComponent,
     CustomerDetailsComponent,
-    UpdateCustomerComponent
+    UpdateCustomerComponent,
+    OperationComponent,
+    LoginComponent,
+    ForbiddenComponent,
+    AccountOperationComponent
   ],
   imports: [
     BrowserModule,
