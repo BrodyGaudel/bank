@@ -63,7 +63,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   private getAccountByCustomerId(customerId: string): Observable<AccountResponse> {
     return this.accountService.findByCustomerId(customerId).pipe(
-
+      catchError( (err) => throwError(() => new Error(err.message)))
     );
   }
 

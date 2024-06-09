@@ -8,13 +8,13 @@ import {OperationComponent} from "./component/operation/operation.component";
 import {AccountOperationComponent} from "./component/account-operation/account-operation.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'create-customer', pathMatch: 'full' },
+  {path: '', redirectTo: 'all-operations', pathMatch: 'full' },
   {path: 'create-customer', component: CreateCustomerComponent},
   {path: 'show-all-customer', component: ShowAllCustomerComponent},
   {path: 'customers-details/:id', component: CustomerDetailsComponent},
   {path: 'update-customer/:id', component: UpdateCustomerComponent},
   {path: 'operation/:id', component: OperationComponent},
-  {path: 'all-operations/', component: AccountOperationComponent},
+  {path: 'all-operations', component: AccountOperationComponent},
 
 ];
 
