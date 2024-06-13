@@ -1,5 +1,6 @@
 package org.mounanga.notificationservice.web;
 
+import org.mounanga.notificationservice.dto.LoginNotification;
 import org.mounanga.notificationservice.dto.Notification;
 import org.mounanga.notificationservice.service.MailService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,5 +21,10 @@ public class NotificationRestController {
     @PostMapping("/send")
     public void sendNotification(@RequestBody Notification notification) {
         mailService.send(notification);
+    }
+
+    @PostMapping("/login")
+    public void sendLoginNotification(@RequestBody LoginNotification notification) {
+        mailService.sendLoginNotification(notification);
     }
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification de connexion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #3a8f3b;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(147, 144, 144, 0.1);
+        }
+        .activation-code {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .activation-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .activation-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6a00;
+            color: rgba(255, 255, 255, 0.01);
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Notification de connexion</h1>
+    <p>
+        Bonjour Monsieur/Madame : <span th:text="${fullName}"></span> <br><br>
+        Vous venez de vous connecter à votre compte AdminBank
+        Date : <span th:text="${when}"></span><br><br>
+        Où : <span th:text="${where}"></span><br>
+    </p>
+    <hr>
+    <p>
+        Si vous n'etes pas à l'origine de cette connexion, veuillez contacter l'administrateur tout de suite.
+    </p>
+</div>
+</body>
+</html>

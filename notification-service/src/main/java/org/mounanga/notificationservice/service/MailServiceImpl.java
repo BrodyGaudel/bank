@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mounanga.notificationservice.dto.CustomerResponse;
+import org.mounanga.notificationservice.dto.LoginNotification;
 import org.mounanga.notificationservice.dto.Notification;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -27,6 +28,7 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 public class MailServiceImpl implements MailService {
 
     private static final String NOTIFICATION_TEMPLATE = "notification.html";
+    private static final String LOGIN_NOTIFICATION_TEMPLATE = "login.html";
     private static final String NOTIFICATION = "NOTIFICATION";
 
     private final JavaMailSender mailSender;
@@ -66,12 +68,19 @@ public class MailServiceImpl implements MailService {
 
     }
 
-    private @Nullable CustomerResponse getCustomerById(String customerId) {
+    @Async
+    @Override
+    public void sendLoginNotification(LoginNotification notification) {
         try{
-            return customerRestClient.getCustomer(customerId);
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, MULTIPART_MODE_MIXED, UTF_8.name());
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("fullName", notification.fullName());
+            properties.put("when", formatLocalDateTime(notification.dateTime()));
+            properties.put("where", notification.where());
+            send(notification.email(), mimeMessage, helper, properties, "NOTIFICATION DE CONNEXION", LOGIN_NOTIFICATION_TEMPLATE);
         }catch (Exception e) {
             log.error(e.getMessage());
-            return null;
         }
     }
 
@@ -101,6 +110,15 @@ public class MailServiceImpl implements MailService {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
         return dateTime.format(formatter);
+    }
+
+    private @Nullable CustomerResponse getCustomerById(String customerId) {
+        try{
+            return customerRestClient.getCustomer(customerId);
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
 }
