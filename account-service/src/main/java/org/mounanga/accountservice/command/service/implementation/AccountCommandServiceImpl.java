@@ -11,6 +11,8 @@ import org.mounanga.accountservice.command.exception.CustomerNotFoundException;
 import org.mounanga.accountservice.command.service.AccountCommandService;
 import org.mounanga.accountservice.command.util.AccountIdGenerator;
 import org.mounanga.accountservice.command.web.restclient.CustomerRestClient;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -135,7 +137,17 @@ public class AccountCommandServiceImpl implements AccountCommandService {
     @NotNull
     @Contract(pure = true)
     private String getCommander(){
-        return "username";
+        try{
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails userDetails) {
+                return userDetails.getUsername();
+            }
+            return principal.toString();
+        }catch (Exception e){
+            log.warn("unable to retrieve current user's username");
+            log.error(e.getMessage());
+           return "unknown:user";
+        }
     }
 
     private boolean customerExists(String customerId){

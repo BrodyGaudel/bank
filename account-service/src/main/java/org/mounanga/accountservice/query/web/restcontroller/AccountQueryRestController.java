@@ -11,6 +11,7 @@ import org.mounanga.accountservice.query.queries.GetAccountByIdQuery;
 import org.mounanga.accountservice.query.queries.GetAccountByCustomerIdQuery;
 import org.mounanga.accountservice.query.queries.GetAllOperationByAccountIdQuery;
 import org.mounanga.accountservice.query.queries.GetOperationByIdQuery;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class AccountQueryRestController {
         this.queryGateway = queryGateway;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
     @GetMapping("/get-account/{id}")
     public AccountResponse getAccountById(@PathVariable String id){
         GetAccountByIdQuery query = new GetAccountByIdQuery(id);
@@ -36,6 +38,7 @@ public class AccountQueryRestController {
         return account;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
     @GetMapping("/getaccountbycustomer/{customerId}")
     public AccountResponse getAllAccountsByCustomerId(@PathVariable String customerId){
         GetAccountByCustomerIdQuery query = new GetAccountByCustomerIdQuery(customerId);
@@ -47,6 +50,7 @@ public class AccountQueryRestController {
         return account;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
     @GetMapping("/get-operation/{id}")
     public OperationResponse getOperationById(@PathVariable String id){
         GetOperationByIdQuery query = new GetOperationByIdQuery(id);
@@ -58,6 +62,7 @@ public class AccountQueryRestController {
         return operation;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
     @GetMapping("/get-all-operations")
     public List<OperationResponse> getAllOperationByAccountId(@RequestParam(name = "accountId") String accountId,
                                                             @RequestParam(name = "page", defaultValue = "0") int page,
