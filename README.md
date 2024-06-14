@@ -1,79 +1,101 @@
-# My Bank Admin
+# Bank Application
 
-My Bank Admin is a web application for bank management. It is developed using Java (version 17), Spring Boot (version 3.1.2), Spring Cloud, Spring Security, Angular (version 16.2.2), MySQL, and Maven.
+## Description
+Bank Application is a banking management application developed with a microservices' architecture. It facilitates the management of customers, bank accounts, financial transactions, users, and notifications. The frontend is developed using Angular and Bootstrap to provide a modern and responsive user interface.
 
-## Architecture
+## Microservices Architecture
+- **discovery-service**: Discovery service based on Eureka Server for dynamic service registration and discovery.
+- **gateway-service**: Gateway service based on Spring Cloud Gateway for centralizing and securing access to the various microservices.
+- **notification-service**: Notification service for sending emails.
+- **customer-service**: Service for managing customers.
+- **account-service**: Service for managing bank accounts and transactions (credit, debit, transfer), developed with CQRS and Event Sourcing architecture using Axon Framework.
+- **user-service**: Service for managing users, roles, and authentication, using Spring Security and java-jwt.
 
-![Architecture](https://raw.githubusercontent.com/BrodyGaudel/bank/main/architecture.png)
+## Frontend
+- **admin-bank-ui**: Admin user interface developed with Angular and Bootstrap.
 
-## Microservices
+## Technologies Used
+- **Backend**:
+    - Java
+    - Spring Boot (with Spring Security and Spring Cloud)
+    - Axon Framework
+    - Maven
+    - Axon Server
+    - MySQL
+    - Docker
+    - SonarQube
+    - Jenkins
+    - Nexus
 
-The application is divided into three microservices:
+- **Frontend**:
+    - Angular
+    - Typescript
+    - HTML
+    - CSS
+    - Bootstrap
 
-### 1. Customer Service
+- **Libraries**:
+    - java-jwt
+    - auth-angular
 
-The Customer Service handles the management of bank customers, including registration, modification, deletion, and more.
+- **Modeling**:
+    - UML
 
-### 2. Account Service
+## Deployment Instructions
 
-The Account Service is responsible for managing bank accounts, including account creation, deletion, modification, as well as handling banking operations like credit and debit transactions.
-
-### 3. User Service
-
-The User Service is in charge of user management and authentication within the application.
-
-## Additional Services
-
-In addition to the core microservices, the application also includes the following services:
-
-### Gateway Service
-
-The Gateway Service serves as a gateway for the application, providing routing and security features using Spring Cloud Gateway.
-
-### Discovery Service
-
-The Discovery Service acts as a registration and discovery server for microservices using Eureka Discovery Server.
-
-### Web UI
-
-The Web UI is the user interface for administrative purposes, developed using Angular and Bootstrap.
-
-## Prerequisites
-
-Before running the application, ensure that you have the following prerequisites installed:
-
-- Java 17
-- Angular CLI 16.2.2
-- MySQL
+### Prerequisites
+- Docker
+- Docker Compose
 - Maven
+- Node.js and npm (for the frontend)
+- Java JDK 21+
 
-## Getting Started
+### Deployment Steps
 
-1. Clone this repository.
-2. Configure the database connection in the application properties.
-3. Build and run each microservice using Maven
-4. You must start the services in the following order: discovery-service, gateway-service, customer-service, account-service, user-service, web-ui.
-5. Start the Gateway Service and Discovery Service.
-6. Launch the Web UI to access the admin interface.
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/BrodyGaudel/bank.git
+    cd bank
+    ```
+
+2. **Build Docker images**:
+    ```sh
+    docker-compose build
+    ```
+
+3. **Start the services**:
+    ```sh
+    docker-compose up
+    ```
+
+4. **Access the application**:
+    - Frontend: `http://localhost:4200`
+    - Eureka Dashboard: `http://localhost:8761`
+    - Gateway: `http://localhost:8888`
 
 ## Usage
 
-- Access the Web UI at [http://localhost:4200](http://localhost:4200) to manage the bank administration.
-- Access the Discovery Service at [http://localhost:8761](http://localhost:8761) 
+### Frontend
+- Access the admin interface through the browser.
+- Use the available features to manage customers, bank accounts, users, and notifications.
 
-## Contributing
+### Backend
+- Microservices communicate with each other via Eureka Server for discovery and Spring Cloud Gateway for request management.
+- Use Axon Server for managing events and commands in the `account-service`.
 
-If you'd like to contribute to this project, please follow the [CONTRIBUTING.md](CONTRIBUTING.md) guidelines.
+## Contribution
+
+1. **Fork the project**
+2. **Create a feature branch** (`git checkout -b feature/your-feature-name`)
+3. **Commit your changes** (`git commit -m 'Add some feature'`)
+4. **Push to the branch** (`git push origin feature/your-feature-name`)
+5. **Open a Pull Request**
 
 ## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-- Special thanks to the Spring and Angular communities for their excellent frameworks and resources.
-- Inspired by the world of banking and financial services.
-
-## Author and Developer
-
+## Authors
 - Brody Gaudel MOUNANGA BOUKA
+
+## Contact
+For any questions, please contact [brodymounanga@gmail.com](mailto:brodymounanga@gmail.com).
