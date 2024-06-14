@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="container mt-5">
+  <div class="card offset-3 col-md-6 shadow">
+    <div class="card-header">
+      <h6 class="text-center">Authentification</h6>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-warning mb-2" role="alert" *ngIf="errorFlag">
+        {{errorMessage}}
+      </div>
+      <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="usernameOrEmail" id="floatingInput" placeholder="name@example.com" [class.is-invalid]="loginFormGroup.get('usernameOrEmail')?.invalid && loginFormGroup.get('usernameOrEmail')?.touched">
+          <label for="floatingInput">Email ou Nom d'utilisateur.</label>
+          <div *ngIf="loginFormGroup.get('usernameOrEmail')?.invalid && loginFormGroup.get('usernameOrEmail')?.touched" class="invalid-feedback">
+            Le nom d'utilisateur ou l'email est obligatoire.
+          </div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" formControlName="password" id="floatingPassword" placeholder="Password" [class.is-invalid]="loginFormGroup.get('password')?.invalid && loginFormGroup.get('password')?.touched">
+          <label for="floatingPassword">Mot de passe.</label>
+          <div *ngIf="loginFormGroup.get('password')?.invalid && loginFormGroup.get('password')?.touched" class="invalid-feedback">
+            Le mot de passe est obligatoire.
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary" [disabled]="loginFormGroup.invalid">Connexion</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

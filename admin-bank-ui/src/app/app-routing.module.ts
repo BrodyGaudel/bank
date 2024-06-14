@@ -6,6 +6,7 @@ import {CustomerDetailsComponent} from "./component/customer-details/customer-de
 import {UpdateCustomerComponent} from "./component/update-customer/update-customer.component";
 import {OperationComponent} from "./component/operation/operation.component";
 import {AccountOperationComponent} from "./component/account-operation/account-operation.component";
+import {LoginComponent} from "./component/login/login.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'all-operations', pathMatch: 'full' },
@@ -15,7 +16,7 @@ const routes: Routes = [
   {path: 'update-customer/:id', component: UpdateCustomerComponent},
   {path: 'operation/:id', component: OperationComponent},
   {path: 'all-operations', component: AccountOperationComponent},
-
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({

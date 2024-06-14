@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CustomerResponse} from "../../dto/customer/customer.response";
 import {CustomerRequest} from "../../dto/customer/customer.request";
 import {CustomerPageResponse} from "../../dto/customer/customer-page.response";
+import {AuthService} from "../security/auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,39 +13,48 @@ export class CustomerService {
 
   private host: string = 'http://localhost:8888/CUSTOMER-SERVICE/bank/customers';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getCustomerById(id: string): Observable<CustomerResponse> {
-    return this.http.get<CustomerResponse>(this.host + '/get/' + id);
+  public getCustomerById(id: string): Observable<CustomerResponse> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
+    const url: string = this.host + '/get/' + id;
+    return this.http.get<CustomerResponse>(url, {headers: httpHeaders});
   }
 
-  getCustomerByCin(cin: string): Observable<CustomerResponse> {
+  public getCustomerByCin(cin: string): Observable<CustomerResponse> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
     let url: string = this.host + + '/find/' + cin;
-    return this.http.get<CustomerResponse>(url);
+    return this.http.get<CustomerResponse>(url, {headers: httpHeaders});
   }
 
-  getAllCustomers(page: number = 0, size: number = 10): Observable<CustomerPageResponse> {
+  public getAllCustomers(page: number = 0, size: number = 10): Observable<CustomerPageResponse> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
     let url: string = this.host + '/list/?page=' + page +'&size=' + size;
-    return this.http.get<CustomerPageResponse>(url);
+    return this.http.get<CustomerPageResponse>(url, {headers: httpHeaders});
   }
 
-  searchCustomers(keyword: string = ' ', page: number = 0, size: number = 10): Observable<CustomerPageResponse> {
-    return this.http.get<CustomerPageResponse>(this.host + '/search?keyword=' + keyword + '&page=' + page + '&size=' + size);
+  public searchCustomers(keyword: string = ' ', page: number = 0, size: number = 10): Observable<CustomerPageResponse> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
+    let url: string = this.host + '/search?keyword=' + keyword + '&page=' + page + '&size=' + size;
+    return this.http.get<CustomerPageResponse>(url, {headers: httpHeaders});
   }
 
-  createCustomer(request: CustomerRequest): Observable<CustomerResponse> {
-    return this.http.post<CustomerResponse>(this.host + '/create', request);
+  public createCustomer(request: CustomerRequest): Observable<CustomerResponse> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
+    let url: string = this.host + '/create';
+    return this.http.post<CustomerResponse>(url, request, {headers: httpHeaders});
   }
 
-  updateCustomer(id: string, request: CustomerRequest): Observable<CustomerResponse> {
+  public updateCustomer(id: string, request: CustomerRequest): Observable<CustomerResponse> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
     let url: string = this.host + '/update/' + id;
-    return this.http.put<CustomerResponse>(url, request);
+    return this.http.put<CustomerResponse>(url, request, {headers: httpHeaders});
   }
 
-  deleteCustomer(id: string): Observable<void> {
+  public deleteCustomer(id: string): Observable<void> {
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
     let url: string = this.host + '/delete/' + id;
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(url, {headers: httpHeaders});
   }
-
 
 }
