@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "../../services/security/auth/auth.service";
 
 @Component({
   selector: 'app-forbidden',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class ForbiddenComponent {
 
+  constructor(private authService: AuthService) {
+  }
+
+  gotoLoginComponent(): void {
+    this.authService.logout();
+  }
 }

@@ -33,9 +33,9 @@ export class AccountService {
   }
 
   public credit(request: CreditAccountRequest): Observable<string>{
-    const options: {headers: HttpHeaders; responseType: 'json'} = this.buildHttpOptions();
+    const httpHeaders:HttpHeaders = this.authService.buildHttpHeaders();
     const url: string = this.commandHost + '/credit'
-    return this.http.put<string>(url, request, options);
+    return this.http.put<string>(url, request, {headers: httpHeaders});
   }
 
   public debit(request: DebitAccountRequest): Observable<string>{

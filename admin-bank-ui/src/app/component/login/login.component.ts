@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/security/auth/auth.service";
-import {NavigationEnd, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationRequest} from "../../dto/security/authentication.request";
 
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
       usernameOrEmail : this.formBuilder.control(null, [Validators.required, Validators.minLength(1), Validators.maxLength(256)]),
       password : this.formBuilder.control(null, [Validators.required, Validators.maxLength(256), Validators.minLength(1)]),
     });
+    this.authService.reset();
   }
 
   handleLogin(): void {

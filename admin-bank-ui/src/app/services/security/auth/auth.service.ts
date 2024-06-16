@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AuthenticationRequest} from "../../../dto/security/authentication.request";
 import {AuthenticationResponse} from "../../../dto/security/authentication.response";
@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   public security(): void {
-    const token = this.tokenSubject.value;
+    const token: string | null = this.tokenSubject.value;
     if (!token || this.isTokenExpired()) {
       this.logout();
     }
@@ -115,4 +115,8 @@ export class AuthService {
     }
   }
 
+  public reset() :void {
+    localStorage.removeItem('jwt');
+    this.updateAuthenticationState(null);
+  }
 }

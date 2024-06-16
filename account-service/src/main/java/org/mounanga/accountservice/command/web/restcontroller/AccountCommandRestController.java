@@ -25,19 +25,19 @@ public class AccountCommandRestController {
         return commandService.createAccount(request);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('USER','MODERATOR','ADMIN','SUPER_ADMIN')")
     @PutMapping("/credit")
     public CompletableFuture<String> creditAccount(@RequestBody @Valid CreditAccountRequest request){
         return commandService.creditAccount(request);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('USER','MODERATOR','ADMIN','SUPER_ADMIN')")
     @PutMapping("/debit")
     public CompletableFuture<String> debitAccount(@RequestBody @Valid DebitAccountRequest request){
         return commandService.debitAccount(request);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('USER','MODERATOR','ADMIN','SUPER_ADMIN')")
     @PutMapping("/transfer")
     public CompletableFuture<String> transferBetweenAccount(@RequestBody @Valid TransferRequest request){
         return commandService.transferBetweenAccount(request);

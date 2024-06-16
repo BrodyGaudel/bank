@@ -14,6 +14,7 @@ import { OperationComponent } from './component/operation/operation.component';
 import { LoginComponent } from './component/login/login.component';
 import { ForbiddenComponent } from './component/forbidden/forbidden.component';
 import { AccountOperationComponent } from './component/account-operation/account-operation.component';
+import { UsersComponent } from './component/users/users.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AccountOperationComponent } from './component/account-operation/account
     OperationComponent,
     LoginComponent,
     ForbiddenComponent,
-    AccountOperationComponent
+    AccountOperationComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
