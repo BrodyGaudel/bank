@@ -17,3 +17,7 @@ K
 customer-service/Dockerfile,a\1\a1cc74bfe21c6385a7eae6fb425b424981a74497
 J
 account-service/Dockerfile,3\4\341eac6ebfd8b5975cae0e6b01c65d70ae24ed0a
+€
+Puser-service/src/main/java/org/mounanga/userservice/service/UserServiceImpl.java,7\7\775c55cea0f800862edf9a72783045922ecde8df
+Ž
+^user-service/src/main/java/org/mounanga/userservice/web/restcontroller/UserRestController.java,a\a\aad27800c51881204a8b6e545ec6754d267821de

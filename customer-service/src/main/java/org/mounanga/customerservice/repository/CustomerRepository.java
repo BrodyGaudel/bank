@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, String> {
@@ -22,4 +23,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     boolean existsById(@NotNull String id);
 
     boolean existsByEmail(String email);
+
+    @Query("select c from Customer c where c.cin =:cin or c.email =:email")
+    List<Customer> findByCinOrEmail(@Param("cin") String cin, @Param("email") String email);
 }

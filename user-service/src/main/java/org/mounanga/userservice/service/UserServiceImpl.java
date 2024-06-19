@@ -8,6 +8,7 @@ import org.mounanga.userservice.dto.UserRequest;
 import org.mounanga.userservice.dto.UserResponse;
 import org.mounanga.userservice.entity.Role;
 import org.mounanga.userservice.entity.User;
+import org.mounanga.userservice.exception.NotAuthorizedException;
 import org.mounanga.userservice.exception.RoleNotFoundException;
 import org.mounanga.userservice.exception.UserNotFoundException;
 import org.mounanga.userservice.repository.RoleRepository;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
         validationBeforeSave(request);
         User user = Mappers.fromUserRequest(request, passwordEncoder.encode(request.getPassword()));
         user.setRoles(findUserRoles());
+        user.setEnabled(true);
         User savedUser = userRepository.save(user);
         log.info("User saved successfully with id '{}', by '{}', at '{}'", savedUser.getId(), savedUser.getCreatedBy(), savedUser.getCreatedDate());
         return Mappers.fromUser(savedUser);
@@ -69,7 +71,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(String id) {
         log.info("In deleteUserById()");
-        userRepository.deleteById(id);
+        User user = findUserById(id);
+        if(isSuperAdmin(user)){
+            throw new NotAuthorizedException("You are not authorized to delete a super admin user");
+        }
+        userRepository.deleteById(user.getId());
         log.info("user deleted successfully");
     }
 
@@ -178,5 +184,9 @@ public class UserServiceImpl implements UserService {
         if(!user.getCin().equals(request.getCin()) && userRepository.existsByCin(request.getCin())){
             throw new IllegalArgumentException("CIN is already in use.");
         }
+    }
+
+    private boolean isSuperAdmin(@NotNull User user) {
+        return user.getRoles().stream().anyMatch(role -> "SUPER_ADMIN".equals(role.getName()));
     }
 }

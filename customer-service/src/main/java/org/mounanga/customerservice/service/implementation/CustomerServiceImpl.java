@@ -9,7 +9,7 @@ import org.mounanga.customerservice.dto.CustomerPageResponse;
 import org.mounanga.customerservice.dto.CustomerRequest;
 import org.mounanga.customerservice.dto.CustomerResponse;
 import org.mounanga.customerservice.entity.Customer;
-import org.mounanga.customerservice.exception.CinAlreadyExistException;
+import org.mounanga.customerservice.exception.AlreadyExistException;
 import org.mounanga.customerservice.exception.CustomerNotFoundException;
 import org.mounanga.customerservice.repository.CustomerRepository;
 import org.mounanga.customerservice.util.Mappers;
@@ -114,17 +114,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private void validateBeforeCreate(@NotNull CustomerRequest customer) {
-        if(customerRepository.existsByCin(customer.getCin())) {
-            throw new CinAlreadyExistException("cin already exists");
-        }
-        if(customerRepository.existsByEmail(customer.getEmail())){
-            throw new EmailAlreadyExistException("email already exists");
+        boolean cinExist = customerRepository.existsByCin(customer.getCin());
+        boolean emailExist = customerRepository.existsByEmail(customer.getEmail());
+        if(cinExist && emailExist) {
+            throw new AlreadyExistException("cin and email already exists");
+        } else if (cinExist) {
+            throw new AlreadyExistException("cin already exists");
+        }else if(emailExist) {
+            throw new AlreadyExistException("email already exists");
         }
     }
 
     private void validateBeforeUpdate(@NotNull CustomerRequest request, @NotNull Customer existingCustomer) {
         if(!existingCustomer.getCin().equals(request.getCin()) && customerRepository.existsByCin(request.getCin())) {
-                throw new CinAlreadyExistException("cin already exists");
+                throw new AlreadyExistException("cin already exists");
         }
         if(!existingCustomer.getEmail().equals(request.getEmail()) && customerRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistException("email already exists");

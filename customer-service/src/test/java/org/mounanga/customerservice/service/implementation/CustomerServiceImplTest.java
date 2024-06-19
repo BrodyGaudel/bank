@@ -9,7 +9,7 @@ import org.mounanga.customerservice.dto.CustomerRequest;
 import org.mounanga.customerservice.dto.CustomerResponse;
 import org.mounanga.customerservice.entity.Customer;
 import org.mounanga.customerservice.enums.Sex;
-import org.mounanga.customerservice.exception.CinAlreadyExistException;
+import org.mounanga.customerservice.exception.AlreadyExistException;
 import org.mounanga.customerservice.exception.CustomerNotFoundException;
 import org.mounanga.customerservice.repository.CustomerRepository;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -147,7 +147,7 @@ class CustomerServiceImplTest {
     void testCreateCustomer_ThrowsCinAlreadyExistException() {
         CustomerRequest request = CustomerRequest.builder().cin("123").firstname("John").lastname("Doe").dateOfBirth(LocalDate.of(1994,1,22)).placeOfBirth("World").nationality("Gabon").sex(Sex.M).build();
         when(customerRepository.existsByCin(request.getCin())).thenReturn(true);
-        assertThrows(CinAlreadyExistException.class, () -> customerService.createCustomer(request));
+        assertThrows(AlreadyExistException.class, () -> customerService.createCustomer(request));
     }
 
     @Test
@@ -184,7 +184,7 @@ class CustomerServiceImplTest {
         Customer existingCustomer = Customer.builder().id(id).cin("Old 123").firstname("Old John").lastname("Old Doe").dateOfBirth(LocalDate.of(2000,1,22)).placeOfBirth("Old World").nationality("Old Gabon").sex(Sex.M).build();
         when(customerRepository.findById(id)).thenReturn(Optional.of(existingCustomer));
         when(customerRepository.existsByCin(anyString())).thenReturn(true);
-        assertThrows(CinAlreadyExistException.class, () -> customerService.updateCustomer(id, request));
+        assertThrows(AlreadyExistException.class, () -> customerService.updateCustomer(id, request));
     }
 
 

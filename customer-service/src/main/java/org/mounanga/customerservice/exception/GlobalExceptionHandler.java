@@ -26,8 +26,8 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(CinAlreadyExistException.class)
-    public ResponseEntity<ExceptionResponse> handleException(@NotNull CinAlreadyExistException exception) {
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<ExceptionResponse> handleException(@NotNull AlreadyExistException exception) {
         return ResponseEntity.status(CONFLICT).body(new ExceptionResponse(
                 CONFLICT.value(),
                 exception.getMessage(),

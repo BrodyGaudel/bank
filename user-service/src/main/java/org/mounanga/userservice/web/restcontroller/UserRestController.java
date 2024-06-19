@@ -29,7 +29,7 @@ public class UserRestController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR','SUPER_ADMIN')")
     @PutMapping("/update/{id}")
-    public UserResponse updateUser(@PathVariable String id,@RequestBody @Valid UserRequest request){
+    public UserResponse updateUser(@PathVariable String id,@RequestBody UserRequest request){
         return userService.updateUser(id, request);
     }
 
