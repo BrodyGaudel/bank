@@ -28,4 +28,4 @@ eureka:
     preferIpAddress: true
   client:
     service-url:
-      defaultZone: ${DISCOVERY_SERVER:http://localhost:8761/eureka}
+      defaultZone: ${DISCOVERY_SERVICE:http://localhost:8761/eureka}

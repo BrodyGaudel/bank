@@ -1,5 +1,5 @@
 # Definition of the base image
-FROM openjdk:17-oracle
+FROM openjdk:21-oracle
 
 # Definition of the maintainer and author of the image
 LABEL authors="Brody Gaudel MOUNANGA BOUKA"

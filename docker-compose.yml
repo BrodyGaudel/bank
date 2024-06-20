@@ -1,0 +1,121 @@
+version: '3.8'
+
+services:
+  discovery-service:
+    image: discovery-service
+    container_name: discovery-service
+    build:
+      context: ./discovery-service
+    ports:
+      - "8761:8761"
+    networks:
+      - bank-network
+
+  gateway-service:
+    image: gateway-service
+    container_name: gateway-service
+    build:
+      context: ./gateway-service
+    ports:
+      - "8888:8888"
+    environment:
+      - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
+      - ALLOWED_ORIGINS=http://localhost:4200
+    depends_on:
+      - discovery-service
+    networks:
+      - bank-network
+
+  notification-service:
+    image: notification-service
+    container_name: notification-service
+    build:
+      context: ./notification-service
+    ports:
+      - "8885:8885"
+    environment:
+      - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
+      - MAIL_HOST=localhost
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=brody
+      - MAIL_PASSWORD=brody
+      - EMAIL_SYSTEM=notification@bank.com
+    depends_on:
+      - discovery-service
+      - gateway-service
+    networks:
+      - bank-network
+
+  user-service:
+    image: user-service
+    container_name: user-service
+    build:
+      context: ./user-service
+    ports:
+      - "8884:8884"
+    environment:
+      - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
+      - MYSQL_USER=root
+      - MYSQL_PWD=rootroot
+      - MYSQL_HOST=172.18.0.2
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=customer_db
+      - JWT_SECRET=AaZzBbCcYyDdXxEeWwFf
+      - JWT_EXPIRATION=604800000
+    depends_on:
+      - discovery-service
+      - gateway-service
+      - notification-service
+
+  customer-service:
+    image: customer-service
+    container_name: customer-service
+    build:
+      context: ./customer-service
+    ports:
+      - "8887:8887"
+    environment:
+      - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
+      - MYSQL_USER=root
+      - MYSQL_PWD=rootroot
+      - MYSQL_HOST=172.18.0.2
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=customer_db
+      - JWT_SECRET=AaZzBbCcYyDdXxEeWwFf
+      - JWT_EXPIRATION=604800000
+    depends_on:
+      - discovery-service
+      - gateway-service
+      - notification-service
+    networks:
+      - bank-network
+
+  account-service:
+    image: account-service
+    container_name: account-service
+    build:
+      context: ./account-service
+    ports:
+      - "8886:8886"
+    environment:
+      - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
+      - MYSQL_USER=root
+      - MYSQL_PWD=rootroot
+      - MYSQL_HOST=172.18.0.2
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=account_db
+      - AXON_HOST=172.18.0.3
+      - AXON_PORT=8124
+      - AXON_CONSOLE=df10b708-0:6p47cea5j2ff4ae0a17p227163886825
+      - JWT_SECRET=AaZzBbCcYyDdXxEeWwFf
+      - JWT_EXPIRATION=604800000
+    depends_on:
+      - discovery-service
+      - gateway-service
+      - customer-service
+    networks:
+      - bank-network
+
+networks:
+  bank-network:
+    external: true

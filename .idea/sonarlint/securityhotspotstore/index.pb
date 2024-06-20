@@ -21,3 +21,20 @@ J
 Puser-service/src/main/java/org/mounanga/userservice/service/UserServiceImpl.java,7\7\775c55cea0f800862edf9a72783045922ecde8df
 Ž
 ^user-service/src/main/java/org/mounanga/userservice/web/restcontroller/UserRestController.java,a\a\aad27800c51881204a8b6e545ec6754d267821de
+:
+
+Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+B
+docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
+O
+notification-service/Dockerfile,a\5\a5693f114eb0276b04eefb1f68707f0ed42da66c
+n
+>notification-service/src/main/resources/application.properties,e\d\edf9f13c1da1251da3b7f8e82c50375e43df306f
+f
+6user-service/src/main/resources/application.properties,a\b\abd22621d482309884be935bff1fa3dc406a05f7
+j
+:customer-service/src/main/resources/application.properties,1\8\18568848f24ec7c3b7f2cd16aff32807ecc2862d
+i
+9account-service/src/main/resources/application.properties,5\0\5091c6e2dc44495d21c98b6c03e2cd1c9ac9cdae
+;
+Jenkinsfile,0\c\0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
