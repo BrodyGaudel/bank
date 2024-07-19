@@ -16,7 +16,7 @@ ENV AXON_PORT=8124
 ENV DISCOVERY_SERVER=http://localhost:8761/eureka/
 
 # Copying your jar application into the container
-COPY target/account-service-0.0.2.jar account-service.jar
+COPY target/account-service-0.0.3.jar account-service.jar
 
 # Command to launch the application when running the container
 ENTRYPOINT ["java","-jar","account-service.jar"]

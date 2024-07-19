@@ -54,7 +54,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void testGetCustomerById_ThrowsCustomerNotFoundException() {
+    void testGetCustomerByIdThrowsCustomerNotFoundException() {
         String id = "id";
         when(customerRepository.findById(id)).thenReturn(Optional.empty());
         assertThrows(CustomerNotFoundException.class, () -> customerService.getCustomerById(id));
@@ -71,7 +71,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void testGetCustomerByCin_ThrowsCustomerNotFoundException() {
+    void testGetCustomerByCinThrowsCustomerNotFoundException() {
         String cin = "cin";
         when(customerRepository.findByCin(cin)).thenReturn(Optional.empty());
         assertThrows(CustomerNotFoundException.class, () -> customerService.getCustomerByCin(cin));
@@ -144,7 +144,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void testCreateCustomer_ThrowsCinAlreadyExistException() {
+    void testCreateCustomerThrowsCinAlreadyExistException() {
         CustomerRequest request = CustomerRequest.builder().cin("123").firstname("John").lastname("Doe").dateOfBirth(LocalDate.of(1994,1,22)).placeOfBirth("World").nationality("Gabon").sex(Sex.M).build();
         when(customerRepository.existsByCin(request.getCin())).thenReturn(true);
         assertThrows(AlreadyExistException.class, () -> customerService.createCustomer(request));
@@ -153,13 +153,14 @@ class CustomerServiceImplTest {
     @Test
     void testUpdateCustomer() {
         String id = "id";
-        CustomerRequest request = CustomerRequest.builder().cin("123").firstname("John").lastname("Doe").dateOfBirth(LocalDate.of(1994,1,22)).placeOfBirth("World").nationality("Gabon").sex(Sex.M).build();
-        Customer existingCustomer = Customer.builder().id(id).cin("Old 123").firstname("Old John").lastname("Old Doe").dateOfBirth(LocalDate.of(2000,1,22)).placeOfBirth("Old World").nationality("Old Gabon").sex(Sex.M).build();
+        CustomerRequest request = CustomerRequest.builder().cin("123").firstname("John").lastname("Doe").email("customer@gmail.com").dateOfBirth(LocalDate.of(1994,1,22)).placeOfBirth("World").nationality("Gabon").sex(Sex.M).build();
+        Customer existingCustomer = Customer.builder().id(id).cin("Old 123").firstname("Old John").lastname("Old Doe").email("customer@gmail.com").dateOfBirth(LocalDate.of(2000,1,22)).placeOfBirth("Old World").nationality("Old Gabon").sex(Sex.M).build();
         when(customerRepository.findById(id)).thenReturn(Optional.of(existingCustomer));
         when(customerRepository.existsByCin(anyString())).thenReturn(false);
         when(customerRepository.save(any(Customer.class))).thenReturn(
                 Customer.builder().cin(request.getCin()).firstname("John").lastname("Doe")
                         .dateOfBirth(LocalDate.of(1994,1,22))
+                        .email("customer@gmail.com")
                         .placeOfBirth("World").nationality("Gabon").sex(Sex.M)
                         .lastModifiedDate(LocalDateTime.now()).lastModifier("last modifier").id(id)
                         .build()
@@ -178,7 +179,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void testUpdateCustomer_ThrowsCinAlreadyExistException() {
+    void testUpdateCustomerThrowsCinAlreadyExistException() {
         String id = "id";
         CustomerRequest request = CustomerRequest.builder().cin("123").firstname("John").lastname("Doe").dateOfBirth(LocalDate.of(1994,1,22)).placeOfBirth("World").nationality("Gabon").sex(Sex.M).build();
         Customer existingCustomer = Customer.builder().id(id).cin("Old 123").firstname("Old John").lastname("Old Doe").dateOfBirth(LocalDate.of(2000,1,22)).placeOfBirth("Old World").nationality("Old Gabon").sex(Sex.M).build();

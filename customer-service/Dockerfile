@@ -10,7 +10,7 @@ ENV MYSQL_USER=root
 ENV MYSQL_PWD=root
 ENV MYSQL_HOST=172.20.0.2
 ENV MYSQL_PORT=3307
-ENV MYSQL_DATABASE=bank_db
+ENV MYSQL_DATABASE=customer_db
 
 # Copying your jar application into the container
 COPY target/customer-service-0.0.3.jar customer-service.jar

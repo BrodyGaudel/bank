@@ -35,7 +35,7 @@ services:
       - "8885:8885"
     environment:
       - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
-      - MAIL_HOST=localhost
+      - MAIL_HOST=172.18.0.4
       - MAIL_PORT=1025
       - MAIL_USERNAME=brody
       - MAIL_PASSWORD=brody
@@ -56,16 +56,18 @@ services:
     environment:
       - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
       - MYSQL_USER=root
-      - MYSQL_PWD=rootroot
+      - MYSQL_PWD=root
       - MYSQL_HOST=172.18.0.2
       - MYSQL_PORT=3306
-      - MYSQL_DATABASE=customer_db
+      - MYSQL_DATABASE=utilisateur
       - JWT_SECRET=AaZzBbCcYyDdXxEeWwFf
       - JWT_EXPIRATION=604800000
     depends_on:
       - discovery-service
       - gateway-service
       - notification-service
+    networks:
+      - bank-network
 
   customer-service:
     image: customer-service
@@ -77,7 +79,7 @@ services:
     environment:
       - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
       - MYSQL_USER=root
-      - MYSQL_PWD=rootroot
+      - MYSQL_PWD=root
       - MYSQL_HOST=172.18.0.2
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=customer_db
@@ -100,7 +102,7 @@ services:
     environment:
       - DISCOVERY_SERVICE=http://discovery-service:8761/eureka/
       - MYSQL_USER=root
-      - MYSQL_PWD=rootroot
+      - MYSQL_PWD=root
       - MYSQL_HOST=172.18.0.2
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=account_db

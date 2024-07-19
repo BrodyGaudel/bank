@@ -105,7 +105,8 @@ class UserServiceImplTest {
 
     @Test
     void testDeleteUserById() {
-        doNothing().when(userRepository).deleteById("1");
+        when(userRepository.findById(anyString())).thenReturn(Optional.of(user));
+        doNothing().when(userRepository).deleteById(anyString());
 
         userService.deleteUserById("1");
 
