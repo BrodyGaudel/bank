@@ -1,6 +1,6 @@
 # BANK Application
 
-The BANK application is a microservice-based banking management system developed using Java, Spring Boot, Spring Cloud, and Spring Security.
+The BANK application is a microservice-based banking management system developed using Java, Spring Boot, Spring Cloud, Spring Security and Axon Framework.
 
 ## Microservices
 
