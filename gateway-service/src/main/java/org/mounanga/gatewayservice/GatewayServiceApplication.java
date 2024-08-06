@@ -35,4 +35,5 @@ public class GatewayServiceApplication {
         return new DiscoveryClientRouteDefinitionLocator(reactiveDiscoveryClient, discoveryLocatorProperties);
     }
 
+
 }
