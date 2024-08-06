@@ -1,30 +1,25 @@
 package org.mounanga.notificationservice.web;
 
-import org.mounanga.notificationservice.dto.LoginNotification;
-import org.mounanga.notificationservice.dto.Notification;
-import org.mounanga.notificationservice.service.MailService;
+import jakarta.validation.Valid;
+import org.mounanga.notificationservice.dto.NotificationRequestDTO;
+import org.mounanga.notificationservice.service.NotificationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/notifications")
+@RequestMapping("/mailing")
 public class NotificationRestController {
 
-    private final MailService mailService;
+    private final NotificationService notificationService;
 
-    public NotificationRestController(MailService mailService) {
-        this.mailService = mailService;
+    public NotificationRestController(NotificationService notificationService) {
+        this.notificationService = notificationService;
     }
 
     @PostMapping("/send")
-    public void sendNotification(@RequestBody Notification notification) {
-        mailService.send(notification);
-    }
-
-    @PostMapping("/login")
-    public void sendLoginNotification(@RequestBody LoginNotification notification) {
-        mailService.sendLoginNotification(notification);
+    public void send(@RequestBody @Valid NotificationRequestDTO notification) {
+        notificationService.sendNotification(notification);
     }
 }

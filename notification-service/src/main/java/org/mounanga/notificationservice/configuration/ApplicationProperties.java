@@ -1,4 +1,4 @@
-package org.mounanga.notificationservice.service;
+package org.mounanga.notificationservice.configuration;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
