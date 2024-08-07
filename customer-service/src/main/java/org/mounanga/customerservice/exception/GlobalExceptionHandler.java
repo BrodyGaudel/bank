@@ -6,7 +6,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,19 +20,17 @@ public class GlobalExceptionHandler {
                 NOT_FOUND.value(),
                 exception.getMessage(),
                 exception.getLocalizedMessage(),
-                new HashSet<>(),
-                new HashMap<>()
+                new HashSet<>()
         ));
     }
 
-    @ExceptionHandler(AlreadyExistException.class)
-    public ResponseEntity<ExceptionResponse> handleException(@NotNull AlreadyExistException exception) {
-        return ResponseEntity.status(CONFLICT).body(new ExceptionResponse(
+    @ExceptionHandler(FieldValidationException.class)
+    public ResponseEntity<FieldErrorResponse> handleException(@NotNull FieldValidationException exception) {
+        return ResponseEntity.status(CONFLICT).body(new FieldErrorResponse(
                 CONFLICT.value(),
                 exception.getMessage(),
                 exception.getLocalizedMessage(),
-                new HashSet<>(),
-                new HashMap<>()
+                exception.getErrors()
         ));
     }
 
@@ -46,8 +43,7 @@ public class GlobalExceptionHandler {
                 BAD_REQUEST.value(),
                 exception.getMessage(),
                 exception.getLocalizedMessage(),
-                validationErrors,
-                new HashMap<>()
+                validationErrors
         ));
     }
 
@@ -57,8 +53,7 @@ public class GlobalExceptionHandler {
                 INTERNAL_SERVER_ERROR.value(),
                 exception.getMessage(),
                 exception.getLocalizedMessage(),
-                new HashSet<>(),
-                new HashMap<>()
+                new HashSet<>()
         ));
     }
 

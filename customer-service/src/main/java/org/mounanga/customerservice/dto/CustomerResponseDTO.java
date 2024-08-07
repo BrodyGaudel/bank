@@ -1,7 +1,7 @@
 package org.mounanga.customerservice.dto;
 
 import lombok.*;
-import org.mounanga.customerservice.enums.Sex;
+import org.mounanga.customerservice.enums.Gender;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,18 +12,18 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @ToString
-public class CustomerResponse {
+public class CustomerResponseDTO {
     private String id;
     private String firstname;
     private String lastname;
     private String placeOfBirth;
     private LocalDate dateOfBirth;
     private String nationality;
-    private Sex sex;
+    private Gender gender;
     private String cin;
     private String email;
     private LocalDateTime createdDate;
-    private String creator;
+    private String createdBy;
     private LocalDateTime lastModifiedDate;
-    private String lastModifier;
+    private String lastModifiedBy;
 }

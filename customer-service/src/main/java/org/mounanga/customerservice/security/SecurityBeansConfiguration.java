@@ -9,6 +9,6 @@ public class SecurityBeansConfiguration {
 
     @Bean
     public AuditorAware<String> auditorAware() {
-        return new ApplicationAuditAware();
+        return new AuditorAwareImpl();
     }
 }
