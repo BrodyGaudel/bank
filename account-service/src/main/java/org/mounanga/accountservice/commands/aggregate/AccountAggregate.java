@@ -80,7 +80,7 @@ public class AccountAggregate {
         this.status = event.getStatus();
     }
 
-    @EventSourcingHandler
+    @CommandHandler
     public void handle(SuspendAccountCommand command) {
         log.info("SuspendAccountCommand handled");
         AccountSuspendedEvent event = EventFactory.create(command);
@@ -156,6 +156,9 @@ public class AccountAggregate {
         this.accountId = event.getId();
         this.lastModifiedBy = event.getEventBy();
         this.lastModifiedDate = event.getEventDate();
+        this.status = AccountStatus.DELETED;
+        this.email = null;
+        this.customerId = null;
     }
 
 }
