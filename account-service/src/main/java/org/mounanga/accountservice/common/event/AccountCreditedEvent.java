@@ -1,22 +1,21 @@
 package org.mounanga.accountservice.common.event;
 
 import lombok.Getter;
+import org.mounanga.accountservice.common.enums.OperationType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
-public class AccountCreditedEvent extends BaseEvent<String>{
-    private final String description;
+public class AccountCreditedEvent extends BaseEvent<String> {
     private final BigDecimal amount;
-    private final LocalDateTime dateTime;
-    private final String creditedBy;
+    private final OperationType type;
+    private final String description;
 
-    public AccountCreditedEvent(String id, String description, BigDecimal amount, LocalDateTime dateTime, String creditedBy) {
-        super(id);
-        this.description = description;
+    public AccountCreditedEvent(String id, LocalDateTime eventDate, String eventBy, BigDecimal amount, OperationType type, String description) {
+        super(id, eventDate, eventBy);
         this.amount = amount;
-        this.dateTime = dateTime;
-        this.creditedBy = creditedBy;
+        this.type = type;
+        this.description = description;
     }
 }
