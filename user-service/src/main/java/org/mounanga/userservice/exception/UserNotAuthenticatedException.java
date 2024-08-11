@@ -1,8 +1,6 @@
 package org.mounanga.userservice.exception;
 
-import org.springframework.security.core.AuthenticationException;
-
-public class UserNotAuthenticatedException extends AuthenticationException {
+public class UserNotAuthenticatedException extends RuntimeException {
     /**
      * Constructs a new runtime exception with the specified detail message.
      * The cause is not initialized, and may subsequently be initialized by a

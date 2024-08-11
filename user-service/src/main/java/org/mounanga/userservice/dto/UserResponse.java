@@ -3,7 +3,6 @@ package org.mounanga.userservice.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,17 +10,14 @@ import java.util.Set;
 @Setter
 @Builder
 @ToString
-public class UserResponse{
-    private String id;
-    private String firstname;
-    private String lastname;
-    private String username;
+public class UserResponse {
+    private Long id;
     private String email;
-    private String cin;
-    private boolean enabled;
-    private LocalDateTime createdDate;
-    private LocalDateTime lastModifiedDate;
+    private String username;
+    private Boolean enabled;
     private String createBy;
+    private LocalDateTime createdDate;
     private String lastModifiedBy;
-    private Set<String> roles;
+    private LocalDateTime lastModifiedDate;
+    private ProfileResponse profile;
 }

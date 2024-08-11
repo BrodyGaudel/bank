@@ -1,5 +1,6 @@
 package org.mounanga.userservice.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.mounanga.userservice.entity.Role;
 import org.mounanga.userservice.entity.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -25,14 +27,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getUserByUsernameOrEmail(username);
+        log.info("In loadUserByUsername()");
+        User user = findUserByUsername(username);
         List<GrantedAuthority> grantedAuthorities = getAuthorities(user.getRoles());
+        log.info("user loaded successfully");
         return new org.springframework.security.core.userdetails.
                 User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 
-    private User getUserByUsernameOrEmail(final String usernameOrEmail) {
-        return userRepository.findByUsernameOrEmail(usernameOrEmail)
+    private User findUserByUsername(final String username) {
+        return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
@@ -41,6 +45,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         return authorities;
     }
-
-
 }

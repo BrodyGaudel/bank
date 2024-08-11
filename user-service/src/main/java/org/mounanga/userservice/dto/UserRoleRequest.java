@@ -1,7 +1,10 @@
 package org.mounanga.userservice.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record UserRoleRequest(@NotBlank(message = "field 'roleName' is mandatory : it can not be blank.") String roleName,
-                              @NotBlank(message = "field 'username' is mandatory : it can not be blank.") String username) {
+public record UserRoleRequest(
+        @NotNull(message = "field 'userId' is mandatory: it can not be null")
+        Long userId,
+        @NotNull(message = "field 'roleId' is mandatory: it can not be null")
+        Long roleId) {
 }

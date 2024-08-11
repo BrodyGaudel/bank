@@ -1,10 +1,10 @@
 package org.mounanga.userservice.dto;
 
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
+import org.mounanga.userservice.enums.Gender;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,25 +13,36 @@ import lombok.*;
 @Builder
 @ToString
 public class UserRequest {
-
-    @NotBlank(message = "field 'firstname' is mandatory : it can not be blank")
+    @NotBlank(message = "field 'firstname' is mandatory: it cannot be blank")
     private String firstname;
 
-    @NotBlank(message = "field 'lastname' is mandatory : it can not be blank")
+    @NotBlank(message = "field 'lastname' is mandatory: it cannot be blank")
     private String lastname;
 
-    @NotBlank(message = "field 'cin' is mandatory : it can not be blank")
-    @Size(min = 6, max=32, message = "The ‘CIN’ field must have a minimum of 6 alphanumeric characters and a maximum of 32.")
+    @NotNull(message = "field 'dateOfBirth' is mandatory: it cannot be null")
+    @Past(message = "dateOfBirth must be in past")
+    private LocalDate dateOfBirth;
+
+    @NotBlank(message = "field 'placeOfBirth' is mandatory: it cannot be blank")
+    private String placeOfBirth;
+
+    @NotNull(message = "field 'gender' is mandatory: it cannot be null")
+    private Gender gender;
+
+    @NotBlank(message = "field 'nationality' is mandatory: it cannot be blank")
+    private String nationality;
+
+    @NotBlank(message = "field 'cin' is mandatory: it cannot be blank")
     private String cin;
 
-    @NotBlank(message = "field 'email' is mandatory : it can not be blank")
-    @Email(message = "field 'email' is not well formatted : it must be like emple@mail.com")
+    @NotBlank(message = "field 'e-mail' is mandatory: it cannot be blank")
+    @Email(message = "e-mail is not well formed")
     private String email;
 
-    @NotBlank(message = "field 'username' is mandatory : it can not be blank")
+    @NotBlank(message = "field 'username' is mandatory: it cannot be blank")
     private String username;
 
-    @NotBlank(message = "field 'password' is mandatory : it can not be blank")
-    @Size(min = 8, message = "a password must have at least 8 alphanumeric characters")
+    @NotBlank(message = "field 'password' is mandatory: it cannot be blank")
+    @Size(min = 8, message = "the minimum password size is 8 alpha-numeric characters.")
     private String password;
 }

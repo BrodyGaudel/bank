@@ -9,16 +9,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
-public class ApplicationAuditAware implements AuditorAware<String> {
-
+public class AuditAwareImpl implements AuditorAware<String> {
 
     @Override
     public @NotNull Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null ||
-                !authentication.isAuthenticated() ||
-                authentication instanceof AnonymousAuthenticationToken) {
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
             return Optional.empty();
         }
         Object principal = authentication.getPrincipal();
