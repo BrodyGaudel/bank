@@ -9,7 +9,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -60,29 +59,12 @@ public class User {
     @JoinTable(name="user_role",joinColumns = @JoinColumn(name="user_id") , inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles;
 
-    public void addRole(Role role) {
-        if (role != null) {
-            if (roles == null) {
-                roles = new ArrayList<>();
-            }
-            if (!roles.contains(role)) {
-                roles.add(role);
-            }
-        }
-    }
-
-    public void removeRole(Role role) {
-        if (role != null && roles != null) {
-            roles.remove(role);
-        }
-    }
-
     public boolean isEnabled(){
         return enabled != null && enabled;
     }
 
     public boolean isPasswordNeedToBeModified(){
-        return passwordNeedToBeModified != null && passwordNeedToBeModified != false;
+        return passwordNeedToBeModified != null && passwordNeedToBeModified;
     }
 
 }

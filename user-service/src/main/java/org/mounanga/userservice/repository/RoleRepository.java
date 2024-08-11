@@ -15,4 +15,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     @Query("select r from Role r where r.name like :kw or r.description like :kw order by r.name asc")
     Page<Role> findRolesByNameOrDescription(@Param("kw") String keyword, Pageable pageable);
+
+    boolean existsBy();
 }
