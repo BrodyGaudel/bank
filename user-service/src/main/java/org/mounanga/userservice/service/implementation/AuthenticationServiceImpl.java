@@ -86,7 +86,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private void sendNotification(String to, String fullName) {
         final String body = "Hello " + fullName + "! . You have just logged into your workspace. If you are not the source of this manoeuvre: please change your password immediately and contact an administrator.";
         final String subject = "Authentication Notification";
-        notificationService.send(new NotificationRequest(to, body, subject));
+        notificationService.send(new NotificationRequest(to, subject, body));
     }
 
     private String createJwt(@NotNull User user, @NotNull List<String> roles) {

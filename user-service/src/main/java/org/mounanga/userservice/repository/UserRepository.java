@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
-    @Query("select u from User u where u.profile.firstname like :kw or u.profile.lastname like :k or u.profile.cin like :kw order by u.profile.firstname asc")
+    @Query("select u from User u where u.profile.firstname like :kw or u.profile.lastname like :kw or u.profile.cin like :kw order by u.profile.firstname asc")
     Page<User> findByFirstnameOrLastnameOrCin(@Param("kw") String keyword, Pageable pageable);
 
     boolean existsByUsername(String username);

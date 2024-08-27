@@ -1,9 +1,6 @@
 package org.mounanga.userservice.service;
 
-import org.mounanga.userservice.dto.UserEnabledRequest;
-import org.mounanga.userservice.dto.UserRequest;
-import org.mounanga.userservice.dto.UserResponse;
-import org.mounanga.userservice.dto.UserRoleRequest;
+import org.mounanga.userservice.dto.*;
 
 import java.util.List;
 
@@ -21,4 +18,5 @@ public interface UserService {
     List<UserResponse> searchUsers(String keyword, int page, int size);
     UserResponse getUserByUsername(String username);
 
+    void resetPassword(String currentUsername, PasswordRequest request);
 }

@@ -60,18 +60,19 @@ public class UserServiceApplication {
 							.placeOfBirth("Administrator's Birthday")
 							.dateOfBirth(LocalDate.of(1994,1,22))
 							.nationality("Administrator Nationality")
+							.cin("Administrator CIN")
 							.build();
 					User superAdmin = new User();
 					superAdmin.setUsername("ADMINISTRATOR");
 					superAdmin.setEmail("administrator@mounanga.com");
-					superAdmin.setEmail("superadmin@webank.com");
+					superAdmin.setPasswordNeedToBeModified(Boolean.TRUE);
 					String defaultPassword = UUID.randomUUID().toString();
 					superAdmin.setPassword(passwordEncoder.encode(defaultPassword));
 					superAdmin.setEnabled(true);
 					profile.setUser(superAdmin);
 					superAdmin.setProfile(profile);
 					User savedUser = userRepository.save(superAdmin);
-					log.info("Super admin created successfully with password '{}'", defaultPassword);
+					log.info("SUPER ADMIN created successfully with password '{}'", defaultPassword);
 					List<Role> roleList = roleRepository.findAll();
 					savedUser.setRoles(roleList);
 					User updatedUser = userRepository.save(savedUser);

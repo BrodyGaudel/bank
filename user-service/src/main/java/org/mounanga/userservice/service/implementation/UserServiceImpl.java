@@ -2,10 +2,7 @@ package org.mounanga.userservice.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.mounanga.userservice.dto.UserEnabledRequest;
-import org.mounanga.userservice.dto.UserRequest;
-import org.mounanga.userservice.dto.UserResponse;
-import org.mounanga.userservice.dto.UserRoleRequest;
+import org.mounanga.userservice.dto.*;
 import org.mounanga.userservice.entity.Role;
 import org.mounanga.userservice.entity.User;
 import org.mounanga.userservice.exception.FieldError;
@@ -152,10 +149,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse getUserByUsername(String username) {
         log.info("In getUserByUsername()");
-        User user = userRepository.findByUsername(username)
-                .orElseThrow( () -> new UserNotFoundException(String.format("User with username '%s' not found.", username)));
+        User user = findUserByUsername(username);
         log.info("user found.");
         return Mapper.fromUser(user);
+    }
+
+    @Override
+    public void resetPassword(String currentUsername, @NotNull PasswordRequest request) {
+        log.info("In resetPassword()");
+        if(!request.password().equals(request.confirmPassword())){
+           throw new IllegalArgumentException("Passwords do not match.");
+        }
+        User user = findUserByUsername(currentUsername);
+        user.setPassword(passwordEncoder.encode(request.password()));
+        user.setPasswordNeedToBeModified(Boolean.FALSE);
+        userRepository.save(user);
+        log.info("user with id '{}' reset password.", user.getId());
     }
 
     private void validateBeforeSaving(String username, String email, String cin) {
@@ -197,6 +206,11 @@ public class UserServiceImpl implements UserService {
     private User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow( () -> new UserNotFoundException(String.format("User with id '%s' not found.", id)));
+    }
+
+    private User findUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow( () -> new UserNotFoundException(String.format("User with username '%s' not found.", username)));
     }
 
     private Role findRoleById(Long id) {

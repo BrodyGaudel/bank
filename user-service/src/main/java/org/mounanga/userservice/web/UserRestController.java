@@ -1,10 +1,7 @@
 package org.mounanga.userservice.web;
 
 import jakarta.validation.Valid;
-import org.mounanga.userservice.dto.UserEnabledRequest;
-import org.mounanga.userservice.dto.UserRequest;
-import org.mounanga.userservice.dto.UserResponse;
-import org.mounanga.userservice.dto.UserRoleRequest;
+import org.mounanga.userservice.dto.*;
 import org.mounanga.userservice.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,11 +69,12 @@ public class UserRestController {
         return userService.getAllUsers(page, size);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','SUPER_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN','SUPER_ADMIN')")
     @GetMapping("/search")
-    public List<UserResponse> searchUsers(@RequestParam String keyword,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size) {
+    public List<UserResponse> searchUsers(@RequestParam(name = "keyword", defaultValue = "") String keyword,
+                                          @RequestParam(name = "page",defaultValue = "0") int page,
+                                          @RequestParam(name = "size",defaultValue = "10") int size) {
+
         return userService.searchUsers(keyword, page, size);
     }
 
@@ -85,6 +83,12 @@ public class UserRestController {
     public UserResponse getUserByUsername() {
         String username = getCurrentUsername();
         return userService.getUserByUsername(username);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN','SUPER_ADMIN')")
+    @PutMapping("/reset-pwd")
+    public void resetPassword(@RequestBody @Valid PasswordRequest request) {
+        userService.resetPassword(getCurrentUsername(), request);
     }
 
     private String getCurrentUsername() {
