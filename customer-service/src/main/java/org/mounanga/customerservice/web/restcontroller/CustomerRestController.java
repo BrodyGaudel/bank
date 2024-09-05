@@ -37,10 +37,6 @@ public class CustomerRestController {
         return customerService.searchCustomers(keyword, page, size);
     }
 
-    @GetMapping("/verify/{id}")
-    public CustomerExistResponseDTO checkCustomerExist(@PathVariable String id){
-        return customerService.checkCustomerExist(id);
-    }
 
     @PostMapping("/create")
     public CustomerResponseDTO createCustomer(@RequestBody @Valid CustomerRequestDTO dto){

@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, String> {
 
-    @Query("select a from Account a where a.customerId =:customerId")
-    Optional<Account> findByCustomerId(@Param("customerId") String customerId);
+    @Query("select a from Account a where a.customerId =:id")
+    Optional<Account> findByCustomerId(@Param("id") String customerId);
 }

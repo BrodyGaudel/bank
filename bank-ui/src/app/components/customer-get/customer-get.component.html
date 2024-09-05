@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="card" *ngIf="alreadyLoaded()">
+    <div class="card-header bg-info">
+      <h4 class="text-white">Customer</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <b>Firstname : </b>{{customer.firstname}}
+          <hr>
+          <b>Lastname : </b>{{customer.lastname}}
+          <hr>
+          <b>Date of birth : </b>{{customer.dateOfBirth}}
+          <hr>
+          <b>Place of birth : </b>{{customer.placeOfBirth}}
+          <hr>
+          <b>Gender : </b>{{customer.gender}}
+          <hr>
+          <b>Nationality : </b>{{customer.nationality}}
+        </div>
+        <div class="col-md-6">
+          <b>CIN : </b>{{customer.cin}}
+          <hr>
+          <b>Email : </b>{{customer.email}}
+          <hr>
+          <b>Create at: </b>{{customer.createdDate}}
+          <hr>
+          <b>Created by : </b>{{customer.createdBy}}
+          <hr>
+          <b>Last modified date : </b>{{customer.lastModifiedDate}}
+          <hr>
+          <b>Last modified by : </b>{{customer.lastModifiedBy}}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-info text-white" (click)="gotoCustomerUpdateComponent(customer.id)">Update</button>
+    </div>
+  </div>
+  <div *ngIf="errorFlag">
+    <div *ngIf="errorFlag" class="alert alert-danger mt-3">
+      <strong>Error {{ errorCode }}:</strong>
+      <hr>
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

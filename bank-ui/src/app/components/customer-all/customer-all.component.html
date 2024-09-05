@@ -1,0 +1,46 @@
+<div class="container mt-5">
+
+  <form [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
+    <div class="form-group mb-3 input-group">
+      <input id="keyword" formControlName="keyword" type="text" class="form-control" [class.is-invalid]="searchFormGroup.get('keyword')?.invalid && searchFormGroup.get('keyword')?.touched" placeholder="Search by first or last name">
+      <button type="submit" class="btn btn-info" [disabled]="searchFormGroup.invalid"><i class="bi bi-search"></i> Search</button>
+      <div *ngIf="searchFormGroup.get('keyword')?.invalid && searchFormGroup.get('keyword')?.touched" class="invalid-feedback">keyword's size must be more than 0</div>
+    </div>
+  </form>
+
+
+  <table class="table table-striped" *ngIf="customersObservable | async as customers">
+    <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Cin</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.firstname }}</td>
+      <td>{{ customer.lastname }}</td>
+      <td>{{ customer.cin }}</td>
+      <td>{{ customer.email}}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-info" (click)="gotoShowCustomerComponent(customer.id)"><i class="bi bi-ticket-detailed-fill"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav *ngIf="customersObservable | async as users">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="page === 0">
+        <a class="page-link" (click)="gotoPreviousPage(page - 1)">Previous</a>
+      </li>
+
+      <li class="page-item">
+        <a class="page-link" (click)="gotoNextPage(page + 1, users.length)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

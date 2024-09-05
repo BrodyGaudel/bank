@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface OperationRepository extends JpaRepository<Operation, String> {
 
-    @Query("select o from Operation o where o.account.id=: accountId order by o.dateTime desc")
-    Page<Operation> findByAccountId(@Param("accountId") String accountId, Pageable pageable);
+    @Query("select o from Operation o where o.account.id=:id order by o.dateTime desc")
+    Page<Operation> findByAccountId(@Param("id") String accountId, Pageable pageable);
 
     @Modifying
-    @Query("delete from Operation o where o.account.id = :accountId")
-    void deleteByAccountId(@Param("accountId") String accountId);
+    @Query("delete from Operation o where o.account.id = :id")
+    void deleteByAccountId(@Param("id") String accountId);
 }

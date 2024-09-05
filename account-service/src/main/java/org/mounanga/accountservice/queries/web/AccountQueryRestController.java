@@ -59,7 +59,7 @@ public class AccountQueryRestController {
     }
 
     @GetMapping("/all-operations")
-    public List<OperationResponseDTO> getOperationById(@RequestParam(name = "page") String accountId,
+    public List<OperationResponseDTO> getOperationById(@RequestParam(name = "accountId") String accountId,
                                                        @RequestParam(name = "page", defaultValue = "0") int page,
                                                        @RequestParam(name = "size", defaultValue = "9") int size) {
         GetOperationByAccountId query = new GetOperationByAccountId(accountId, page, size);

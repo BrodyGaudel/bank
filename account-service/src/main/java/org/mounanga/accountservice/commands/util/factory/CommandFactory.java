@@ -9,7 +9,6 @@ import org.mounanga.accountservice.common.enums.AccountStatus;
 import org.mounanga.accountservice.common.enums.OperationType;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class CommandFactory {
 
@@ -21,7 +20,7 @@ public class CommandFactory {
     @Contract("_, _ -> new")
     public static CreditAccountCommand createCreditAccountCommand(@NotNull final OperationRequestDTO dto, final String username){
         return new CreditAccountCommand(
-                UUID.randomUUID().toString(),
+                dto.accountId(),
                 LocalDateTime.now(),
                 username,
                 dto.amount(),
@@ -34,7 +33,7 @@ public class CommandFactory {
     @Contract("_, _ -> new")
     public static DebitAccountCommand createDebitAccountCommand(@NotNull final OperationRequestDTO dto, final String username){
         return new DebitAccountCommand(
-                UUID.randomUUID().toString(),
+                dto.accountId(),
                 LocalDateTime.now(),
                 username,
                 dto.amount(),
