@@ -39,14 +39,14 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
-        String jwt = request.getHeader(AUTHORIZATION);
-        if(jwt == null || !jwt.startsWith(BEARER)) {
+        String header = request.getHeader(AUTHORIZATION);
+        if(header == null || !header.startsWith(BEARER)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(properties.getJwtSecret())).build();
-        jwt= jwt.substring(7);
+        String jwt= header.substring(7);
         DecodedJWT decodedJWT = verifier.verify(jwt);
         String username = decodedJWT.getSubject();
         List<String> roles = decodedJWT.getClaims().get(ROLES).asList(String.class);
@@ -56,8 +56,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             authorities.add(new SimpleGrantedAuthority(role));
         }
 
-        UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(username,null,authorities);
-        SecurityContextHolder.getContext().setAuthentication(user);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username,null,authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 }
