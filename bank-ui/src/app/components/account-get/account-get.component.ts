@@ -32,6 +32,8 @@ export class AccountGetComponent implements OnInit {
   page: number = 0;
   size: number = 3;
   operationFromGroup!: FormGroup;
+  showDetails: boolean = false;
+  operationDetails: OperationResponse = new OperationResponse();
 
 
   constructor(private accountService: AccountService,
@@ -139,7 +141,8 @@ export class AccountGetComponent implements OnInit {
   }
 
   gotoOperationDetailComponent(operation: OperationResponse): void {
-    this.router.navigate(["operation-detail", operation.id]).then();
+    this.operationDetails = operation;
+    this.showDetails = true;
   }
 
   handleAccountOperation(): void {
@@ -196,4 +199,7 @@ export class AccountGetComponent implements OnInit {
     });
   }
 
+  closeDetails() :void {
+    this.showDetails = false;
+  }
 }

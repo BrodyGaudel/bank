@@ -135,6 +135,21 @@
           </form>
         </div>
       </div>
+
+      <div class="card shadow mt-3" *ngIf="showDetails">
+        <div class="card-header text-center ">Operation's details</div>
+        <div class="card-body">
+          <b>Reference : </b>{{operationDetails.id}}<br>
+          <b>Date & Time : </b>{{operationDetails.dateTime | date: 'dd/MM/yyyy - HH:mm:ss'}}<br>
+          <b>Type : </b>{{operationDetails.type}}<br>
+          <b>Amount : </b>{{operationDetails.amount}}<br>
+          <b>Description : </b>{{operationDetails.description}}<br>
+          <b>Created by : </b>{{operationDetails.createdBy}}
+          <div class="mb-2">
+            <button class="btn btn-sm btn-info" (click)="closeDetails()">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>

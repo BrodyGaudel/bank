@@ -17,6 +17,5 @@ public interface UserService {
     List<UserResponse> getAllUsers(int page, int size);
     List<UserResponse> searchUsers(String keyword, int page, int size);
     UserResponse getUserByUsername(String username);
-
     void resetPassword(String currentUsername, PasswordRequest request);
 }

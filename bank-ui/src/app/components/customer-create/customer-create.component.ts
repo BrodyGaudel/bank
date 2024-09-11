@@ -93,11 +93,11 @@ export class CustomerCreateComponent implements OnInit {
     this.accountService.createAccount(request).subscribe({
       next: result => {
         console.log(result);
-        alert("BANK ACCOUNT : "+result);
+        this.router.navigate(["customer-get", customerId]).then();
       },
       error: err => {
         console.log(err);
-        alert("BANK ACCOUNT NOT CREATED");
+        this.router.navigate(["customer-get", customerId]).then();
       }
     })
   }
