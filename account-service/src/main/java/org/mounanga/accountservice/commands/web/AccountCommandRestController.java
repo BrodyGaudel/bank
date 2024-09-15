@@ -7,13 +7,11 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mounanga.accountservice.commands.command.*;
-import org.mounanga.accountservice.commands.dto.AccountRequestDTO;
-import org.mounanga.accountservice.commands.dto.CustomerExistResponseDTO;
-import org.mounanga.accountservice.commands.dto.OperationRequestDTO;
-import org.mounanga.accountservice.commands.dto.UpdateStatusRequestDTO;
+import org.mounanga.accountservice.commands.dto.*;
 import org.mounanga.accountservice.commands.exception.CustomerNotFoundException;
 import org.mounanga.accountservice.commands.util.factory.CommandFactory;
 import org.mounanga.accountservice.commands.util.generator.IdGenerator;
+import org.mounanga.accountservice.commands.util.proxy.TransferProxy;
 import org.mounanga.accountservice.common.enums.AccountStatus;
 import org.mounanga.accountservice.common.enums.Currency;
 import org.mounanga.accountservice.common.security.SecurityInformation;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -73,6 +72,12 @@ public class AccountCommandRestController {
     public CompletableFuture<String> debit(@RequestBody @Valid OperationRequestDTO dto) {
         DebitAccountCommand command = CommandFactory.createDebitAccountCommand(dto, securityInformation.getUsername());
         return commandGateway.send(command);
+    }
+
+    @PostMapping("/transfer")
+    public List<CompletableFuture<String>> transfer(@RequestBody @Valid TransferRequestDTO dto){
+        TransferProxy proxy = new TransferProxy();
+        return proxy.transfer(dto, commandGateway, securityInformation);
     }
 
     @DeleteMapping("/delete/{id}")
