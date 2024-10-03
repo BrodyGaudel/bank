@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.mounanga</groupId>
     <artifactId>discovery-service</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>discovery-service</name>
     <description>discovery-service</description>
     <url/>
@@ -31,6 +31,10 @@
         <spring-cloud.version>2023.0.3</spring-cloud.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
