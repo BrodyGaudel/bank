@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 @ToString
 public class Customer {
     @Id
@@ -64,4 +63,5 @@ public class Customer {
 
     @LastModifiedBy
     private String lastModifiedBy;
+
 }

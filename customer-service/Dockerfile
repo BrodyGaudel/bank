@@ -13,7 +13,7 @@ ENV MYSQL_PORT=3307
 ENV MYSQL_DATABASE=customer_db
 
 # Copying your jar application into the container
-COPY target/customer-service-0.0.3.jar customer-service.jar
+COPY target/customer-service-0.0.1.jar customer-service.jar
 
 # Command to launch the application when running the container
 ENTRYPOINT ["java","-jar","customer-service.jar"]

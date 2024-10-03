@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.mounanga</groupId>
     <artifactId>customer-service</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.1</version>
     <name>customer-service</name>
     <description>customer-service</description>
     <url/>
@@ -41,10 +41,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
@@ -56,8 +52,8 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>
@@ -82,25 +78,20 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>4.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.5.0</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

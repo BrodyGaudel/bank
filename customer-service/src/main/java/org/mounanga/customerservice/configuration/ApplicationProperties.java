@@ -1,4 +1,4 @@
-package org.mounanga.customerservice.util.config;
+package org.mounanga.customerservice.configuration;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
