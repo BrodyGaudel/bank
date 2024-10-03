@@ -1,6 +1,5 @@
 package org.mounanga.notificationservice.exception;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +15,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleException(@NotNull MethodArgumentNotValidException exception) {
+    public ResponseEntity<ExceptionResponse> handleException( MethodArgumentNotValidException exception) {
         Set<String> validationErrors = new HashSet<>();
         exception.getBindingResult().getAllErrors().forEach(error -> validationErrors.add(error.getDefaultMessage()));
 
@@ -29,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> handleException(@NotNull Exception exception) {
+    public ResponseEntity<ExceptionResponse> handleException( Exception exception) {
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ExceptionResponse(
                 INTERNAL_SERVER_ERROR.value(),
                 exception.getMessage(),

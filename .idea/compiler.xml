@@ -10,6 +10,7 @@
         <module name="customer-service" />
         <module name="discovery-service" />
         <module name="gateway-service" />
+        <module name="notification-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +19,7 @@
       <module name="customer-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
     </option>
   </component>
 </project>

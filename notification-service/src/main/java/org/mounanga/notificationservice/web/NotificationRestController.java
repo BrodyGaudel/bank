@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/mailing")
+@RequestMapping("/notifications")
 public class NotificationRestController {
 
     private final NotificationService notificationService;
@@ -19,7 +19,7 @@ public class NotificationRestController {
     }
 
     @PostMapping("/send")
-    public void send(@RequestBody @Valid NotificationRequestDTO notification) {
-        notificationService.sendNotification(notification);
+    public void send(@RequestBody @Valid NotificationRequestDTO dto){
+        notificationService.send(dto);
     }
 }

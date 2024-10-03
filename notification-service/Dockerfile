@@ -15,7 +15,7 @@ ENV EMAIL_SYSTEM=notification@bank.com
 
 
 # Copying your jar application into the container
-COPY target/notification-service-0.0.3.jar notification-service.jar
+COPY target/notification-service-0.0.1.jar notification-service.jar
 
 # Command to launch the application when running the container
 ENTRYPOINT ["java","-jar","notification-service.jar"]
