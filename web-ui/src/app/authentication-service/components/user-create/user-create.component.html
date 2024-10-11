@@ -1,0 +1,106 @@
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header text-bold">
+      Create a new user
+    </div>
+    <div class="card-body">
+      <ngb-alert *ngIf="errorFlag">
+        <p>Error Code: {{errorCode}}</p>
+        <p>{{errorMessage}}</p>
+        <ul *ngIf="errorValidation && errorValidation.length > 0">
+          <li *ngFor="let validationError of errorValidation">{{validationError}}</li>
+        </ul>
+      </ngb-alert>
+      <form [formGroup]="createUserFormGroup" (ngSubmit)="handleSubmit()">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="firstname">Firstname</label>
+              <input type="text" id="firstname" class="form-control" formControlName="firstname">
+              <div *ngIf="createUserFormGroup.get('firstname')?.invalid && createUserFormGroup.get('firstname')?.touched" class="text-danger">
+                Firstname is required.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="lastname">Lastname</label>
+              <input type="text" id="lastname" class="form-control" formControlName="lastname">
+              <div *ngIf="createUserFormGroup.get('lastname')?.invalid && createUserFormGroup.get('lastname')?.touched" class="text-danger">
+                Lastname is required.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="dateOfBirth">Date of Birth</label>
+              <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
+              <div *ngIf="createUserFormGroup.get('dateOfBirth')?.invalid && createUserFormGroup.get('dateOfBirth')?.touched" class="text-danger">
+                Please enter a valid date in the past.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="placeOfBirth">Place of Birth</label>
+              <input type="text" id="placeOfBirth" class="form-control" formControlName="placeOfBirth">
+              <div *ngIf="createUserFormGroup.get('placeOfBirth')?.invalid && createUserFormGroup.get('placeOfBirth')?.touched" class="text-danger">
+                Place of birth is required.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="gender">Gender</label>
+              <select id="gender" class="form-control" formControlName="gender">
+                <option value="" disabled>Select gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+              <div *ngIf="createUserFormGroup.get('gender')?.invalid && createUserFormGroup.get('gender')?.touched" class="text-danger">
+                Gender is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- middle -->
+
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="nationality">Nationality</label>
+              <input type="text" id="nationality" class="form-control" formControlName="nationality">
+              <div *ngIf="createUserFormGroup.get('nationality')?.invalid && createUserFormGroup.get('nationality')?.touched" class="text-danger">
+                Nationality is required.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="cin">CIN</label>
+              <input type="text" id="cin" class="form-control" formControlName="cin">
+              <div *ngIf="createUserFormGroup.get('cin')?.invalid && createUserFormGroup.get('cin')?.touched" class="text-danger">
+                CIN is required.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" formControlName="email">
+              <div *ngIf="createUserFormGroup.get('email')?.invalid && createUserFormGroup.get('email')?.touched" class="text-danger">
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="username">Username</label>
+              <input type="text" id="username" class="form-control" formControlName="username">
+              <div *ngIf="createUserFormGroup.get('username')?.invalid && createUserFormGroup.get('username')?.touched" class="text-danger">
+                Username is required.
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="form-control" formControlName="password">
+              <div *ngIf="createUserFormGroup.get('password')?.invalid && createUserFormGroup.get('password')?.touched" class="text-danger">
+                Password must be at least 8 characters long and contain both letters and numbers.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn btn-secondary" [disabled]="createUserFormGroup.invalid">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

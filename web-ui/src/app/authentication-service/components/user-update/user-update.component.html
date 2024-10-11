@@ -1,0 +1,106 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-secondary text-white">
+          <h3 class="card-title mb-0">Update Customer</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="updateUserFormGroup" (ngSubmit)="handleSubmit()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="firstname" class="form-label">First Name</label>
+                  <input id="firstname" type="text" class="form-control" formControlName="firstname">
+                  <div *ngIf="updateUserFormGroup.get('firstname')?.invalid && updateUserFormGroup.get('firstname')?.touched"
+                       class="text-danger">
+                    First name is required and must be between 1 and 256 characters.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="lastname" class="form-label">Last Name</label>
+                  <input id="lastname" type="text" class="form-control" formControlName="lastname">
+                  <div *ngIf="updateUserFormGroup.get('lastname')?.invalid && updateUserFormGroup.get('lastname')?.touched"
+                       class="text-danger">
+                    Last name is required and must be between 1 and 256 characters.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="placeOfBirth" class="form-label">Place of Birth</label>
+                  <input id="placeOfBirth" type="text" class="form-control" formControlName="placeOfBirth">
+                  <div *ngIf="updateUserFormGroup.get('placeOfBirth')?.invalid && updateUserFormGroup.get('placeOfBirth')?.touched"
+                       class="text-danger">
+                    Place of birth is required and must be between 1 and 256 characters.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                  <input id="dateOfBirth" type="date" class="form-control" formControlName="dateOfBirth">
+                  <div *ngIf="updateUserFormGroup.get('dateOfBirth')?.invalid && updateUserFormGroup.get('dateOfBirth')?.touched"
+                       class="text-danger">
+                    Date of birth is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="nationality" class="form-label">Nationality</label>
+                  <input id="nationality" type="text" class="form-control" formControlName="nationality">
+                  <div *ngIf="updateUserFormGroup.get('nationality')?.invalid && updateUserFormGroup.get('nationality')?.touched"
+                       class="text-danger">
+                    Nationality is required and must be between 1 and 256 characters.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select id="gender" class="form-select" formControlName="gender">
+                    <option value="" disabled>Select Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
+                  <div *ngIf="updateUserFormGroup.get('gender')?.invalid && updateUserFormGroup.get('gender')?.touched"
+                       class="text-danger">
+                    Gender is required.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="cin" class="form-label">CIN</label>
+                  <input id="cin" type="text" class="form-control" formControlName="cin">
+                  <div *ngIf="updateUserFormGroup.get('cin')?.invalid && updateUserFormGroup.get('cin')?.touched"
+                       class="text-danger">
+                    CIN is required and must be between 1 and 256 characters.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input id="email" type="email" class="form-control" formControlName="email">
+                  <div *ngIf="updateUserFormGroup.get('email')?.invalid && updateUserFormGroup.get('email')?.touched"
+                       class="text-danger">
+                    A valid email is required and must not exceed 256 characters.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-info w-100" [disabled]="updateUserFormGroup.invalid">Update</button>
+
+            <!-- Error message display -->
+            <div *ngIf="errorFlag" class="alert alert-danger mt-3">
+              <strong>Error {{ errorCode }}:</strong> {{ errorMessage }}
+              <ul *ngIf="errorValidation && errorValidation.length > 0">
+                <li *ngFor="let validationError of errorValidation">{{ validationError }}</li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

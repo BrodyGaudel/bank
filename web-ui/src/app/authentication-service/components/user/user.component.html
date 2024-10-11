@@ -1,0 +1,91 @@
+<div class="container mt-5">
+  <div class="card shadow" *ngIf="userObservable | async as user">
+    <div class="card-header text-center text-bold">
+      DETAILS OF THE USER'S INFORMATION
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <b>Firstname : </b>{{user.firstname}}
+          <hr>
+          <b>Lastname : </b>{{user.lastname}}
+          <hr>
+          <b>Gender : </b>{{user.gender}}
+          <hr>
+          <b>Date Of Birth : </b>{{user.dateOfBirth | date: 'dd/MM/yyyy'}}
+          <hr>
+          <b>Place Of Birth : </b>{{user.placeOfBirth}}
+          <hr>
+          <b>Nationality : </b>{{user.nationality}}
+          <hr>
+          <b>CIN : </b>{{user.cin}}
+        </div>
+        <div class="col-md-6">
+          <b>Username : </b>{{user.username}}
+          <hr>
+          <b>Email : </b>{{user.email}}
+          <hr>
+          <b>Enabled : </b><span class="{{styleEnabled(user.enabled)}}">{{textEnabled(user.enabled)}}</span>
+          <hr>
+          <b>Created by : </b>{{user.createdBy}}
+          <hr>
+          <b>Created date : </b>{{user.createdDate| date: 'dd/MM/yyyy at HH:mm'}}
+          <hr>
+          <b>Last modified by : </b>{{user.lastModifiedBy}}
+          <hr>
+          <b>Last modified date : </b>{{user.lastModifiedDate| date: 'dd/MM/yyyy at HH:mm'}}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-outline-secondary btn-sm" (click)="enabledOrDisabled(user.id)">Enabled Or Disabled</button>
+      <button class="btn btn-outline-danger btn-sm m-lg-3" (click)="delete(user.id)">Delete</button>
+      <button class="btn btn-outline-warning btn-sm m-lg-3" (click)="gotoUserUpdateComponent(user.id)">Update</button>
+    </div>
+  </div>
+
+  <div *ngIf="userObservable | async as user" class="mt-5">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Roles</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let role of user.roles ">
+        <td>{{ role }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="removeRoleFromUser(role, user.username)">
+            <i class="bi bi-x-square-fill"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-4 rounded-5" *ngIf="userObservable | async as user">
+    <h3 class="text-bold">Add role to user</h3>
+    <form [formGroup]="addRoleToUserFormGroup" (ngSubmit)="handleAddRoleToUserSubmit(user.username)">
+      <div class="form-group mb-3">
+        <label for="roleName">Role's name</label>
+        <input type="text" id="roleName" class="form-control" formControlName="roleName">
+        <div *ngIf="addRoleToUserFormGroup.get('roleName')?.invalid && addRoleToUserFormGroup.get('roleName')?.touched" class="text-danger">
+          Role's name is required.
+        </div>
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-secondary" [disabled]="addRoleToUserFormGroup.invalid">Add role to user</button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <div *ngIf="errorFlag">
+    <div class="alert alert-warning text-warning" role="alert">
+      <b>Code : </b>{{errorCode}}
+      <hr>
+      <b>Message : </b>{{errorMessage}}
+    </div>
+  </div>
+</div>

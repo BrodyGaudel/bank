@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-light text-bold">
+          Update customer
+        </div>
+        <div class="card-body">
+          <form [formGroup]="updateRoleFormGroup" (ngSubmit)="handleSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input id="name" type="text" class="form-control" formControlName="name">
+              <div *ngIf="updateRoleFormGroup.get('name')?.invalid && updateRoleFormGroup.get('name')?.touched" class="text-danger">
+                Name is required and must be between 1 and 256 characters.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="name" class="form-label">Description</label>
+              <input id="description" type="text" class="form-control" formControlName="description">
+              <div *ngIf="updateRoleFormGroup.get('description')?.invalid && updateRoleFormGroup.get('description')?.touched" class="text-danger">
+                Description is required and must be between 1 and 256 characters.
+              </div>
+            </div>
+            <button type="submit" class="btn btn-secondary w-100" [disabled]="updateRoleFormGroup.invalid">Update</button>
+
+            <!-- Error message display -->
+            <div *ngIf="errorFlag" class="alert alert-danger mt-3">
+              <strong>Error {{ errorCode }}:</strong> {{ errorMessage }}
+              <ul *ngIf="errorValidation && errorValidation.length > 0">
+                <li *ngFor="let validationError of errorValidation">{{ validationError }}</li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container mt-xxl-5">
+
+  <div class="mb-5 text-center">
+    <h1>Welcome to your banking management interface. Please choose from the menus below the one that meets your needs.</h1>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-3 text-start">
+      <button type="button" class="btn btn-outline-secondary" ngbPopover="{{userManagementMessage}}"
+              triggers="mouseenter:mouseleave" popoverTitle="Description" (click)="gotoUsersComponent()">
+        User management
+      </button>
+    </div>
+    <div class="col-md-3 text-start">
+      <button type="button" class="btn btn-outline-secondary" ngbPopover="{{roleManagementMessage}}"
+              triggers="mouseenter:mouseleave" popoverTitle="Description" (click)="gotoRolesComponent()">
+        Role management
+      </button>
+    </div>
+    <div class="col-md-3 text-center">
+      <button type="button" class="btn btn-outline-secondary" ngbPopover="{{customerManagementMessage}}"
+              triggers="mouseenter:mouseleave" popoverTitle="Description">
+        Customer management
+      </button>
+    </div>
+    <div class="col-md-3 text-end">
+      <button type="button" class="btn btn-outline-secondary" ngbPopover="{{accountManagementMessage}}"
+              triggers="mouseenter:mouseleave" popoverTitle="Description">
+        Account management
+      </button>
+    </div>
+  </div>
+</div>

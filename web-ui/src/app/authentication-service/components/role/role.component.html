@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <div class="card shadow col-md-8 offset-2" *ngIf="roleObservable | async as role">
+    <div class="card-header bg-light text-bold">
+      Role
+    </div>
+    <div class="card-body">
+      ID : {{role.id}}
+      <hr>
+      Name : {{role.name}}
+      <hr>
+      Description : {{role.description}}
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-sm btn-outline-danger" (click)="delete(role)">
+        delete
+      </button>
+      <button class="btn btn-sm btn-outline-warning m-lg-3" (click)="gotoRoleUpdateComponent(role.id)">
+        update
+      </button>
+    </div>
+  </div>
+</div>

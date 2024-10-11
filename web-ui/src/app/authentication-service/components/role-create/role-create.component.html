@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div class="card shadow offset-2 col-md-8">
+    <div class="card-header bg-light text-bold">
+      Create a new role
+    </div>
+    <div class="card-body">
+      <ngb-alert *ngIf="errorFlag">
+        <p>Error Code: {{errorCode}}</p>
+        <p>{{errorMessage}}</p>
+        <ul *ngIf="errorValidation && errorValidation.length > 0">
+          <li *ngFor="let validationError of errorValidation">{{validationError}}</li>
+        </ul>
+      </ngb-alert>
+      <form [formGroup]="createRoleFormGroup" (ngSubmit)="handleSubmit()">
+        <div class="form-group mb-3">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name">
+          <div *ngIf="createRoleFormGroup.get('name')?.invalid && createRoleFormGroup.get('name')?.touched" class="text-danger">
+            Name is required.
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="description">Description</label>
+          <input type="text" id="description" class="form-control" formControlName="description">
+          <div *ngIf="createRoleFormGroup.get('description')?.invalid && createRoleFormGroup.get('description')?.touched" class="text-danger">
+            Description is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-secondary" [disabled]="createRoleFormGroup.invalid">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

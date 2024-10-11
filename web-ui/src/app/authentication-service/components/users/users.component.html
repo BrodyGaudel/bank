@@ -1,0 +1,46 @@
+<div class="container mt-5">
+
+  <form [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
+    <div class="form-group mb-3 input-group">
+      <input id="keyword" formControlName="keyword" type="text" class="form-control" [class.is-invalid]="searchFormGroup.get('keyword')?.invalid && searchFormGroup.get('keyword')?.touched" placeholder="Search by first or last name">
+      <button type="submit" class="btn btn-secondary" [disabled]="searchFormGroup.invalid"><i class="bi bi-search"></i> Search</button>
+      <div *ngIf="searchFormGroup.get('keyword')?.invalid && searchFormGroup.get('keyword')?.touched" class="invalid-feedback">keyword's size must be more than 0</div>
+    </div>
+  </form>
+
+
+  <table class="table table-striped" *ngIf="usersObservable | async as users">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Firstname</th>
+      <th>Cin</th>
+      <th>Enabled</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users.content">
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>{{ user.cin }}</td>
+      <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-secondary" (click)="gotoShowUserComponent(user.id)"><i class="bi bi-ticket-detailed-fill"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav *ngIf="usersObservable | async as users">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="page === 0">
+        <a class="page-link" (click)="gotoPreviousPage(users.hasPrevious, users.isFirst,page - 1)">Previous</a>
+      </li>
+      <!-- You can also add other page numbers -->
+      <li class="page-item">
+        <a class="page-link" (click)="gotoNextPage(users.hasNext,users.isLast,page + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

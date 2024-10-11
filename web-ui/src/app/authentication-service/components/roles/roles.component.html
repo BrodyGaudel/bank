@@ -1,0 +1,44 @@
+<div class="container mt-5">
+
+  <form [formGroup]="searchFormGroup" (ngSubmit)="onSearch()">
+    <div class="form-group mb-3 input-group">
+      <input id="keyword" formControlName="keyword" type="text" class="form-control" [class.is-invalid]="searchFormGroup.get('keyword')?.invalid && searchFormGroup.get('keyword')?.touched" placeholder="Search by first or last name">
+      <button type="submit" class="btn btn-secondary" [disabled]="searchFormGroup.invalid"><i class="bi bi-search"></i> Search</button>
+      <div *ngIf="searchFormGroup.get('keyword')?.invalid && searchFormGroup.get('keyword')?.touched" class="invalid-feedback">keyword's size must be more than 0</div>
+    </div>
+  </form>
+
+
+  <table class="table table-striped" *ngIf="rolesObservable | async as roles">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let role of roles.content">
+      <td>{{ role.id }}</td>
+      <td>{{ role.name }}</td>
+      <td>{{ role.description }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-secondary" (click)="gotoShowRoleComponent(role.id)"><i class="bi bi-ticket-detailed-fill"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav *ngIf="rolesObservable | async as roles">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="page === 0">
+        <a class="page-link" (click)="gotoPreviousPage(roles.hasPrevious, roles.isFirst,page - 1)">Previous</a>
+      </li>
+      <!-- You can also add other page numbers -->
+      <li class="page-item">
+        <a class="page-link" (click)="gotoNextPage(roles.hasNext,roles.isLast,page + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
