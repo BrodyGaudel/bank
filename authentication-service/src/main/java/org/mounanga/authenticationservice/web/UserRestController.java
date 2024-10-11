@@ -30,10 +30,19 @@ public class UserRestController {
     }
 
     @PreAuthorize("hasAnyAuthority('USER','ADMIN','SUPER_ADMIN')")
-    @PatchMapping("/password/{username}")
-    public UserResponseDTO updatePassword(@PathVariable String username, @RequestBody UpdatePasswordRequestDTO dto) {
+    @PostMapping("/pwd")
+    public UserResponseDTO updatePassword(@RequestBody UpdatePasswordRequestDTO dto) {
+        String username = getCurrentUsername();
         return userService.updatePassword(username, dto);
     }
+
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN','SUPER_ADMIN')")
+    @GetMapping("/status/{id}")
+    public UserResponseDTO updateStatus(@PathVariable String id) {
+        return userService.updateUserStatus(id);
+    }
+
+
 
     @PreAuthorize("hasAnyAuthority('ADMIN','SUPER_ADMIN')")
     @DeleteMapping("/delete/{id}")

@@ -65,12 +65,6 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO updatePassword(String username, @NotNull UpdatePasswordRequestDTO dto) {
         log.info("In updatePassword()");
         User user = findUserByUsername(username);
-        if (!dto.newPassword().equals(dto.newPasswordConfirm())){
-            throw new IllegalArgumentException("Passwords do not match");
-        }
-        if (!passwordEncoder.matches(dto.newPassword(), user.getPassword())){
-            throw new IllegalArgumentException("old password doesn't match");
-        }
         user.setPassword(passwordEncoder.encode(dto.newPassword()));
         User savedUser = userRepository.save(user);
         log.info("password updated");
@@ -106,6 +100,21 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         log.info("role {} removed from user {}", dto.roleName(), savedUser.getId());
         return Mappers.fromUser(savedUser);
+    }
+
+    @Transactional
+    @Override
+    public UserResponseDTO updateUserStatus(String id) {
+        log.info("In updateUserStatus()");
+        User user = findUserById(id);
+        if(user.isEnabled()){
+            user.setEnabled(Boolean.FALSE);
+        }else{
+            user.setEnabled(Boolean.TRUE);
+        }
+        User updateUser = userRepository.save(user);
+        log.info("Status of user with id {} updated", updateUser.getId());
+        return Mappers.fromUser(updateUser);
     }
 
     @Override

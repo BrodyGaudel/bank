@@ -10,6 +10,7 @@ public interface UserService {
     void deleteUserById(String id);
     UserResponseDTO addRoleToUser(UserRoleRequestDTO dto);
     UserResponseDTO removeRoleFromUser(UserRoleRequestDTO dto);
+    UserResponseDTO updateUserStatus(String id);
 
     UserResponseDTO getUserById(String id);
     UserResponseDTO getUserByUsername(String username);
