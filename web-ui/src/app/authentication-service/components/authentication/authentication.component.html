@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card col-md-6 offset-3 mt-5 shadow">
-    <div class="card-header text-center bg-info">
+    <div class="card-header text-center bg-light">
       <b>AUTHENTICATION</b>
     </div>
     <div class="card-body">
@@ -23,7 +23,9 @@
           </div>
         </div>
         <div class="mb-3">
-          <button class="btn btn-info" type="submit">Connexion</button>
+          <button class="btn btn-secondary" type="submit">Connexion</button>
+          <hr>
+          <a class="text-secondary-emphasis" (click)="gotoRequestCodeComponent()">I've forgotten my password.</a>
         </div>
       </form>
     </div>

@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RoleService} from "../../service/role/role.service";
 import {ErrorHandlerService} from "../../../exception/error-handler.service";
 import {NgForOf, NgIf} from "@angular/common";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-role-update',
@@ -31,9 +32,11 @@ export class RoleUpdateComponent implements OnInit {
               private readonly activatedRoute: ActivatedRoute,
               private readonly router: Router,
               private readonly roleService: RoleService,
-              private readonly errorHandlerService: ErrorHandlerService) {}
+              private readonly errorHandlerService: ErrorHandlerService,
+              private readonly authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authService.security();
     this.roleId = this.activatedRoute.snapshot.params['id'];
     this.initUpdateRoleFormGroup();
     this.loadRoleData();

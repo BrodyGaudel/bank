@@ -12,6 +12,11 @@ import {RoleCreateComponent} from "./authentication-service/components/role-crea
 import {
   UserPasswordUpdateComponent
 } from "./authentication-service/components/user-password-update/user-password-update.component";
+import {RequestCodeComponent} from "./authentication-service/components/request-code/request-code.component";
+import {
+  UserResetPasswordComponent
+} from "./authentication-service/components/user-reset-password/user-reset-password.component";
+
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +27,8 @@ export const routes: Routes = [
   {path: 'user-create', component: UserCreateComponent},
   {path: 'user-update/:id', component: UserUpdateComponent},
   {path: 'user-update-password', component: UserPasswordUpdateComponent},
+  {path: 'user-request-code', component: RequestCodeComponent},
+  {path: 'reset', component: UserResetPasswordComponent},
   {path: 'roles', component: RolesComponent},
   {path: 'role/:id', component: RoleComponent},
   {path: 'role-create', component: RoleCreateComponent},

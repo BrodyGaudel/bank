@@ -4,19 +4,19 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent" *ngIf="isLoggedIn()">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="home">Home</a>
+          <a class="nav-link active text-bold" aria-current="page" routerLink="home">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="user-create">Create user</a>
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active text-bold" aria-current="page" routerLink="user-create">Create user</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="role-create">Create role</a>
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active text-bold" aria-current="page" routerLink="role-create">Create role</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="customer-create">Create customer</a>
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active text-bold" aria-current="page" routerLink="customer-create">Create customer</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
@@ -25,6 +25,11 @@
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-success" (click)="logout()">
+        {{getLoggedUser()}}
+      </button>
     </div>
   </div>
 </nav>

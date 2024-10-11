@@ -35,6 +35,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.security();
     this.searchFormGroup = this.fb.group({
       keyword: this.fb.control('', [Validators.minLength(1), Validators.maxLength(256)]),
     });

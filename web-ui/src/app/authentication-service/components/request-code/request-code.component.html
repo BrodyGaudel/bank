@@ -1,0 +1,28 @@
+<div class="container mt-xxl-5">
+  <div class="card offset-3 col-md-6 shadow">
+    <div class="card-header text-center text-bold">
+      Enter your e-mail address. We will send you a verification code.
+    </div>
+    <div class="card-body">
+      <ngb-alert *ngIf="errorFlag">
+        <p>Error Code: {{errorCode}}</p>
+        <p>{{errorMessage}}</p>
+        <ul *ngIf="errorValidation && errorValidation.length > 0">
+          <li *ngFor="let validationError of errorValidation">{{validationError}}</li>
+        </ul>
+      </ngb-alert>
+      <form [formGroup]="emailFormGroup" (ngSubmit)="handleSubmit()">
+        <div class="form-group mb-3">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email">
+          <div *ngIf="emailFormGroup.get('email')?.invalid && emailFormGroup.get('email')?.touched" class="text-danger">
+            Please enter a valid email address.
+          </div>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-secondary" [disabled]="emailFormGroup.invalid">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

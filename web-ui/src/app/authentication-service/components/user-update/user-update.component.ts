@@ -6,6 +6,7 @@ import {UserService} from "../../service/user/user.service";
 import {UserResponse} from "../../models/user.response";
 import {UserRequest} from "../../models/user.request";
 import {NgForOf, NgIf} from "@angular/common";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-user-update',
@@ -31,9 +32,11 @@ export class UserUpdateComponent implements OnInit{
               private readonly route: ActivatedRoute,
               private readonly router: Router,
               private readonly userService: UserService,
-              private readonly errorHandlerService: ErrorHandlerService) {}
+              private readonly errorHandlerService: ErrorHandlerService,
+              private readonly authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authService.security();
     this.userId = this.route.snapshot.paramMap.get('id')!;
     this.initUpdateCustomerFormGroup();
     this.loadUserData();

@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
         this.showNavbar = !event.url.includes('/authentication') && !event.url.includes('/update-password');
       }
     });
-    this.authService.security();
+    //this.authService.security();
   }
 
   getLoggedUser(): string {
@@ -46,5 +46,9 @@ export class AppComponent implements OnInit {
     if(confirm("Are you sure you want to disconnect ?")){
       this.authService.logout();
     }
+  }
+
+  isAdmin() :boolean{
+    return this.authService.isAdmin();
   }
 }

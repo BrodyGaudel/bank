@@ -5,8 +5,6 @@ import {RoleRequest} from "../../models/role.request";
 import {RoleResponse} from "../../models/role.response";
 import {Observable} from "rxjs";
 import {PageResponse} from "../../../lang/page.response";
-import {UserRoleRequest} from "../../models/user-role.request";
-import {UserResponse} from "../../models/user.response";
 
 @Injectable({
   providedIn: 'root'
@@ -67,8 +65,5 @@ export class RoleService {
       params: { query: query, page: page.toString(), size: size.toString() }
     });
   }
-
-
-
 
 }

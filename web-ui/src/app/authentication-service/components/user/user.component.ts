@@ -8,6 +8,7 @@ import {catchError} from "rxjs/operators";
 import {AsyncPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {UserRoleRequest} from "../../models/user-role.request";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-user',
@@ -37,11 +38,13 @@ export class UserComponent implements OnInit {
               private readonly userService: UserService,
               private readonly activatedRoute: ActivatedRoute,
               private readonly errorHandlerService: ErrorHandlerService,
-              private readonly fb: FormBuilder,) {
+              private readonly fb: FormBuilder,
+              private readonly authService: AuthService) {
 
   }
 
   ngOnInit(): void {
+    this.authService.security();
     this.userId = this.activatedRoute.snapshot.params['id'];
     this.initAddRoleToUserFormGroup();
     this.fetchUserDetails();

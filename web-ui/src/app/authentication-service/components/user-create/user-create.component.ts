@@ -7,6 +7,7 @@ import {UserRequest} from "../../models/user.request";
 import {UserResponse} from "../../models/user.response";
 import {NgForOf, NgIf} from "@angular/common";
 import {NgbAlertConfig, NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-user-create',
@@ -32,13 +33,15 @@ export class UserCreateComponent implements OnInit {
               private readonly router: Router,
               private readonly userService: UserService,
               private readonly fb: FormBuilder,
-              alertConfig: NgbAlertConfig) {
+              alertConfig: NgbAlertConfig,
+              private readonly authService: AuthService) {
 
     alertConfig.type = 'warning';
     alertConfig.dismissible = false;
   }
 
   ngOnInit(): void {
+    this.authService.security();
     this.initCreateUserFormGroup();
   }
 

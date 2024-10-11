@@ -61,4 +61,7 @@ export class AuthenticationComponent implements OnInit {
     this.errorFlag = true;
   }
 
+  gotoRequestCodeComponent() :void {
+    this.router.navigate(["user-request-code"]).then()
+  }
 }

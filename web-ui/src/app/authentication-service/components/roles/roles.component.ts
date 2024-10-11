@@ -6,6 +6,7 @@ import {PageResponse} from "../../../lang/page.response";
 import {RoleResponse} from "../../models/role.response";
 import {RoleService} from "../../service/role/role.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-roles',
@@ -29,10 +30,12 @@ export class RolesComponent implements OnInit{
 
   constructor(private readonly roleService: RoleService,
               private readonly fb: FormBuilder,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.authService.security();
     this.initSearchFormGroup();
     this.rolesObservable = this.searchRole(this.keyword, this.page, this.size);
     this.searchFormGroup.get('keyword')?.valueChanges.subscribe(value => {
