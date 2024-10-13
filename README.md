@@ -1,5 +1,7 @@
 # Bank Management Application
 
+![Bank Application](https://raw.githubusercontent.com/BrodyGaudel/bank/refs/heads/main/illustration.jpg)
+
 ## Overview
 The **Bank Management Application** is a microservices-based system designed to handle various banking operations, such as customer management, account transactions (credit, debit, transfer), authentication, and notifications. The project implements **CQRS** (Command Query Responsibility Segregation) and **Event Sourcing** patterns using the **Axon Framework** for the **Account Service**, ensuring scalability and performance while handling large amounts of banking data.
 
