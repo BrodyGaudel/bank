@@ -7,7 +7,7 @@
         <artifactId>bank-parent</artifactId>
         <version>0.0.1</version>
     </parent>
-    <groupId>org.mounanga</groupId>
+    
     <artifactId>authentication-service</artifactId>
     <version>0.0.1</version>
     <name>authentication-service</name>

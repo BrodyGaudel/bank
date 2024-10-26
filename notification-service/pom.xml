@@ -7,7 +7,7 @@
         <artifactId>bank-parent</artifactId>
         <version>0.0.1</version>
     </parent>
-    <groupId>org.mounanga</groupId>
+    
     <artifactId>notification-service</artifactId>
     <version>0.0.1</version>
     <name>notification-service</name>
