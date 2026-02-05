@@ -1,0 +1,97 @@
+server:
+  port: 8884
+
+spring:
+  application:
+    name: account-query-service
+
+  cloud:
+    discovery:
+      enabled: true
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8500}
+      discovery:
+        enabled: true
+        service-name: account-query-service
+        prefer-ip-address: ${DISCOVERY_PREFER_IP:true}
+        register: true
+        instance-id: ${spring.application.name}:${random.value}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-critical-timeout: 30s
+        tags:
+          - account-query-service
+          - api
+          - version=4.0.1
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource:
+    username: ${DB_USERNAME:account_query_user}
+    password: ${DB_PASSWORD:account_query_pwd}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:account_query_db}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:9090/realms/bank}
+          jwk-set-uri: ${KEYCLOAK_JWK_URI:http://localhost:9090/realms/bank/protocol/openid-connect/certs}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+  endpoint:
+    consul:
+      access: unrestricted
+    health:
+      show-details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  tracing:
+    export:
+      zipkin:
+        endpoint: ${ZIPKIN:http://localhost:9411/api/v2/spans}
+    sampling:
+      probability: 1.0
+
+axon:
+  serializer:
+    events: jackson
+    messages: xstream
+    general: jackson
+  axonserver:
+    enabled: true
+    servers: ${AXON_HOST:localhost}:${AXON_PORT:8124}
+    event-store:
+      enabled: true
+
+keycloak:
+  client-id: ${KEYCLOAK_CLIENT_ID:account-query-service}
+  client-secret: ${KEYCLOAK_CLIENT_SECRET:bbd7evXxpJsDGw9EcVzlciuf2POVeO9Z}
+
+
+kafka:
+  bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  consumer:
+    group-id: account-query-group

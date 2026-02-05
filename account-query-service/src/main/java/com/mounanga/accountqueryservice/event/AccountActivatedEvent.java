@@ -1,0 +1,20 @@
+package com.mounanga.accountqueryservice.event;
+
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
+
+public class AccountActivatedEvent extends BaseEvent<String> {
+
+    @JsonCreator
+    public AccountActivatedEvent(
+            @JsonProperty("id") String id,
+            @JsonProperty("dateTime") LocalDateTime dateTime,
+            @JsonProperty("author") String author
+    ) {
+        super(id, dateTime, author);
+    }
+}
+

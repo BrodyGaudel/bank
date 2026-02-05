@@ -2,37 +2,64 @@ server:
   port: 8888
 spring:
   application:
-    name: GATEWAY-SERVICE
+    name: gateway-service
   cloud:
     discovery:
       enabled: true
+    consul:
+      discovery:
+        service-name: gateway
+        prefer-ip-address: ${DISCOVERY_PREFER_IP:true}
+        register: true
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-critical-timeout: 30s
+        tags:
+          - gateway-service
+          - api
+          - version=4.0.1
+        enabled: true
+        instance-id: ${spring.application.name}:${random.value}
+        hostname: ${DISCOVERY_GATEWAY_HOSTNAME:}
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8500}
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: ${ALLOWED_ORIGINS:http://localhost:4200,http://localhost:8761,http://localhost:8887,http://localhost:8886}
-            allowedHeaders:
-              - Content-Type
-              - Authorization
-            exposedHeaders:
-              - Content-Type
-              - Authorization
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - PATCH
-
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    service-url:
-      defaultZone: ${DISCOVERY_SERVICE:http://localhost:8761/eureka}
-
+      server:
+        webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins: ${CORS_ALLOWED_ORIGINS:http://localhost:8080,http://localhost:8081,http://localhost:8082,http://localhost:8083}
+                allowedHeaders: ${CORS_ALLOWED_HEADERS:Content-Type,Authorization}
+                exposedHeaders: ${CORS_EXPOSED_HEADERS:Content-Type,Authorization}
+                allowedMethods: ${CORS_ALLOWED_METHODS:GET,POST,PUT,DELETE,PATCH,OPTIONS}
+                allowCredentials: ${CORS_ALLOW_CREDENTIALS:true}
+                maxAge: ${CORS_MAX_AGE:3600}
+  cache:
+    type: caffeine
+    caffeine:
+      spec: ${CACHE_CAFFEINE_SPEC:initialCapacity=100,maximumSize=500,expireAfterWrite=10m}
+# Actuator, Zipkin, Prometheus
 management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  tracing:
+    sampling:
+      probability: 1.0
+    export:
+      zipkin:
+        endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "health,info,prometheus"
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+    consul:
+      access: unrestricted
